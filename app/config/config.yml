@@ -21,8 +21,21 @@ parameters:
     supported_locales:
         - en
         - es
+        - it
     default_locale: en
 
+# I18nRoutingBundle Configuration
+jms_i18n_routing:
+    default_locale: %default_locale%
+    locales: %supported_locales%
+    strategy: custom
+    hosts:
+        en: "%website_url%"
+        es: "es.%website_url%"
+        it: "it.%website_url%"
+    redirect_to_host: true
+
+# Symfony Framework
 framework:
     #esi:             ~
     translator:      { fallbacks: ["en"] }
@@ -110,16 +123,6 @@ doctrine:
                         dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
                         alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
                         is_bundle: false
-
-#
-jms_i18n_routing:
-    default_locale: %default_locale%
-    locales: %supported_locales%
-    strategy: custom
-    hosts:
-        en: "%website_url%"
-        es: "es.%website_url%" 
-    redirect_to_host: true
 
 # Swiftmailer Configuration
 swiftmailer:
