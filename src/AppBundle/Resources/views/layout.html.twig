@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}">
   <head>
-    <title>{{ pagetitle|default('Deckbuilder') }} &middot; ThronesDB</title>
+    <title>{{ pagetitle|default('Deckbuilder') }} &middot; SWCCGDB</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
@@ -50,7 +50,7 @@
   </head>
   <body>
   <div id="wrapper">
-      <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
       <div class="container">
           {% block navbar %}
         <div class="navbar-header">
@@ -62,7 +62,7 @@
           <a class="navbar-brand" href="{{ path('index') }}">
             <span class="icon icon-link-half-top"></span>
             <span class="icon icon-link-half-bottom"></span>
-            <span class="icon icon-power"></span> ThronesDB
+            SWCCGDB
           </a>
         </div>
         <div class="navbar-collapse collapse">

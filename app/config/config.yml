@@ -19,7 +19,6 @@ parameters:
         zh: 中文
     supported_locales:
         - en
-        - es
 
 framework:
     #esi: ~

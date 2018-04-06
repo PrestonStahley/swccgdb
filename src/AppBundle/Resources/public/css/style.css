@@ -114,12 +114,12 @@ td.type, td.faction {
 }
 #wrapper {
     min-height: 100%;
-    border-bottom: 10px solid #c0392b;
+    border-bottom: 10px solid #000;
     padding-bottom: 100px;
 }
 footer {
     padding-top: 20px;
-    background-color: #95a5a6;
+    background-color: #fff;
 }
 .navbar-default {
     font-size: 16px;
