@@ -298,14 +298,15 @@ ol {
 h1.site-title {
     font-family: 'Archivo Black', sans-serif;
     position:relative;
-    font-size:100px;
+    font-size:64px;
+    text-transform: uppercase;
     text-align:center;
     margin-top: 0;
 }
 div.site-slogan {
     font-family: 'Archivo Narrow', sans-serif;
     position:relative;
-    font-size:36px;
+    font-size:30px;
     text-align:center;
 }
 
