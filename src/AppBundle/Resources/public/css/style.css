@@ -12,7 +12,7 @@ body {
     border-bottom: none;
 }
 .card-name {
-    font-family: 'Julius Sans One', sans-serif;
+    font-family: 'Archivo Black', sans-serif;
     font-weight: 700;
 }
 .card-preview {
@@ -296,16 +296,16 @@ ol {
 /************** INDEX PAGE ***************/
 
 h1.site-title {
-    font-family: 'Julius Sans One', sans-serif;
+    font-family: 'Archivo Black', sans-serif;
     position:relative;
-    font-size:116px;
+    font-size:100px;
     text-align:center;
     margin-top: 0;
 }
 div.site-slogan {
-    font-family: 'Open Sans Condensed', sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
     position:relative;
-    font-size:40px;
+    font-size:36px;
     text-align:center;
 }
 
