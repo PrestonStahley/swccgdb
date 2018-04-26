@@ -90,20 +90,6 @@ class DefaultController extends Controller
         return $response;
     }
 
-    public function faqAction()
-    {
-        $response = new Response();
-        $response->setPublic();
-        $response->setMaxAge($this->container->getParameter('cache_expiration'));
-
-        $page = $this->renderView(
-            'AppBundle:Default:faq.html.twig',
-                array("pagetitle" => $this->get("translator")->trans("nav.rules"), "pagedescription" => "F.A.Q")
-        );
-        $response->setContent($page);
-        return $response;
-    }
-
     public function aboutAction()
     {
         $response = new Response();
