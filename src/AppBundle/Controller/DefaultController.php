@@ -76,20 +76,6 @@ class DefaultController extends Controller
         ], $response);
     }
 
-    public function rulesreferenceAction()
-    {
-        $response = new Response();
-        $response->setPublic();
-        $response->setMaxAge($this->container->getParameter('cache_expiration'));
-
-        $page = $this->renderView(
-            'AppBundle:Default:rulesreference.html.twig',
-                array("pagetitle" => $this->get("translator")->trans("nav.rules"), "pagedescription" => "Rules Reference")
-        );
-        $response->setContent($page);
-        return $response;
-    }
-
     public function aboutAction()
     {
         $response = new Response();

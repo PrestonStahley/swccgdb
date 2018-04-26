@@ -73,11 +73,6 @@ about:
     defaults:
         _controller: AppBundle:Default:about
 
-rulesreference:
-    path: /rulesreference
-    defaults:
-        _controller: AppBundle:Default:rulesreference
-
 ffg:
     path: /ffg
     defaults:
