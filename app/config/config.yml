@@ -9,16 +9,9 @@ parameters:
     locale: en
     locale_names:
         en: English
-        de: Deutsch
-        fr: Français
-        es: Español
-        it: Italiano
-        pl: Polskie
-        kr: 한국어
-        jp: 日本語
-        zh: 中文
     supported_locales:
         - en
+    default_locale: en
 
 framework:
     #esi: ~
