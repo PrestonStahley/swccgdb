@@ -1,5 +1,3 @@
-/* global moment, Translator, app */
-
 (function app_user(user, $)
 {
 
@@ -85,7 +83,7 @@
     user.anonymous = function anonymous()
     {
         user.wipe();
-        user.dropdown('<ul class="dropdown-menu"><li><a href="' + Routing.generate('fos_user_security_login') + '">' + Translator.trans('nav.user.loginregister') + '</a></li></ul>');
+        user.dropdown('<ul class="dropdown-menu"><li><a href="' + Routing.generate('fos_user_security_login') + '">Login or Register</a></li></ul>');
     };
 
     /**
@@ -96,11 +94,11 @@
         user.store();
         user.dropdown('<ul class="dropdown-menu"><li><a href="'
                 + Routing.generate('user_profile_edit')
-                + '">' + Translator.trans('nav.user.editaccount') + '</a></li><li><a href="'
+                + '">Edit account</a></li><li><a href="'
                 + user.data.public_profile_url
-                + '">' + Translator.trans('nav.user.profile') + '</a></li><li><a href="'
+                + '">Public profile</a></li><li><a href="'
                 + Routing.generate('fos_user_security_logout')
-                + '" onclick="app.user.wipe()">' + Translator.trans('nav.user.logout') + '</a></li></ul>');
+                + '" onclick="app.user.wipe()">Log Out</a></li></ul>');
     };
 
     user.dropdown = function dropdown(list)

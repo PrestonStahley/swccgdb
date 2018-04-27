@@ -669,7 +669,7 @@
             content: app.smart_filter.get_help(),
             html: true,
             placement: 'bottom',
-            title: Translator.trans('decks.smartfilter.title')
+            title: 'Smart filter syntax'
         });
     };
 

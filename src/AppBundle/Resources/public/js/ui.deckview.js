@@ -102,7 +102,7 @@
      */
     ui.on_all_loaded = function on_all_loaded()
     {
-        app.markdown && app.markdown.update(app.deck.get_description_md() || Translator.trans('decks.defaultemptydesc'), '#description');
+        app.markdown && app.markdown.update(app.deck.get_description_md() || '*No description.*', '#description');
         ui.refresh_deck();
     };
 

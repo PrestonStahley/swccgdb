@@ -56,13 +56,6 @@
     {
         if(typeof ui.on_all_loaded === 'function')
             ui.on_all_loaded();
-        $('abbr').each(function (index, element)
-        {
-            var keyword = $(this).data('keyword');
-            var title = Translator.trans('keyword.' + keyword + '.title');
-            if(title)
-                $(element).attr('title', title).tooltip();
-        });
     });
     $.when(dom_loaded, data_loaded).done(function ()
     {

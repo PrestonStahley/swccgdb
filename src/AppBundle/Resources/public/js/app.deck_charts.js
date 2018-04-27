@@ -58,10 +58,10 @@
                 type: 'column'
             },
             title: {
-                text: Translator.trans("decks.charts.faction.title")
+                text: "decks.charts.faction.title"
             },
             subtitle: {
-                text: Translator.trans("decks.charts.faction.subtitle")
+                text: "decks.charts.faction.subtitle"
             },
             xAxis: {
                 categories: _.pluck(data, 'label'),
@@ -84,7 +84,7 @@
             series: [{
                     type: "column",
                     animation: false,
-                    name: Translator.trans("decks.charts.faction.label"),
+                    name: "decks.charts.faction.label",
                     showInLegend: false,
                     data: data
                 }],
@@ -102,17 +102,17 @@
     {
 
         var data = [{
-                name: Translator.trans('challenges.military'),
+                name: 'challenges.military',
                 label: '<span class="icon icon-military"></span>',
                 color: '#c8232a',
                 y: 0
             }, {
-                name: Translator.trans('challenges.intrigue'),
+                name: 'challenges.intrigue',
                 label: '<span class="icon icon-intrigue"></span>',
                 color: '#13522f',
                 y: 0
             }, {
-                name: Translator.trans('challenges.power'),
+                name: 'challenges.power',
                 label: '<span class="icon icon-power"></span>',
                 color: '#292e5f',
                 y: 0
@@ -134,10 +134,10 @@
                 type: 'column'
             },
             title: {
-                text: Translator.trans("decks.charts.icon.title")
+                text: "decks.charts.icon.title"
             },
             subtitle: {
-                text: Translator.trans("decks.charts.icon.subtitle")
+                text: "decks.charts.icon.subtitle"
             },
             xAxis: {
                 categories: _.pluck(data, 'label'),
@@ -158,13 +158,12 @@
                 }
             },
             tooltip: {
-                //headerFormat: '<span style="font-size: 10px">{point.key} Icon</span><br/>'
-                headerFormat: '<span style="font-size: 10px">' + Translator.trans('decks.charts.icon.tooltip.header', {type: '{point.key}'}) + '</span><br/>'
+                headerFormat: '<span style="font-size: 10px">{point.key} Icon</span><br/>'
             },
             series: [{
                     type: "column",
                     animation: false,
-                    name: Translator.trans('decks.charts.icon.tooltip.label'),
+                    name: 'decks.charts.icon.tooltip.label',
                     showInLegend: false,
                     data: data
                 }],
@@ -201,10 +200,10 @@
                 type: 'line'
             },
             title: {
-                text: Translator.trans("decks.charts.strength.title")
+                text: "decks.charts.strength.title"
             },
             subtitle: {
-                text: Translator.trans("decks.charts.strength.subtitle")
+                text: "decks.charts.strength.subtitle"
             },
             xAxis: {
                 allowDecimals: false,
@@ -223,11 +222,11 @@
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size: 10px">' + Translator.trans('decks.charts.strength.tooltip.header', {str: '{point.key}'}) + '</span><br/>'
+                headerFormat: '<span style="font-size: 10px">decks.charts.strength.tooltip.header</span><br/>'
             },
             series: [{
                     animation: false,
-                    name: Translator.trans('decks.charts.strength.tooltip.label'),
+                    name: 'decks.charts.strength.tooltip.label',
                     showInLegend: false,
                     data: data
                 }]
@@ -257,10 +256,10 @@
                 type: 'line'
             },
             title: {
-                text: Translator.trans("decks.charts.cost.title")
+                text: "decks.charts.cost.title"
             },
             subtitle: {
-                text: Translator.trans("decks.charts.cost.subtitle")
+                text: "decks.charts.cost.subtitle"
             },
             xAxis: {
                 allowDecimals: false,
@@ -279,11 +278,11 @@
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size: 10px">' + Translator.trans('decks.charts.cost.tooltip.header', {cost: '{point.key}'}) + '</span><br/>'
+                headerFormat: '<span style="font-size: 10px">decks.charts.cost.tooltip.header</span><br/>'
             },
             series: [{
                     animation: false,
-                    name: Translator.trans('decks.charts.cost.tooltip.label'),
+                    name: 'decks.charts.cost.tooltip.label',
                     showInLegend: false,
                     data: data
                 }]

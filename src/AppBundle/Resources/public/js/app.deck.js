@@ -17,7 +17,7 @@
                     ['too_many_plots', 'too_few_plots', 'too_many_different_plots', 'too_many_agendas', 'too_few_cards', 'too_many_copies', 'invalid_cards', 'agenda'],
                     function (problems, key)
                     {
-                        problems[key] = Translator.trans('decks.problems.' + key);
+                        problems[key] = 'decks.problems.' + key;
                         return problems;
                     },
                     {}),
@@ -310,7 +310,7 @@
         {
             return pack.name + (pack.quantity > 1 ? ' (' + pack.quantity + ')' : '');
         }).join(', ');
-        deck.update_layout_section(data, 'meta', $('<div>' + Translator.trans('decks.edit.meta.packs', {"packs": packs}) + '</div>'));
+        deck.update_layout_section(data, 'meta', $('<div>decks.edit.meta.packs</div>'));
         if(problem) {
             deck.update_layout_section(data, 'meta', $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> ' + problem_labels[problem] + '</div>'));
         }
@@ -366,10 +366,10 @@
                     // is deck alliance before the change
                     var is_alliance = deck.is_alliance();
                     // is deck alliance with the new card
-                    if(card.traits.indexOf(Translator.trans('card.traits.banner')) === -1) {
+                    if(card.traits.indexOf('card.traits.banner') === -1) {
                         is_alliance = false;
                     } else {
-                        var nb_banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp(Translator.trans('card.traits.banner') + '\\.')}));
+                        var nb_banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp('card.traits.banner' + '\\.')}));
                         if(nb_banners >= 2)
                             is_alliance = false;
                     }
@@ -378,7 +378,7 @@
                     if(is_alliance) {
                         deck.get_agendas().forEach(function (agenda)
                         {
-                            if(agenda.code !== '06018' && agenda.traits.indexOf(Translator.trans('card.traits.banner')) === -1) {
+                            if(agenda.code !== '06018' && agenda.traits.indexOf('card.traits.banner') === -1) {
                                 app.data.cards.update({
                                     code: agenda.code
                                 }, {
@@ -496,13 +496,13 @@
             expectedMinCardCount = 75;
             var unwanted = _.find(deck.get_agendas(), function (agenda)
             {
-                return agenda.code !== '06018' && agenda.traits.indexOf(Translator.trans('card.traits.banner')) === -1;
+                return agenda.code !== '06018' && agenda.traits.indexOf('card.traits.banner') === -1;
             });
             if(unwanted) {
                 return 'too_many_agendas';
             }
         }
-        
+
         // no more than 1 agenda
         if(deck.get_nb_cards(deck.get_agendas()) > expectedMaxAgendaCount) {
             return 'too_many_agendas';
@@ -557,17 +557,17 @@
                 }
                 break;
             case '04037':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp(Translator.trans('card.traits.winter') + '\\.')})) > 0) {
+                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp('card.traits.winter' + '\\.')})) > 0) {
                     return false;
                 }
                 break;
             case '04038':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp(Translator.trans('card.traits.summer') + '\\.')})) > 0) {
+                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp('card.traits.summer' + '\\.')})) > 0) {
                     return false;
                 }
                 break;
             case '05045':
-                var schemeCards = deck.get_cards(null, {type_code: 'plot', traits: new RegExp(Translator.trans('card.traits.scheme') + '\\.')});
+                var schemeCards = deck.get_cards(null, {type_code: 'plot', traits: new RegExp('card.traits.scheme' + '\\.')});
                 var totalSchemes = deck.get_nb_cards(schemeCards);
                 var uniqueSchemes = schemeCards.length;
                 if(totalSchemes !== 5 || uniqueSchemes !== 5) {
@@ -576,7 +576,7 @@
                 break;
             case '06018':
                 var agendas = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda'}));
-                var banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp(Translator.trans('card.traits.banner') + '\\.')}));
+                var banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp('card.traits.banner' + '\\.')}));
                 if(agendas - banners !== 1) {
                     return false;
                 }
@@ -588,7 +588,7 @@
                 }
                 break;
             case '09045':
-                var maesters = deck.get_nb_cards(deck.get_cards(null, {type_code: 'character', traits: new RegExp(Translator.trans('card.traits.maester') + '\\.')}));
+                var maesters = deck.get_nb_cards(deck.get_cards(null, {type_code: 'character', traits: new RegExp('card.traits.maester' + '\\.')}));
                 if(maesters < 12) {
                     return false;
                 }
@@ -685,7 +685,7 @@
             case '01205':
                 return card.faction_code === deck.get_minor_faction_code(agenda);
             case '09045':
-                return card.type_code === 'character' && card.traits.indexOf(Translator.trans('card.traits.maester')) !== -1;
+                return card.type_code === 'character' && card.traits.indexOf('card.traits.maester') !== -1;
         }
     }
 

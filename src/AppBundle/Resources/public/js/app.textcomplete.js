@@ -48,13 +48,13 @@
                     callback(_.filter(icons,
                             function (symbol)
                             {
-                                return regexp.test(Translator.trans('icon.' + symbol));
+                                return regexp.test(symbol);
                             }
                     ));
                 },
                 template: function (value)
                 {
-                    return Translator.trans('icon.' + value);
+                    return value;
                 },
                 replace: function (value)
                 {

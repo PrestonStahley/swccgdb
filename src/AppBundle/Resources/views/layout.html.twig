@@ -94,26 +94,6 @@
             <li id="login">
                 <a href="#" class="disabled"><span class="fa fa-user"></span></a>
             </li>
-            <!-- locale selection -->
-            {% if _route is not empty %}
-            <!--
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                <span class="lang-sm" lang="{{ app.request.locale | default(default_locale) }}"></span>
-                <span class="caret">
-              </a>
-              <ul class="dropdown-menu">
-                {% for supported_locale in supported_locales %}
-                  <li>
-                    <a href="{{ path(_route, _route_params|merge(_get_params)|merge({'_locale': supported_locale})) }}">
-                      <span lang="{{ supported_locale }}" class="lang-sm lang-lbl lang-lbl-full"></span>
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </li>
-            -->
-            {% endif %}
           </ul>
           <form class="navbar-form navbar-right visible-lg-block visible-xs-block external" action="{{ path('cards_find') }}" target="_blank">
             <div class="form-group">
@@ -142,13 +122,6 @@
     <script src="{{ asset('/bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-    {% javascripts
-        'bundles/bazingajstranslation/js/translator.min.js'
-        'js/translations/config.js'
-        'js/translations/*/*.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/forerunnerdb/1.4.40/fdb-all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
@@ -159,10 +132,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.7/highcharts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-markdown/2.9.0/js/bootstrap-markdown.min.js"></script>
-    {% javascripts 
-      '@AppBundle/Resources/public/js/bootstrap-markdown.es.js' %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
 
     <script type="text/javascript">
 	  var app = {};
