@@ -5,8 +5,8 @@
 
     var configuration = {
         d: [add_integer_sf, 'destiny', 'Destiny'],
-        r: [add_string_sf], 'rarity_code', 'Rarity'],
-        s: [add_string_sf], 'side_code', 'Side']
+        r: [add_string_sf, 'rarity_code', 'Rarity'],
+        s: [add_string_sf, 'side_code', 'Side']
     };
 
     /**
