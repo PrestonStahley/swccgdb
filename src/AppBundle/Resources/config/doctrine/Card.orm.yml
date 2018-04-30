@@ -3,11 +3,11 @@ AppBundle\Entity\Card:
     table: card
     repositoryClass: AppBundle\Repository\CardRepository
     manyToOne:
-        pack:
-            targetEntity: Pack
+        set:
+            targetEntity: Set
             inversedBy: cards
             joinColumn:
-                name: pack_id
+                name: set_id
                 referencedColumnName: id
         type:
             targetEntity: Type
@@ -15,11 +15,23 @@ AppBundle\Entity\Card:
             joinColumn:
                 name: type_id
                 referencedColumnName: id
-        faction:
-            targetEntity: Faction
+        subtype:
+            targetEntity: Subtype
             inversedBy: cards
             joinColumn:
-                name: faction_id
+                name: subtype_id
+                referencedColumnName: id
+        side:
+            targetEntity: Side
+            inversedBy: cards
+            joinColumn:
+                name: side_id
+                referencedColumnName: id
+        rarity:
+            targetEntity: Rarity
+            inversedBy: cards
+            joinColumn:
+                name: rarity_id
                 referencedColumnName: id
     oneToMany:
         reviews:
@@ -32,22 +44,206 @@ AppBundle\Entity\Card:
             id: true
             generator:
                 strategy: AUTO
-        position:
-            type: smallint
-            nullable: false
         code:
             type: string
             length: 255
             nullable: false
-        name:
-            type: string
-            length: 50
+        ability:
+            type: smallint
             nullable: false
-        cost:
+        armor:
+            type: smallint
+            nullable: false
+        characteristics:
+            type: text
+            nullable: false
+        cloneArmy:
+            type: boolean
+            nullable: false
+            column: clone_army
+        darkSideIcons:
+            type: smallint
+            nullable: false
+            column: dark_side_icons
+        darkSideText:
+            type: text
+            nullable: false
+            column: dark_side_text
+        defenseValue:
+            type: smallint
+            nullable: false
+            column: defense_value
+        defenseValueName:
+            type: string
+            length: 255
+            nullable: false
+            column: defense_value_name
+        deploy:
             type: smallint
             nullable: true
-        text:
+        destiny:
+            type: smallint
+            nullable: true
+        episode1:
+            type: boolean
+            nullable: false
+            column: episode_1
+        episode7:
+            type: boolean
+            nullable: false
+            column: episode_7
+        ferocity:
+            type: smallint
+            nullable: true
+        firstOrder:
+            type: boolean
+            nullable: false
+            column: first_order
+        forceAptitude:
+            type: string
+            length: 255
+            nullable: false
+            column: force_aptitude
+        forfeit:
+            type: smallint
+            nullable: true
+        gametext:
             type: text
+            nullable: false
+        grabber:
+            type: boolean
+            nullable: false
+        hasErrata:
+            type: boolean
+            nullable: false
+            column: has_errata
+        hyperspeed:
+            type: smallint
+            nullable: false
+        imageUrl:
+            type: text
+            nullable: false
+            column: image_url
+        independent:
+            type: boolean
+            nullable: false
+        landspeed:
+            type: smallint
+            nullable: true
+        lightSideIcons:
+            type: smallint
+            nullable: false
+            column: light_side_icons
+        lightSideText:
+            type: text
+            nullable: false
+            column: light_side_text
+        lore:
+            type: text
+            nullable: false
+        maneuver:
+            type: smallint
+            nullable: false
+        mobile:
+            type: boolean
+            nullable: false
+        modelType:
+            type: string
+            length: 255
+            nullable: false
+            column: model_type
+        name:
+            type: string
+            length: 255
+            nullable: false
+        navComputer:
+            type: boolean
+            nullable: false
+            column: nav_computer
+        permanentWeapon:
+            type: boolean
+            nullable: false
+            column: permanent_weapon
+        pilot:
+            type: boolean
+            nullable: false
+        planet:
+            type: boolean
+            nullable: false
+        politics:
+            type: smallint
+            nullable: false
+        power:
+            type: smallint
+            nullable: true
+        presence:
+            type: smallint
+            nullable: false
+        republic:
+            type: boolean
+            nullable: false
+        resistance:
+            type: boolean
+            nullable: false
+        scompLink:
+            type: boolean
+            nullable: false
+            column: scomp_link
+        selective:
+            type: boolean
+            nullable: false
+        separatist:
+            type: boolean
+            nullable: false
+        scompLink:
+            type: boolean
+            nullable: false
+            column: scomp_link
+        siteCreature:
+            type: boolean
+            nullable: false
+            column: site_creature
+        siteExterior:
+            type: boolean
+            nullable: false
+            column: site_exterior
+        siteInterior:
+            type: boolean
+            nullable: false
+            column: site_interior
+        siteStarship:
+            type: boolean
+            nullable: false
+            column: site_starship
+        siteUnderground:
+            type: boolean
+            nullable: false
+            column: site_underground
+        siteUnderwater:
+            type: boolean
+            nullable: false
+            column: site_underwater
+        siteVehicle:
+            type: boolean
+            nullable: false
+            column: site_vehicle
+        space:
+            type: boolean
+            nullable: false
+        systemParsec:
+            type: smallint
+            nullable: true
+            column: system_parsec
+        tradeFederation:
+            type: boolean
+            nullable: false
+            column: trade_federation
+        uniqueness:
+            type: string
+            length: 255
+            nullable: false
+        warrior:
+            type: boolean
             nullable: false
         dateCreation:
             type: datetime
@@ -63,75 +259,6 @@ AppBundle\Entity\Card:
             gedmo:
                 timestampable:
                     on: update
-        quantity:
-            type: smallint
-            nullable: false
-        income:
-            type: smallint
-            nullable: true
-        initiative:
-            type: smallint
-            nullable: true
-        claim:
-            type: smallint
-            nullable: true
-        reserve:
-            type: smallint
-            nullable: true
-        deckLimit:
-            type: smallint
-            nullable: true
-            column: deck_limit
-        designer:
-            type: text
-            length: 255
-            nullable: true
-        strength:
-            type: smallint
-            nullable: true
-        traits:
-            type: string
-            length: 255
-            nullable: false
-        flavor:
-            type: text
-            nullable: false
-        illustrator:
-            type: string
-            length: 255
-            nullable: true
-        isUnique:
-            type: boolean
-            nullable: false
-            column: is_unique
-        isLoyal:
-            type: boolean
-            nullable: false
-            column: is_loyal
-        isMilitary:
-            type: boolean
-            nullable: false
-            column: is_military
-        isIntrigue:
-            type: boolean
-            nullable: false
-            column: is_intrigue
-        isPower:
-            type: boolean
-            nullable: false
-            column: is_power
-        octgnId:
-            type: string
-            nullable: true
-            column: octgn_id
-        isMultiple:
-            type: boolean
-            nullable: false
-            column: is_multiple
-        imageUrl:
-            type: string
-            length: 255
-            nullable: true
     uniqueConstraints:
         card_code_idx:
             columns: [ code ]

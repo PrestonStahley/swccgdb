@@ -1,12 +1,12 @@
-AppBundle\Entity\Faction:
+AppBundle\Entity\Side:
     type: entity
-    table: faction
-    repositoryClass: AppBundle\Repository\FactionRepository
+    table: side
+    repositoryClass: AppBundle\Repository\SideRepository
     oneToMany:
         cards:
             targetEntity: Card
             orderBy: {'position':'ASC'}
-            mappedBy: faction
+            mappedBy: side
     fields:
         id:
             type: integer
@@ -21,15 +21,6 @@ AppBundle\Entity\Faction:
             type: string
             length: 1024
             nullable: false
-        isPrimary:
-            type: boolean
-            nullable: false
-            column: is_primary
-        octgnId:
-            type: string
-            nullable: true
-            column: octgn_id
     uniqueConstraints:
-        faction_code_idx:
+        side_code_idx:
             columns: [ code ]
-            
