@@ -97,14 +97,14 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \JsonSerializa
     private $user;
 
     /**
-     * @var \AppBundle\Entity\Faction
+     * @var \AppBundle\Entity\Side
      */
-    private $faction;
+    private $side;
 
     /**
-     * @var \AppBundle\Entity\Pack
+     * @var \AppBundle\Entity\Set
      */
-    private $lastPack;
+    private $lastSet;
 
     /**
      * @var \AppBundle\Entity\Deck
@@ -555,51 +555,51 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \JsonSerializa
     }
 
     /**
-     * Set faction
+     * Set side
      *
-     * @param \AppBundle\Entity\Faction $faction
+     * @param \AppBundle\Entity\Side $side
      *
      * @return Decklist
      */
-    public function setFaction(\AppBundle\Entity\Faction $faction = null)
+    public function setSide(\AppBundle\Entity\Side $side = null)
     {
-        $this->faction = $faction;
+        $this->side = $side;
 
         return $this;
     }
 
     /**
-     * Get faction
+     * Get side
      *
-     * @return \AppBundle\Entity\Faction
+     * @return \AppBundle\Entity\Side
      */
-    public function getFaction()
+    public function getSide()
     {
-        return $this->faction;
+        return $this->side;
     }
 
     /**
-     * Set lastPack
+     * Set lastSet
      *
-     * @param \AppBundle\Entity\Pack $lastPack
+     * @param \AppBundle\Entity\Set $lastSet
      *
      * @return Decklist
      */
-    public function setLastPack(\AppBundle\Entity\Pack $lastPack = null)
+    public function setLastSet(\AppBundle\Entity\Set $lastSet = null)
     {
-        $this->lastPack = $lastPack;
+        $this->lastSet = $lastSet;
 
         return $this;
     }
 
     /**
-     * Get lastPack
+     * Get lastSet
      *
-     * @return \AppBundle\Entity\Pack
+     * @return \AppBundle\Entity\Set
      */
-    public function getLastPack()
+    public function getLastSet()
     {
-        return $this->lastPack;
+        return $this->lastSet;
     }
 
     /**
