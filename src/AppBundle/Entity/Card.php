@@ -391,7 +391,7 @@ class Card implements \Serializable
     /**
      * @var boolean
      */
-    private $scomp_link;
+    private $scompLink;
 
     /**
      * @var boolean
