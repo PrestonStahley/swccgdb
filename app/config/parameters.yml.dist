@@ -4,7 +4,7 @@
 parameters:
     database_host: 127.0.0.1
     database_port: ~
-    database_name: thronesdb
+    database_name: swccgdb
     database_user: root
     database_password: ~
     # You should uncomment this if you want to use pdo_sqlite
@@ -26,10 +26,10 @@ parameters:
     email_sender_name: ~
 
     # Branding
-    website_name: ThronesDB
-    website_url: thronesdb.com
-    game_name: A Game of Thrones
-    publisher_name: Fantasy Flight Games
+    website_name: SW:CCG DB
+    website_url: swccgdb.com
+    game_name: Star Wars CCG
+    publisher_name: Decipher
 
     # Analytics & AdSense
     google_analytics_tracking_code: UA-00000000-1
