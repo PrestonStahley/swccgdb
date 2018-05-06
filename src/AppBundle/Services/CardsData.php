@@ -154,7 +154,7 @@ class CardsData
 
     public function getPrimarySides()
     {
-        $sides = $this->doctrine->getRepository('AppBundle:Side')->findPrimaries();
+        $sides = $this->doctrine->getRepository('AppBundle:Side')->findAllAndOrderByName();
         return $sides;
     }
 

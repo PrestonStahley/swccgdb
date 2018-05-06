@@ -25,7 +25,7 @@ class BuilderController extends Controller
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
 
-        $sides = $em->getRepository('AppBundle:Side')->findPrimaries();
+        $sides = $em->getRepository('AppBundle:Side')->findAllAndOrderByName();
         $objectives = $em->getRepository('AppBundle:Card')->findByType("objective");
 
         return $this->render('AppBundle:Builder:initbuild.html.twig', [

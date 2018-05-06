@@ -12,13 +12,6 @@ class SideRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-
-    public function findPrimaries()
-    {
-        $qb = $this->createQueryBuilder('f')->andWhere('f.isPrimary = 1');
-        return $qb->getQuery()->getResult();
-    }
-
     public function findByCode($code)
     {
         $qb = $this->createQueryBuilder('f')->andWhere('f.code = ?1');
