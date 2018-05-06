@@ -34,7 +34,7 @@ class ApiControllerTest extends WebTestCase
         $this->assertNotEmpty($data);
     }
     
-    public function testListCardsByPack()
+    public function testListCardsBySet()
     {
         $client = static::createClient();
         $client->request('GET', '/api/public/cards/Core');
@@ -47,15 +47,15 @@ class ApiControllerTest extends WebTestCase
         $this->assertNotEmpty($data);
         foreach ($data as $item) {
             $this->assertInternalType('array', $item);
-            $this->assertArrayHasKey("pack_code", $item);
-            $this->assertEquals("Core", $item['pack_code']);
+            $this->assertArrayHasKey("set_code", $item);
+            $this->assertEquals("Core", $item['set_code']);
         }
     }
     
-    public function testListPacks()
+    public function testListSets()
     {
         $client = static::createClient();
-        $client->request('GET', '/api/public/packs/');
+        $client->request('GET', '/api/public/sets/');
         $response = $client->getResponse();
         $json = $response->getContent();
         $this->assertJson($json);

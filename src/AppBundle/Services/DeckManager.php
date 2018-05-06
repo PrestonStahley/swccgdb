@@ -61,8 +61,8 @@ class DeckManager
         $deck->setUser($user);
         $deck->setMinorVersion($deck->getMinorVersion() + 1);
         $cards = [];
-        /* @var $latestPack \AppBundle\Entity\Pack */
-        $latestPack = null;
+        /* @var $latestSet \AppBundle\Entity\Set */
+        $latestSet = null;
         foreach ($content as $card_code => $qty) {
             $card = $this->doctrine->getRepository('AppBundle:Card')->findOneBy(array(
                 "code" => $card_code
@@ -73,17 +73,17 @@ class DeckManager
 
             $cards [$card_code] = $card;
 
-            $pack = $card->getPack();
-            if (!$latestPack) {
-                $latestPack = $pack;
-            } elseif (empty($pack->getDateRelease())) {
-                $latestPack = $pack;
-            } elseif (empty($latestPack->getDateRelease())) {
-            } elseif ($latestPack->getDateRelease() < $pack->getDateRelease()) {
-                $latestPack = $pack;
+            $set = $card->getSet();
+            if (!$latestSet) {
+                $latestSet = $set;
+            } elseif (empty($set->getDateRelease())) {
+                $latestSet = $set;
+            } elseif (empty($latestSet->getDateRelease())) {
+            } elseif ($latestSet->getDateRelease() < $set->getDateRelease()) {
+                $latestSet = $set;
             }
         }
-        $deck->setLastPack($latestPack);
+        $deck->setLastSet($latestSet);
         if (empty($tags)) {
             // tags can never be empty. if it is we put side in
             $tags = [$side->getCode()];

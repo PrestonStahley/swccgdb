@@ -12,10 +12,10 @@
 	<ol>
 	{% for cycle in cards_data.allsetsdatathreaded() %}
 		<li><a href="{{ cycle['url'] }}">{{ cycle['label'] }}</a></li>
-		{% if cycle['packs'] is defined %}
+		{% if cycle['sets'] is defined %}
 		<ol>
-		{% for pack in cycle['packs'] %}
-		<li><a href="{{ pack['url'] }}">{{ pack['label'] }}</a></li>
+		{% for set in cycle['sets'] %}
+		<li><a href="{{ set['url'] }}">{{ set['label'] }}</a></li>
 		{% endfor %}
 		</ol>
 		{% endif %}
@@ -85,8 +85,8 @@
 			<div>
 				<select class="form-control" name="e" id="e">
 					<option value="">{{ 'search.any' | trans }}</option>
-					{% for pack in packs %}
-					<option value="{{ pack.code }}">{{ pack.label }}</option>
+					{% for set in sets %}
+					<option value="{{ set.code }}">{{ set.label }}</option>
 					{% endfor %}
 				</select>
 			</div>

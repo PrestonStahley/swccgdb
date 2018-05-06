@@ -42,7 +42,7 @@ class ExportableDeck
             'side' => $this->getSide(),
             'draw_deck_size' => $slots->getDrawDeck()->countCards(),
             'plot_deck_size' => $slots->getPlotDeck()->countCards(),
-            'included_packs' => $slots->getIncludedPacks(),
+            'included_sets' => $slots->getIncludedSets(),
             'slots_by_type' => $slots->getSlotsByType()
         ];
     }

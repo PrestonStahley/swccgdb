@@ -3,8 +3,8 @@ AppBundle\Entity\Cycle:
     table: cycle
     repositoryClass: AppBundle\Repository\CycleRepository
     oneToMany:
-        packs:
-            targetEntity: Pack
+        sets:
+            targetEntity: Set
             orderBy: {'position':'ASC'}
             mappedBy: cycle
     fields:

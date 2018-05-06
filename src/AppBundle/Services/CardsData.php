@@ -96,19 +96,19 @@ class CardsData
         $lines = [];
 
         foreach ($list_cycles as $cycle) {
-            $packs = $cycle->getPacks();
+            $sets = $cycle->getSets();
 
-            foreach ($packs as $pack) {
+            foreach ($sets as $set) {
                 if ($cycle->getSize() === 1) {
-                    $label = $pack->getName();
+                    $label = $set->getName();
                 } else {
-                    $label = $pack->getPosition() . '. ' . $pack->getName();
+                    $label = $set->getPosition() . '. ' . $set->getName();
                 }
                 $lines[] = array(
-                    "code" => $pack->getCode(),
+                    "code" => $set->getCode(),
                     "label" => $label,
-                    "available" => $pack->getDateRelease() ? true : false,
-                    "url" => $this->router->generate('cards_list', array('pack_code' => $pack->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
+                    "available" => $set->getDateRelease() ? true : false,
+                    "url" => $this->router->generate('cards_list', array('set_code' => $set->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
                 );
             }
         }
@@ -122,28 +122,28 @@ class CardsData
 
         /* @var $cycle \AppBundle\Entity\Cycle */
         foreach ($list_cycles as $cycle) {
-            $list_packs = $cycle->getPacks();
-            $packs = [];
+            $list_sets = $cycle->getSets();
+            $sets = [];
 
-            /* @var $pack \AppBundle\Entity\Pack */
-            foreach ($list_packs as $pack) {
-                $label = $pack->getName();
+            /* @var $set \AppBundle\Entity\Set */
+            foreach ($list_sets as $set) {
+                $label = $set->getName();
 
-                $packs[] = [
-                    "code" => $pack->getCode(),
+                $sets[] = [
+                    "code" => $set->getCode(),
                     "label" => $label,
-                    "available" => $pack->getDateRelease() ? true : false,
-                    "url" => $this->router->generate('cards_list', array('pack_code' => $pack->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
+                    "available" => $set->getDateRelease() ? true : false,
+                    "url" => $this->router->generate('cards_list', array('set_code' => $set->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
                 ];
             }
 
             if ($cycle->getSize() === 1) {
-                $cycles[] = $packs[0];
+                $cycles[] = $sets[0];
             } else {
                 $cycles[] = [
                     "code" => $cycle->getCode(),
                     "label" => $cycle->getName(),
-                    "packs" => $packs,
+                    "sets" => $sets,
                     "url" => $this->router->generate('cards_cycle', array('cycle_code' => $cycle->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
                 ];
             }
@@ -166,7 +166,7 @@ class CardsData
         $repo = $this->doctrine->getRepository('AppBundle:Card');
         $qb = $repo->createQueryBuilder('c')
                 ->select('c', 'p', 'y', 't', 'f')
-                ->leftJoin('c.pack', 'p')
+                ->leftJoin('c.set', 'p')
                 ->leftJoin('p.cycle', 'y')
                 ->leftJoin('c.type', 't')
                 ->leftJoin('c.side', 'f');
@@ -244,13 +244,13 @@ class CardsData
                                                 break;
                                             case '<':
                                                 if (!isset($qb2)) {
-                                                    $qb2 = $this->doctrine->getRepository('AppBundle:Pack')->createQueryBuilder('p2');
+                                                    $qb2 = $this->doctrine->getRepository('AppBundle:Set')->createQueryBuilder('p2');
                                                     $or[] = $qb->expr()->lt('p.dateRelease', '(' . $qb2->select('p2.dateRelease')->where("p2.code = ?$i")->getDql() . ')');
                                                 }
                                                 break;
                                             case '>':
                                                 if (!isset($qb3)) {
-                                                    $qb3 = $this->doctrine->getRepository('AppBundle:Pack')->createQueryBuilder('p3');
+                                                    $qb3 = $this->doctrine->getRepository('AppBundle:Set')->createQueryBuilder('p3');
                                                     $or[] = $qb->expr()->gt('p.dateRelease', '(' . $qb3->select('p3.dateRelease')->where("p3.code = ?$i")->getDql() . ')');
                                                 }
                                                 break;
@@ -480,7 +480,7 @@ class CardsData
         $cardinfo['url'] = $this->router->generate('cards_zoom', array('card_code' => $card->getCode()), UrlGeneratorInterface::ABSOLUTE_URL);
 
         if ($card->getIsMultiple()) {
-            $cardinfo['label'] = $card->getName() . ' (' . $card->getPack()->getCode() . ')';
+            $cardinfo['label'] = $card->getName() . ' (' . $card->getSet()->getCode() . ')';
         } else {
             $cardinfo['label'] = $card->getName();
         }

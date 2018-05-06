@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use AppBundle\Model\DecklistManager;
 use AppBundle\Services\Pagination;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use AppBundle\Entity\Pack;
+use AppBundle\Entity\Set;
 
 class SocialController extends Controller
 {
@@ -61,8 +61,8 @@ class SocialController extends Controller
             return $this->redirect($this->generateUrl('deck_view', ['deck_id' => $deck->getId()]));
         }
 
-        $lastPack = $deck->getLastPack();
-        if (!$lastPack->getDateRelease() || $lastPack->getDateRelease() > new \DateTime()) {
+        $lastSet = $deck->getLastSet();
+        if (!$lastSet->getDateRelease() || $lastSet->getDateRelease() > new \DateTime()) {
             $this->get('session')->getFlashBag()->set('error', $translator->trans('decklist.publish.errors.unreleased'));
             return $this->redirect($this->generateUrl('deck_view', ['deck_id' => $deck->getId()]));
         }
@@ -326,41 +326,41 @@ class SocialController extends Controller
         $author_name = filter_var($request->query->get('author'), FILTER_SANITIZE_STRING);
         $decklist_name = filter_var($request->query->get('name'), FILTER_SANITIZE_STRING);
         $sort = $request->query->get('sort');
-        $packs = $request->query->get('packs');
+        $sets = $request->query->get('sets');
 
-        if (!is_array($packs)) {
-            $packs = $dbh->executeQuery("select id from pack")->fetchAll(\PDO::FETCH_COLUMN);
+        if (!is_array($sets)) {
+            $sets = $dbh->executeQuery("select id from set")->fetchAll(\PDO::FETCH_COLUMN);
         }
 
         $categories = [];
         $on = 0;
         $off = 0;
-        $categories[] = array("label" => $this->get("translator")->trans('decklist.list.search.allowed.core'), "packs" => []);
+        $categories[] = array("label" => $this->get("translator")->trans('decklist.list.search.allowed.core'), "sets" => []);
         $list_cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
         foreach ($list_cycles as $cycle) {
-            $size = count($cycle->getPacks());
+            $size = count($cycle->getSets());
             if ($cycle->getPosition() == 0 || $size == 0) {
                 continue;
             }
-            $first_pack = $cycle->getPacks()[0];
-            if ($cycle->getCode() == 'core' || ($size === 1 && $first_pack->getName() == $cycle->getName())) {
-                $checked = count($packs) ? in_array($first_pack->getId(), $packs) : true;
+            $first_set = $cycle->getSets()[0];
+            if ($cycle->getCode() == 'core' || ($size === 1 && $first_set->getName() == $cycle->getName())) {
+                $checked = count($sets) ? in_array($first_set->getId(), $sets) : true;
                 if ($checked) {
                     $on++;
                 } else {
                     $off++;
                 }
-                $categories[0]["packs"][] = array("id" => $first_pack->getId(), "label" => $first_pack->getName(), "checked" => $checked, "future" => $first_pack->getDateRelease() === null);
+                $categories[0]["sets"][] = array("id" => $first_set->getId(), "label" => $first_set->getName(), "checked" => $checked, "future" => $first_set->getDateRelease() === null);
             } else {
-                $category = array("label" => $cycle->getName(), "packs" => []);
-                foreach ($cycle->getPacks() as $pack) {
-                    $checked = count($packs) ? in_array($pack->getId(), $packs) : true;
+                $category = array("label" => $cycle->getName(), "sets" => []);
+                foreach ($cycle->getSets() as $set) {
+                    $checked = count($sets) ? in_array($set->getId(), $sets) : true;
                     if ($checked) {
                         $on++;
                     } else {
                         $off++;
                     }
-                    $category['packs'][] = array("id" => $pack->getId(), "label" => $pack->getName(), "checked" => $checked, "future" => $pack->getDateRelease() === null);
+                    $category['sets'][] = array("id" => $set->getId(), "label" => $set->getName(), "checked" => $checked, "future" => $set->getDateRelease() === null);
                 }
                 $categories[] = $category;
             }
@@ -1030,32 +1030,32 @@ class SocialController extends Controller
         $categories = [];
         $on = 0;
         $off = 0;
-        $categories[] = array("label" => $translator->trans("decklist.list.search.allowed.core"), "packs" => []);
+        $categories[] = array("label" => $translator->trans("decklist.list.search.allowed.core"), "sets" => []);
         $list_cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
         foreach ($list_cycles as $cycle) {
-            $size = count($cycle->getPacks());
+            $size = count($cycle->getSets());
             if ($cycle->getPosition() == 0 || $size == 0) {
                 continue;
             }
-            $first_pack = $cycle->getPacks()[0];
-            if ($cycle->getCode() === 'core' || ($size === 1 && $first_pack->getName() == $cycle->getName())) {
-                $checked = $first_pack->getDateRelease() !== null;
+            $first_set = $cycle->getSets()[0];
+            if ($cycle->getCode() === 'core' || ($size === 1 && $first_set->getName() == $cycle->getName())) {
+                $checked = $first_set->getDateRelease() !== null;
                 if ($checked) {
                     $on++;
                 } else {
                     $off++;
                 }
-                $categories[0]["packs"][] = array("id" => $first_pack->getId(), "label" => $first_pack->getName(), "checked" => $checked, "future" => $first_pack->getDateRelease() === null);
+                $categories[0]["sets"][] = array("id" => $first_set->getId(), "label" => $first_set->getName(), "checked" => $checked, "future" => $first_set->getDateRelease() === null);
             } else {
-                $category = array("label" => $cycle->getName(), "packs" => []);
-                foreach ($cycle->getPacks() as $pack) {
-                    $checked = $pack->getDateRelease() !== null;
+                $category = array("label" => $cycle->getName(), "sets" => []);
+                foreach ($cycle->getSets() as $set) {
+                    $checked = $set->getDateRelease() !== null;
                     if ($checked) {
                         $on++;
                     } else {
                         $off++;
                     }
-                    $category['packs'][] = array("id" => $pack->getId(), "label" => $pack->getName(), "checked" => $checked, "future" => $pack->getDateRelease() === null);
+                    $category['sets'][] = array("id" => $set->getId(), "label" => $set->getName(), "checked" => $checked, "future" => $set->getDateRelease() === null);
                 }
                 $categories[] = $category;
             }

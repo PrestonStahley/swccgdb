@@ -2,8 +2,8 @@
     {% if value is null %}X{% else %}{{ value }}{% endif %}
 {% endmacro %}
 
-{% macro card_name_with_pack_no_link(card) %}
-<a class="card-tip" data-code="{{ card.code }}">{{ card.name }} <i>({{ card.pack.name }})</i></a>
+{% macro card_name_with_set_no_link(card) %}
+<a class="card-tip" data-code="{{ card.code }}">{{ card.name }} <i>({{ card.set.name }})</i></a>
 {% endmacro %}
 
 {% macro decklist_table_row(decklist) %}

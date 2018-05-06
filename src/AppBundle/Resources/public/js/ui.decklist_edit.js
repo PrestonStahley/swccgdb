@@ -129,7 +129,7 @@
         }
         cards.forEach(function (card)
         {
-            menu.append('<li data-code="' + card.code + '" data-name="' + card.name + '"><a href="#">' + card.label + ' <small><i>' + card.pack_name + '</i></small></a></li>');
+            menu.append('<li data-code="' + card.code + '" data-name="' + card.name + '"><a href="#">' + card.label + ' <small><i>' + card.set_name + '</i></small></a></li>');
         });
         $(button).dropdown();
     };

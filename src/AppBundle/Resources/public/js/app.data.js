@@ -8,7 +8,7 @@
     var fdb = new ForerunnerDB();
     var database = fdb.db('thronesdb');
     var masters = {
-        packs: database.collection('master_pack', {primaryKey: 'code'}),
+        sets: database.collection('master_set', {primaryKey: 'code'}),
         cards: database.collection('master_card', {primaryKey: 'code'})
     };
 
@@ -28,9 +28,9 @@
      * @memberOf data
      */
     function load() {
-        masters.packs.load(function (err) {
+        masters.sets.load(function (err) {
             if (err) {
-                console.log('error when loading packs', err);
+                console.log('error when loading sets', err);
             }
             masters.cards.load(function (err) {
                 if (err) {
@@ -45,13 +45,13 @@
                  * we set up insert and update listeners now
                  * if we did it before, .load() would have called onInsert
                  */
-                masters.packs.on("insert", onCollectionInsert).on("update", onCollectionUpdate);
+                masters.sets.on("insert", onCollectionInsert).on("update", onCollectionUpdate);
                 masters.cards.on("insert", onCollectionInsert).on("update", onCollectionUpdate);
 
                 /*
                  * if database is not empty, use it for now
                  */
-                if (masters.packs.count() > 0 && masters.cards.count() > 0) {
+                if (masters.sets.count() > 0 && masters.cards.count() > 0) {
                     release();
                 }
 
@@ -68,8 +68,8 @@
      * @memberOf data
      */
     function release() {
-        data.packs = database.collection('pack', {primaryKey: 'code', changeTimestamp: false});
-        data.packs.setData(masters.packs.find());
+        data.sets = database.collection('set', {primaryKey: 'code', changeTimestamp: false});
+        data.sets.setData(masters.sets.find());
 
         data.cards = database.collection('card', {primaryKey: 'code', changeTimestamp: false});
         data.cards.setData(masters.cards.find());
@@ -85,17 +85,17 @@
      */
     function query() {
         dfd = {
-            packs: new $.Deferred(),
+            sets: new $.Deferred(),
             cards: new $.Deferred()
         };
-        $.when(dfd.packs, dfd.cards).done(update_done).fail(update_fail);
+        $.when(dfd.sets, dfd.cards).done(update_done).fail(update_fail);
 
         $.ajax({
-            url: Routing.generate('api_packs'),
-            success: parse_packs,
+            url: Routing.generate('api_sets'),
+            success: parse_sets,
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log('error when requesting packs', errorThrown);
-                dfd.packs.reject(false);
+                console.log('error when requesting sets', errorThrown);
+                dfd.sets.reject(false);
             }
         });
 
@@ -137,8 +137,8 @@
      * deferred returns true if data has been loaded
      * @memberOf data
      */
-    function update_fail(packs_loaded, cards_loaded) {
-        if (packs_loaded === false || cards_loaded === false) {
+    function update_fail(sets_loaded, cards_loaded) {
+        if (sets_loaded === false || cards_loaded === false) {
             var message = "Unable to load the data. Click <a href='javascript:window.location.reload(true)'>here</a> to reload your page.";
             app.ui.insert_alert_message('danger', message);
         } else {
@@ -182,12 +182,12 @@
     }
 
     /**
-     * handles the response to the ajax query for packs data
+     * handles the response to the ajax query for sets data
      * @memberOf data
      */
-    function parse_packs(response, textStatus, jqXHR) {
+    function parse_sets(response, textStatus, jqXHR) {
         var locale = jqXHR.getResponseHeader('Content-Language');
-        update_collection(response, masters.packs, locale, dfd.packs);
+        update_collection(response, masters.sets, locale, dfd.sets);
     }
 
     /**

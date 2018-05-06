@@ -14,10 +14,10 @@ interface SlotCollectionInterface extends \Countable, \IteratorAggregate, \Array
     public function countCards();
     
     /**
-     * Get included packs
-     * @return \AppBundle\Entity\Pack[]
+     * Get included sets
+     * @return \AppBundle\Entity\Set[]
      */
-    public function getIncludedPacks();
+    public function getIncludedSets();
     
     /**
      * Get all slots sorted by type code (including plots)

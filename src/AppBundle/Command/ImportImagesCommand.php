@@ -32,10 +32,10 @@ class ImportImagesCommand extends ContainerAwareCommand
 
         foreach ($cards as $card) {
             $position = $card->getPosition();
-            $cgdbId = $card->getPack()->getCgdbId();
+            $cgdbId = $card->getSet()->getCgdbId();
 
             if (empty($cgdbId)) {
-                $output->writeln(sprintf('Skip %s because its cgdb_id is not defined', $card->getPack()->getName()));
+                $output->writeln(sprintf('Skip %s because its cgdb_id is not defined', $card->getSet()->getName()));
                 continue;
             }
 

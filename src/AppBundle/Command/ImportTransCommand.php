@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Cycle;
-use AppBundle\Entity\Pack;
+use AppBundle\Entity\Set;
 use AppBundle\Entity\Card;
 use Symfony\Component\Console\Helper\ProgressBar;
 
@@ -56,7 +56,7 @@ class ImportTransCommand extends ContainerAwareCommand
             $path = substr($path, 0, strlen($path) - 1);
         }
         
-        $things = ['side', 'type', 'cycle', 'pack'];
+        $things = ['side', 'type', 'cycle', 'set'];
         
         foreach ($locales as $locale) {
             if ($locale === $default_locale) {
@@ -267,7 +267,7 @@ class ImportTransCommand extends ContainerAwareCommand
             throw new \Exception("No repository found at [$path]");
         }
         
-        $directory = 'pack';
+        $directory = 'set';
         
         if (!$fs->exists("$path/$directory")) {
             throw new \Exception("No '$directory' directory found at [$path]");

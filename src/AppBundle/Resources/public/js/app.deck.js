@@ -227,29 +227,29 @@
     /**
      * @memberOf deck
      */
-    deck.get_included_packs = function get_included_packs()
+    deck.get_included_sets = function get_included_sets()
     {
         var cards = deck.get_cards();
-        var nb_packs = {};
+        var nb_sets = {};
         cards.forEach(function (card)
         {
-            nb_packs[card.pack_code] = Math.max(nb_packs[card.pack_code] || 0, card.indeck / card.quantity);
+            nb_sets[card.set_code] = Math.max(nb_sets[card.set_code] || 0, card.indeck / card.quantity);
         });
-        var pack_codes = _.uniq(_.pluck(cards, 'pack_code'));
-        var packs = app.data.packs.find({
+        var set_codes = _.uniq(_.pluck(cards, 'set_code'));
+        var sets = app.data.sets.find({
             'code': {
-                '$in': pack_codes
+                '$in': set_codes
             }
         }, {
             '$orderBy': {
                 'available': 1
             }
         });
-        packs.forEach(function (pack)
+        sets.forEach(function (set)
         {
-            pack.quantity = nb_packs[pack.code] || 0;
+            set.quantity = nb_sets[set.code] || 0;
         });
-        return packs;
+        return sets;
     };
 
     /**
@@ -305,12 +305,12 @@
         var plotDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.plotdeck', deck.get_plot_deck_size(), {count: deck.get_plot_deck_size()}) + '</div>');
         plotDeckSection.addClass(problem && problem.indexOf('plots') !== -1 ? 'text-danger' : '');
         deck.update_layout_section(data, 'meta', plotDeckSection);
-        //deck.update_layout_section(data, 'meta', $('<div>Packs: ' + _.map(deck.get_included_packs(), function (pack) { return pack.name+(pack.quantity > 1 ? ' ('+pack.quantity+')' : ''); }).join(', ') + '</div>'));
-        var packs = _.map(deck.get_included_packs(), function (pack)
+        //deck.update_layout_section(data, 'meta', $('<div>Sets: ' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '</div>'));
+        var sets = _.map(deck.get_included_sets(), function (set)
         {
-            return pack.name + (pack.quantity > 1 ? ' (' + pack.quantity + ')' : '');
+            return set.name + (set.quantity > 1 ? ' (' + set.quantity + ')' : '');
         }).join(', ');
-        deck.update_layout_section(data, 'meta', $('<div>decks.edit.meta.packs</div>'));
+        deck.update_layout_section(data, 'meta', $('<div>decks.edit.meta.sets</div>'));
         if(problem) {
             deck.update_layout_section(data, 'meta', $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> ' + problem_labels[problem] + '</div>'));
         }

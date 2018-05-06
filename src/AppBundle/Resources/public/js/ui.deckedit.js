@@ -80,7 +80,7 @@
         app.data.cards.find().forEach(function (record)
         {
             var max_qty = Math.min(3, record.deck_limit);
-            if(record.pack_code === 'Core')
+            if(record.set_code === 'Core')
                 max_qty = Math.min(max_qty, record.quantity * Config['core-set']);
             app.data.cards.updateById(record.code, {
                 maxqty: max_qty
@@ -132,13 +132,13 @@
     };
 
     /**
-     * builds the pack selector
+     * builds the set selector
      * @memberOf ui
      */
-    ui.build_pack_selector = function build_pack_selector()
+    ui.build_set_selector = function build_set_selector()
     {
-        $('[data-filter=pack_code]').empty();
-        app.data.packs.find({
+        $('[data-filter=set_code]').empty();
+        app.data.sets.find({
             name: {
                 '$exists': true
             }
@@ -151,15 +151,15 @@
         {
             // checked or unchecked ? checked by default
             var checked = true;
-            // if not yet available, uncheck pack
+            // if not yet available, uncheck set
             if(record.available === "")
                 checked = false;
-            // if user checked it previously, check pack
+            // if user checked it previously, check set
             if(localStorage && localStorage.getItem('set_code_' + record.code) !== null)
                 checked = true;
-            // if pack used by cards in deck, check pack
+            // if set used by cards in deck, check set
             var cards = app.data.cards.find({
-                pack_code: record.code,
+                set_code: record.code,
                 indeck: {
                     '$gt': 0
                 }
@@ -167,7 +167,7 @@
             if(cards.length)
                 checked = true;
 
-            $('<li><a href="#"><label><input type="checkbox" name="' + record.code + '"' + (checked ? ' checked="checked"' : '') + '>' + record.name + '</label></a></li>').appendTo('[data-filter=pack_code]');
+            $('<li><a href="#"><label><input type="checkbox" name="' + record.code + '"' + (checked ? ' checked="checked"' : '') + '>' + record.name + '</label></a></li>').appendTo('[data-filter=set_code]');
         });
     };
 
@@ -709,7 +709,7 @@
         ui.update_list_template();
         ui.build_side_selector();
         ui.build_type_selector();
-        ui.build_pack_selector();
+        ui.build_set_selector();
         ui.init_selectors();
         ui.refresh_deck();
         ui.refresh_list();

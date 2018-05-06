@@ -4,7 +4,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class PackRepository extends EntityRepository
+class SetRepository extends EntityRepository
 {
     public function findAll()
     {

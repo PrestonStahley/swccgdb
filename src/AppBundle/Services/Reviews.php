@@ -27,7 +27,7 @@ class Reviews
                 c.id card_id,
                 c.name card_name,
                 c.code card_code,
-                p.name pack_name,
+                p.name set_name,
                 u.id user_id,
                 u.username,
                 u.color usercolor,
@@ -36,7 +36,7 @@ class Reviews
                 from review r
                 join user u on r.user_id=u.id
                 join card c on r.card_id=c.id
-                join pack p on c.pack_id=p.id
+                join set p on c.set_id=p.id
                 where r.date_creation > DATE_SUB(CURRENT_DATE, INTERVAL 1 MONTH)
         		and p.date_release is not null
                 order by r.date_creation desc
@@ -67,7 +67,7 @@ class Reviews
                 c.id card_id,
                 c.name card_name,
                 c.code card_code,
-                p.name pack_name,
+                p.name set_name,
                 u.id user_id,
                 u.username,
                 u.color usercolor,
@@ -76,7 +76,7 @@ class Reviews
                 from review r
                 join user u on r.user_id=u.id
                 join card c on r.card_id=c.id
-                join pack p on c.pack_id=p.id
+                join set p on c.set_id=p.id
                 where r.user_id=?
         		and p.date_release is not null
         		order by c.code asc

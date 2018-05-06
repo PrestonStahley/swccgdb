@@ -15,11 +15,11 @@ AppBundle\Entity\Deck:
             joinColumn:
                 name: side_id
                 referencedColumnName: id
-        lastPack:
-            targetEntity: Pack
+        lastSet:
+            targetEntity: Set
             nullable: false
             joinColumn:
-                name: last_pack_id
+                name: last_set_id
                 referencedColumnName: id
         parent:
             targetEntity: Decklist

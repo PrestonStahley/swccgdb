@@ -62,14 +62,14 @@ class Cycle implements  \Serializable
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $packs;
+    private $sets;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->packs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sets = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -227,36 +227,36 @@ class Cycle implements  \Serializable
     }
 
     /**
-     * Add pack
+     * Add set
      *
-     * @param \AppBundle\Entity\Pack $pack
+     * @param \AppBundle\Entity\Set $set
      *
      * @return Cycle
      */
-    public function addPack(\AppBundle\Entity\Pack $pack)
+    public function addSet(\AppBundle\Entity\Set $set)
     {
-        $this->packs[] = $pack;
+        $this->sets[] = $set;
 
         return $this;
     }
 
     /**
-     * Remove pack
+     * Remove set
      *
-     * @param \AppBundle\Entity\Pack $pack
+     * @param \AppBundle\Entity\Set $set
      */
-    public function removePack(\AppBundle\Entity\Pack $pack)
+    public function removeSet(\AppBundle\Entity\Set $set)
     {
-        $this->packs->removeElement($pack);
+        $this->sets->removeElement($set);
     }
 
     /**
-     * Get packs
+     * Get sets
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPacks()
+    public function getSets()
     {
-        return $this->packs;
+        return $this->sets;
     }
 }

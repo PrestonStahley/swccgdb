@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Router;
 use Psr\Log\LoggerInterface;
 use AppBundle\Entity\User;
-use AppBundle\Entity\Pack;
+use AppBundle\Entity\Set;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use AppBundle\Entity\Side;
@@ -170,7 +170,7 @@ class DecklistManager
 
         $sort = $request->query->get('sort');
 
-        $packs = $request->query->get('packs');
+        $sets = $request->query->get('sets');
 
         $qb = $this->getQueryBuilder();
         $joinTables = [];
@@ -189,7 +189,7 @@ class DecklistManager
             $qb->andWhere('d.name like :deckname');
             $qb->setParameter('deckname', "%$decklist_name%");
         }
-        if (!empty($cards_code) || !empty($packs)) {
+        if (!empty($cards_code) || !empty($sets)) {
             if (!empty($cards_code)) {
                 foreach ($cards_code as $i => $card_code) {
                     /* @var $card \AppBundle\Entity\Card */
@@ -202,18 +202,18 @@ class DecklistManager
                     $qb->andWhere("s$i.card = :card$i");
                     $qb->setParameter("card$i", $card);
 
-                    if (!empty($packs)) {
-                        $packs[] = $card->getPack()->getId();
+                    if (!empty($sets)) {
+                        $sets[] = $card->getSet()->getId();
                     }
                 }
             }
-            if (!empty($packs)) {
+            if (!empty($sets)) {
                 $sub = $this->doctrine->createQueryBuilder();
                 $sub->select("c");
                 $sub->from("AppBundle:Card", "c");
                 $sub->innerJoin('AppBundle:Decklistslot', 's', 'WITH', 's.card = c');
                 $sub->where('s.decklist = d');
-                $sub->andWhere($sub->expr()->notIn('c.pack', $packs));
+                $sub->andWhere($sub->expr()->notIn('c.set', $sets));
 
                 $qb->andWhere($qb->expr()->not($qb->expr()->exists($sub->getDQL())));
             }

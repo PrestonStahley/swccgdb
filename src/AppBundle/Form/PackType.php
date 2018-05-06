@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PackType extends AbstractType
+class SetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -23,12 +23,12 @@ class PackType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Pack'
+            'data_class' => 'AppBundle\Entity\Set'
         ));
     }
     
     public function getName()
     {
-        return 'appbundle_packtype';
+        return 'appbundle_settype';
     }
 }

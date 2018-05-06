@@ -38,7 +38,7 @@ class ExportStdCommand extends ContainerAwareCommand
         
         $output->writeln("Exporting data in <info>$path</info>");
         
-        $things = ['side', 'type', 'cycle', 'pack'];
+        $things = ['side', 'type', 'cycle', 'set'];
         
         foreach ($things as $thing) {
             $filepath = "${path}/${thing}s.json";
@@ -57,15 +57,15 @@ class ExportStdCommand extends ContainerAwareCommand
             }
         }
         
-        $packs = $this->getContainer()->get('doctrine')->getManager()->getRepository('AppBundle:Pack')->findAll();
+        $sets = $this->getContainer()->get('doctrine')->getManager()->getRepository('AppBundle:Set')->findAll();
         
-        foreach ($packs as $pack) {
-            $pack_code = $pack->getCode();
-            $filepath = "${path}/pack/${pack_code}.json";
+        foreach ($sets as $set) {
+            $set_code = $set->getCode();
+            $filepath = "${path}/set/${set_code}.json";
             $output->writeln("Exporting to <info>$filepath</info>");
     
             $command = $this->getApplication()->find('app:dump:std:cards');
-            $arguments = [ 'pack_code' => $pack_code ];
+            $arguments = [ 'set_code' => $set_code ];
             $subInput = new ArrayInput($arguments);
             $subOutput = new BufferedOutput();
             $returnCode = $command->run($subInput, $subOutput);

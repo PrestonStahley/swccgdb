@@ -62,14 +62,14 @@ class BuilderController extends Controller
             $name = $translator->trans("decks.build.newname.noagenda", array(
                 "%side%" => $side->getName()
             ));
-            $pack = $em->getRepository('AppBundle:Pack')->findOneBy(array("code" => "Core"));
+            $set = $em->getRepository('AppBundle:Set')->findOneBy(array("code" => "Core"));
         } else {
             $agenda = $em->getRepository('AppBundle:Card')->findByCode($agenda_code);
             $name = $translator->trans("decks.build.newname.noagenda", array(
                 "%side%" => $side->getName(),
                 "%agenda%" => $agenda->getName()
             ));
-            $pack = $agenda->getPack();
+            $set = $agenda->getSet();
             $tags[] = $this->get('agenda_helper')->getMinorSideCode($agenda);
         }
 
@@ -77,7 +77,7 @@ class BuilderController extends Controller
         $deck = new Deck();
         $deck->setDescriptionMd("");
         $deck->setSide($side);
-        $deck->setLastPack($pack);
+        $deck->setLastSet($set);
         $deck->setName($name);
         $deck->setProblem('too_few_cards');
         $deck->setTags(join(' ', array_unique($tags)));
@@ -574,12 +574,12 @@ class BuilderController extends Controller
                         continue;
                     }
                     $cardname = $card->getName();
-                    $packname = $card->getPack()->getName();
-                    if ($packname == 'Core Set') {
-                        $packname = 'Core';
+                    $setname = $card->getSet()->getName();
+                    if ($setname == 'Core Set') {
+                        $setname = 'Core';
                     }
                     $qty = $slot['qty'];
-                    $content[] = "$cardname ($packname) x$qty";
+                    $content[] = "$cardname ($setname) x$qty";
                 }
                 $filename = str_replace('/', ' ', $deck['name']) . '.txt';
                 $zip->addFromString($filename, implode("\r\n", $content));

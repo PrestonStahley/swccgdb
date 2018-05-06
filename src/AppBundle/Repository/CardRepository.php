@@ -13,7 +13,7 @@ class CardRepository extends EntityRepository
             ->select('c, t, f, p, y')
             ->join('c.type', 't')
             ->join('c.side', 'f')
-            ->join('c.pack', 'p')
+            ->join('c.set', 'p')
             ->join('p.cycle', 'y')
             ->orderBY('c.code', 'ASC');
 
@@ -24,7 +24,7 @@ class CardRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c, p')
-            ->join('c.pack', 'p')
+            ->join('c.set', 'p')
             ->join('c.type', 't')
             ->andWhere('t.code = ?1')
             ->orderBY('c.code', 'ASC');
@@ -51,7 +51,7 @@ class CardRepository extends EntityRepository
             ->select('c, t, f, p, y')
             ->join('c.type', 't')
             ->join('c.side', 'f')
-            ->join('c.pack', 'p')
+            ->join('c.set', 'p')
             ->join('p.cycle', 'y')
             ->andWhere('c.code in (?1)')
             ->orderBY('c.code', 'ASC');
@@ -65,11 +65,11 @@ class CardRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c')
             ->select('c')
-            ->join('c.pack', 'p')
+            ->join('c.set', 'p')
             ->andWhere('p.code = ?1')
             ->andWhere('c.position = ?2');
 
-        $qb->setParameter(1, $card->getPack()->getCode());
+        $qb->setParameter(1, $card->getSet()->getCode());
         $qb->setParameter(2, $card->getPosition()+$position);
 
         return $qb->getQuery()->getOneOrNullResult();

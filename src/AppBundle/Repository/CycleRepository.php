@@ -10,7 +10,7 @@ class CycleRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('y')
             ->select('y, p')
-            ->leftJoin('y.packs', 'p')
+            ->leftJoin('y.sets', 'p')
             ->orderBy('y.position', 'ASC');
 
         return $qb->getQuery()->getResult();

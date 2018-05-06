@@ -76,19 +76,19 @@ class ImportCardsCommand extends ContainerAwareCommand
             $setname = html_entity_decode($data['setname'], ENT_QUOTES);
             $setname = str_replace(['“', '”', '’'], ['"', '"', '\''], $setname);
           
-            /* @var $pack \AppBundle\Entity\Pack */
-            $pack = $em->getRepository('AppBundle:Pack')->findOneBy(array('name' => $setname));
-            if (!$pack) {
-                $output->writeln("<error>Cannot find pack [".$setname."]</error>");
+            /* @var $set \AppBundle\Entity\Set */
+            $set = $em->getRepository('AppBundle:Set')->findOneBy(array('name' => $setname));
+            if (!$set) {
+                $output->writeln("<error>Cannot find set [".$setname."]</error>");
                 die();
             }
-            if ($pack->getSize() === count($pack->getCards())) {
-                // shortcut: we already know all the cards of this pack
+            if ($set->getSize() === count($set->getCards())) {
+                // shortcut: we already know all the cards of this set
                 continue;
             }
           
             /* @var $card \AppBundle\Entity\Card */
-            $card = $em->getRepository('AppBundle:Card')->findOneBy(array('name' => $name, 'pack' => $pack));
+            $card = $em->getRepository('AppBundle:Card')->findOneBy(array('name' => $name, 'set' => $set));
             if ($card && $card->getOctgnId()) {
                 continue;
             }
@@ -152,7 +152,7 @@ class ImportCardsCommand extends ContainerAwareCommand
                 $card = new Card();
             }
             $card->setClaim($data['claim'] !== '' ? $data['claim'] : null);
-            $card->setCode(sprintf("%02d%03d", $pack->getCycle()->getPosition(), $position));
+            $card->setCode(sprintf("%02d%03d", $set->getCycle()->getPosition(), $position));
             $card->setCost($data['cost'] !== '' && $data['cost'] !== 'X' ? $data['cost'] : null);
             $card->setDeckLimit($data['max']);
             $card->setSide($side);
@@ -165,7 +165,7 @@ class ImportCardsCommand extends ContainerAwareCommand
             $card->setIsPower($data['power'] === 'Y');
             $card->setIsUnique($data['unique'] === 'Y');
             $card->setName($name);
-            $card->setPack($pack);
+            $card->setSet($set);
             $card->setPosition($position);
             $card->setQuantity(3); // it looks like $data['quantity'] is wrong
             $card->setReserve($data['reserve'] !== '' ? $data['reserve'] : null);

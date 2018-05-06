@@ -11,7 +11,7 @@ class CardType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pack', 'entity', array('class' => 'AppBundle:Pack', 'property' => 'name'))
+            ->add('set', 'entity', array('class' => 'AppBundle:Set', 'property' => 'name'))
             ->add('position')
             ->add('quantity')
             ->add('deck_limit')

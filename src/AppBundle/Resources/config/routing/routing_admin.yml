@@ -6,9 +6,9 @@ AppBundle_admin_cycle:
     resource: "@AppBundle/Resources/config/routing/admin/routing_admin_cycle.yml"
     prefix:   /cycle
 
-AppBundle_admin_pack:
-    resource: "@AppBundle/Resources/config/routing/admin/routing_admin_pack.yml"
-    prefix:   /pack
+AppBundle_admin_set:
+    resource: "@AppBundle/Resources/config/routing/admin/routing_admin_set.yml"
+    prefix:   /set
 
 AppBundle_admin_type:
     resource: "@AppBundle/Resources/config/routing/admin/routing_admin_type.yml"

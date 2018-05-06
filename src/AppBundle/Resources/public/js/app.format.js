@@ -32,9 +32,9 @@
     /**
      * @memberOf format
      */
-    format.pack = function pack(card)
+    format.set = function set(card)
     {
-        var text = card.pack_name + ' #' + card.position + '. ';
+        var text = card.set_name + ' #' + card.position + '. ';
         return text;
     }
 

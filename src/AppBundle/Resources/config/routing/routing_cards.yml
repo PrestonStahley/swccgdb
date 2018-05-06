@@ -1,6 +1,6 @@
 
 cards_list:
-    path: /set/{pack_code}/{view}/{sort}/{page}
+    path: /set/{set_code}/{view}/{sort}/{page}
     defaults:
         _controller: AppBundle:Search:list
         view: list

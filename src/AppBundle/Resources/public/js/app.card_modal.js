@@ -39,7 +39,7 @@
                 + '<div class="card-info">' + app.format.info(card) + '</div>'
                 + '<div class="card-traits">' + app.format.traits(card) + '</div>'
                 + '<div class="card-text border-' + card.side_code + '">' + app.format.text(card) + '</div>'
-                + '<div class="card-pack">' + app.format.pack(card) + '</div>'
+                + '<div class="card-set">' + app.format.set(card) + '</div>'
                 );
 
         var qtyelt = modal.find('.modal-qty');

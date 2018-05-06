@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Card;
-use AppBundle\Entity\Pack;
+use AppBundle\Entity\Set;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Decklist;
@@ -16,13 +16,13 @@ class ApiController extends Controller
 {
 
     /**
-     * Get the description of all the packs as an array of JSON objects.
+     * Get the description of all the sets as an array of JSON objects.
      *
      *
      * @ApiDoc(
-     *  section="Pack",
+     *  section="Set",
      *  resource=true,
-     *  description="All the Packs",
+     *  description="All the Sets",
      *  parameters={
      *    {"name"="jsonp", "dataType"="string", "required"=false, "description"="JSONP callback"}
      *  },
@@ -30,7 +30,7 @@ class ApiController extends Controller
      *
      * @param Request $request
      */
-    public function listPacksAction(Request $request)
+    public function listSetsAction(Request $request)
     {
         $response = new Response();
         $response->setPublic();
@@ -42,15 +42,15 @@ class ApiController extends Controller
 
         $jsonp = $request->query->get('jsonp');
 
-        $list_packs = $this->getDoctrine()->getRepository('AppBundle:Pack')->findAll();
+        $list_sets = $this->getDoctrine()->getRepository('AppBundle:Set')->findAll();
 
         // check the last-modified-since header
 
         $lastModified = null;
-        /* @var $pack \AppBundle\Entity\Pack */
-        foreach ($list_packs as $pack) {
-            if (!$lastModified || $lastModified < $pack->getDateUpdate()) {
-                $lastModified = $pack->getDateUpdate();
+        /* @var $set \AppBundle\Entity\Set */
+        foreach ($list_sets as $set) {
+            if (!$lastModified || $lastModified < $set->getDateUpdate()) {
+                $lastModified = $set->getDateUpdate();
             }
         }
         $response->setLastModified($lastModified);
@@ -60,24 +60,24 @@ class ApiController extends Controller
 
         // build the response
 
-        $packs = array();
-        /* @var $pack \AppBundle\Entity\Pack */
-        foreach ($list_packs as $pack) {
-            $real = count($pack->getCards());
-            $max = $pack->getSize();
-            $packs[] = array(
-                "name" => $pack->getName(),
-                "code" => $pack->getCode(),
-                "position" => $pack->getPosition(),
-                "cycle_position" => $pack->getCycle()->getPosition(),
-                "available" => $pack->getDateRelease() ? $pack->getDateRelease()->format('Y-m-d') : '',
+        $sets = array();
+        /* @var $set \AppBundle\Entity\Set */
+        foreach ($list_sets as $set) {
+            $real = count($set->getCards());
+            $max = $set->getSize();
+            $sets[] = array(
+                "name" => $set->getName(),
+                "code" => $set->getCode(),
+                "position" => $set->getPosition(),
+                "cycle_position" => $set->getCycle()->getPosition(),
+                "available" => $set->getDateRelease() ? $set->getDateRelease()->format('Y-m-d') : '',
                 "known" => intval($real),
                 "total" => $max,
-                "url" => $this->get('router')->generate('cards_list', array('pack_code' => $pack->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
+                "url" => $this->get('router')->generate('cards_list', array('set_code' => $set->getCode()), UrlGeneratorInterface::ABSOLUTE_URL),
             );
         }
 
-        $content = json_encode($packs);
+        $content = json_encode($sets);
         if (isset($jsonp)) {
             $content = "$jsonp($content)";
             $response->headers->set('Content-Type', 'application/javascript');
@@ -224,20 +224,20 @@ class ApiController extends Controller
     }
 
     /**
-     * Get the description of all the card from a pack, as an array of JSON objects.
+     * Get the description of all the card from a set, as an array of JSON objects.
      *
      * @ApiDoc(
      *  section="Card",
      *  resource=true,
-     *  description="All the Cards from One Pack",
+     *  description="All the Cards from One Set",
      *  parameters={
      *      {"name"="jsonp", "dataType"="string", "required"=false, "description"="JSONP callback"}
      *  },
      *  requirements={
      *      {
-     *          "name"="pack_code",
+     *          "name"="set_code",
      *          "dataType"="string",
-     *          "description"="The code of the pack to get the cards from, e.g. 'Core'"
+     *          "description"="The code of the set to get the cards from, e.g. 'Core'"
      *      },
      *      {
      *          "name"="_format",
@@ -250,7 +250,7 @@ class ApiController extends Controller
      *
      * @param Request $request
      */
-    public function listCardsByPackAction($pack_code, Request $request)
+    public function listCardsBySetAction($set_code, Request $request)
     {
         $response = new Response();
         $response->setPublic();
@@ -265,12 +265,12 @@ class ApiController extends Controller
             return $response;
         }
 
-        $pack = $this->getDoctrine()->getRepository('AppBundle:Pack')->findOneBy(array('code' => $pack_code));
-        if (!$pack instanceof Pack) {
+        $set = $this->getDoctrine()->getRepository('AppBundle:Set')->findOneBy(array('code' => $set_code));
+        if (!$set instanceof Set) {
             return $this->createNotFoundException();
         }
 
-        $conditions = $this->get('cards_data')->syntax("e:$pack_code");
+        $conditions = $this->get('cards_data')->syntax("e:$set_code");
         $this->get('cards_data')->validateConditions($conditions);
         $query = $this->get('cards_data')->buildQueryFromConditions($conditions);
 

@@ -20,8 +20,8 @@ class DecklistFactory
 
     public function createDecklistFromDeck(Deck $deck, $name = null, $descriptionMd = null)
     {
-        $lastPack = $deck->getLastPack();
-        if (!$lastPack->getDateRelease() || $lastPack->getDateRelease() > new \DateTime()) {
+        $lastSet = $deck->getLastSet();
+        if (!$lastSet->getDateRelease() || $lastSet->getDateRelease() > new \DateTime()) {
             throw new \Exception("You cannot publish this deck yet, because it has unreleased cards.");
         }
         
@@ -59,7 +59,7 @@ class DecklistFactory
         $decklist->setDateUpdate(new \DateTime());
         $decklist->setSignature($new_signature);
         $decklist->setSide($deck->getSide());
-        $decklist->setLastPack($deck->getLastPack());
+        $decklist->setLastSet($deck->getLastSet());
         $decklist->setNbVotes(0);
         $decklist->setNbfavorites(0);
         $decklist->setNbcomments(0);

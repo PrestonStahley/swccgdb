@@ -65,26 +65,26 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
         return $count;
     }
 
-    public function getIncludedPacks()
+    public function getIncludedSets()
     {
-        $packs = [];
+        $sets = [];
         foreach ($this->slots as $slot) {
             $card = $slot->getCard();
-            $pack = $card->getPack();
-            if (!isset($packs[$pack->getPosition()])) {
-                $packs[$pack->getPosition()] = [
-                    'pack' => $pack,
+            $set = $card->getSet();
+            if (!isset($sets[$set->getPosition()])) {
+                $sets[$set->getPosition()] = [
+                    'set' => $set,
                     'nb' => 0
                 ];
             }
 
-            $nbpacks = ceil($slot->getQuantity() / $card->getQuantity());
-            if ($packs[$pack->getPosition()]['nb'] < $nbpacks) {
-                $packs[$pack->getPosition()]['nb'] = $nbpacks;
+            $nbsets = ceil($slot->getQuantity() / $card->getQuantity());
+            if ($sets[$set->getPosition()]['nb'] < $nbsets) {
+                $sets[$set->getPosition()]['nb'] = $nbsets;
             }
         }
-        ksort($packs);
-        return array_values($packs);
+        ksort($sets);
+        return array_values($sets);
     }
 
     public function getSlotsByType()

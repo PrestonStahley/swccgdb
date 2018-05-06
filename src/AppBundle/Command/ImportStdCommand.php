@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Cycle;
-use AppBundle\Entity\Pack;
+use AppBundle\Entity\Set;
 use AppBundle\Entity\Card;
 
 class ImportStdCommand extends ContainerAwareCommand
@@ -92,11 +92,11 @@ class ImportStdCommand extends ContainerAwareCommand
         $this->loadCollection('Cycle');
         $output->writeln("Done.");
         
-        // second, packs
+        // second, sets
 
-        $output->writeln("Importing Packs...");
-        $packsFileInfo = $this->getFileInfo($path, 'packs.json');
-        $imported = $this->importPacksJsonFile($packsFileInfo);
+        $output->writeln("Importing Sets...");
+        $setsFileInfo = $this->getFileInfo($path, 'sets.json');
+        $imported = $this->importSetsJsonFile($setsFileInfo);
         $question = new ConfirmationQuestion("Do you confirm? (Y/n) ", true);
         if (count($imported)) {
             $question = new ConfirmationQuestion("Do you confirm? (Y/n) ", true);
@@ -105,7 +105,7 @@ class ImportStdCommand extends ContainerAwareCommand
             }
         }
         $this->em->flush();
-        $this->loadCollection('Pack');
+        $this->loadCollection('Set');
         $output->writeln("Done.");
                 
         // third, cards
@@ -186,13 +186,13 @@ class ImportStdCommand extends ContainerAwareCommand
         return $result;
     }
 
-    protected function importPacksJsonFile(\SplFileInfo $fileinfo)
+    protected function importSetsJsonFile(\SplFileInfo $fileinfo)
     {
         $result = [];
     
-        $packsData = $this->getDataFromFile($fileinfo);
-        foreach ($packsData as $packData) {
-            $pack = $this->getEntityFromData('AppBundle\Entity\Pack', $packData, [
+        $setsData = $this->getDataFromFile($fileinfo);
+        foreach ($setsData as $setData) {
+            $set = $this->getEntityFromData('AppBundle\Entity\Set', $setData, [
                     'code',
                     'name',
                     'position',
@@ -202,9 +202,9 @@ class ImportStdCommand extends ContainerAwareCommand
             ], [
                     'cycle_code'
             ], []);
-            if ($pack) {
-                $result[] = $pack;
-                $this->em->persist($pack);
+            if ($set) {
+                $result[] = $set;
+                $this->em->persist($set);
             }
         }
         
@@ -217,9 +217,9 @@ class ImportStdCommand extends ContainerAwareCommand
     
         $code = $fileinfo->getBasename('.json');
         
-        $pack = $this->em->getRepository('AppBundle:Pack')->findOneBy(['code' => $code]);
-        if (!$pack) {
-            throw new \Exception("Unable to find Pack [$code]");
+        $set = $this->em->getRepository('AppBundle:Set')->findOneBy(['code' => $code]);
+        if (!$set) {
+            throw new \Exception("Unable to find Set [$code]");
         }
         
         $cardsData = $this->getDataFromFile($fileinfo);
@@ -237,7 +237,7 @@ class ImportStdCommand extends ContainerAwareCommand
                     'is_multiple'
             ], [
                     'side_code',
-                    'pack_code',
+                    'set_code',
                     'type_code'
             ], [
                     'designer',
@@ -499,7 +499,7 @@ class ImportStdCommand extends ContainerAwareCommand
             throw new \Exception("No repository found at [$path]");
         }
         
-        $directory = 'pack';
+        $directory = 'set';
         
         if (!$fs->exists("$path/$directory")) {
             throw new \Exception("No '$directory' directory found at [$path]");
