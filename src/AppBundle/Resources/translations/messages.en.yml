@@ -50,20 +50,20 @@ decks:
     too_many_plots: Contains too many Plots
     too_few_plots: Contains too few Plots
     too_many_different_plots: Contains more than one duplicated Plot
-    too_many_agendas: Contains more than one Agenda
+    too_many_objectives: Contains more than one Objective
     too_few_cards: Contains too few cards
     too_many_copies: Contains too many copies of a card (by title)
-    invalid_cards: Contains forbidden cards (cards no permitted by Side or Agenda)
-    agenda: Doesn't comply with the Agenda conditions
+    invalid_cards: Contains forbidden cards (cards no permitted by Side or Objective)
+    objective: Doesn't comply with the Objective conditions
   build:
     choose:
       side: Choose your side
-      agenda: Choose an agenda
-      noagenda: No agenda
+      objective: Choose an objective
+      noobjective: No objective
     start: Create the deck and start building
     newname:
-      noagenda: "New deck: %side%"
-      agenda: "New deck: %side%, %agenda%"
+      noobjective: "New deck: %side%"
+      objective: "New deck: %side%, %objective%"
     errors:
       noside: A side is required.
   edit:
@@ -113,7 +113,7 @@ decks:
       label: Import Deck
       copypaste: Copy/paste
       file: File
-    selection: 
+    selection:
       label: With Selection
       compare:
         label: Compare
@@ -257,7 +257,7 @@ decklist:
     versions: Versions
     published: published
     duplicate: Duplicate of %duplicate%
-    comments: 
+    comments:
       count: "{0} No comments | {1} %count% comment | ]1,Inf] %count% comments"
       hint: "Enter your comment in Markdown format. Type # to enter a card name. Type $ to enter a symbol. Type @ to enter a user name."
       submit: Submit comment
@@ -299,7 +299,7 @@ decklist:
       side:
         label: Side
         any: any
-      author: 
+      author:
         label: Author name
         hint: Enter author name
       used:
@@ -429,7 +429,7 @@ icon:
   location: Location
   character: Character
   event: Event
-  agenda: Agenda
+  objective: Objective
   neutral: Neutral
 
 keyword:
@@ -460,4 +460,4 @@ keyword:
   bestow:
     name: Bestow
     title: "When this card enters play, move up to X gold from your gold pool to this card."
-  
+

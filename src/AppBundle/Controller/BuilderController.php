@@ -26,12 +26,12 @@ class BuilderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $sides = $em->getRepository('AppBundle:Side')->findPrimaries();
-        $agendas = $em->getRepository('AppBundle:Card')->findByType("agenda");
+        $objectives = $em->getRepository('AppBundle:Card')->findByType("objective");
 
         return $this->render('AppBundle:Builder:initbuild.html.twig', [
                     'pagetitle' => $this->get('translator')->trans('decks.form.new'),
                     'sides' => $sides,
-                    'agendas' => $agendas,
+                    'objectives' => $objectives,
                         ], $response);
     }
 
@@ -43,7 +43,7 @@ class BuilderController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $side_code = $request->request->get('side');
-        $agenda_code = $request->request->get('agenda');
+        $objective_code = $request->request->get('objective');
 
         if (!$side_code) {
             $this->get('session')->getFlashBag()->set('error', $translator->trans("decks.build.errors.noside"));
@@ -57,20 +57,20 @@ class BuilderController extends Controller
         }
         $tags = [$side_code];
 
-        if (!$agenda_code) {
-            $agenda = null;
-            $name = $translator->trans("decks.build.newname.noagenda", array(
+        if (!$objective_code) {
+            $objective = null;
+            $name = $translator->trans("decks.build.newname.noobjective", array(
                 "%side%" => $side->getName()
             ));
             $set = $em->getRepository('AppBundle:Set')->findOneBy(array("code" => "Core"));
         } else {
-            $agenda = $em->getRepository('AppBundle:Card')->findByCode($agenda_code);
-            $name = $translator->trans("decks.build.newname.noagenda", array(
+            $objective = $em->getRepository('AppBundle:Card')->findByCode($objective_code);
+            $name = $translator->trans("decks.build.newname.noobjective", array(
                 "%side%" => $side->getName(),
-                "%agenda%" => $agenda->getName()
+                "%objective%" => $objective->getName()
             ));
-            $set = $agenda->getSet();
-            $tags[] = $this->get('agenda_helper')->getMinorSideCode($agenda);
+            $set = $objective->getSet();
+            $tags[] = $this->get('objective_helper')->getMinorSideCode($objective);
         }
 
 
@@ -83,9 +83,9 @@ class BuilderController extends Controller
         $deck->setTags(join(' ', array_unique($tags)));
         $deck->setUser($this->getUser());
 
-        if ($agenda) {
+        if ($objective) {
             $slot = new Deckslot();
-            $slot->setCard($agenda);
+            $slot->setCard($objective);
             $slot->setQuantity(1);
             $slot->setDeck($deck);
             $deck->addSlot($slot);
@@ -149,7 +149,7 @@ class BuilderController extends Controller
                 'error' => "Unable to recognize the Side of the deck."
             ]);
         }
-        
+
         $this->get('deck_manager')->save($this->getUser(), new Deck(), null, $name, $data['side'], $data['description'], null, $data['content'], null);
 
         $this->getDoctrine()->getEntityManager()->flush();

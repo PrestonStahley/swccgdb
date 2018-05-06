@@ -23,19 +23,19 @@
 		</div>
 	</div>
 	<div class="col-md-4">
-		<h2>{{ 'decks.build.choose.agenda' | trans }}</h2>
+		<h2>{{ 'decks.build.choose.objective' | trans }}</h2>
 		<ul class="list-group">
 			<li class="list-group-item radio">
 				<label>
-					<input type="radio" name="agenda" value="" checked="checked">
-					{{ 'decks.build.choose.noagenda' | trans }}
+					<input type="radio" name="objective" value="" checked="checked">
+					{{ 'decks.build.choose.noobjective' | trans }}
 				</label>
 			</li>
-		{% for agenda in agendas %}
+		{% for objective in objectives %}
 			<li class="list-group-item radio">
 				<label>
-					<input type="radio" name="agenda" value="{{ agenda.code }}">
-					{{ macros.card_name_with_set_no_link(agenda) }}
+					<input type="radio" name="objective" value="{{ objective.code }}">
+					{{ macros.card_name_with_set_no_link(objective) }}
 				</label>
 			</li>
 		{% endfor %}
