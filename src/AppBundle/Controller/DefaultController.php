@@ -27,8 +27,8 @@ class DefaultController extends Controller
         }
         
         $decklists_by_side = [];
-        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findBy(['isPrimary' => true], ['code' => 'ASC']);
-        
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findBy(['code' => 'ASC']);
+
         foreach ($sides as $side) {
             $array = [];
             $array['side'] = $side;
