@@ -19,14 +19,14 @@ class SetType extends AbstractType
             ->add('position')
         ;
     }
-    
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Set'
         ));
     }
-    
+
     public function getName()
     {
         return 'appbundle_settype';
