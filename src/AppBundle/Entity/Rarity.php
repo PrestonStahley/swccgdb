@@ -2,28 +2,23 @@
 
 namespace AppBundle\Entity;
 
-class Faction implements  \Serializable
+class Rarity implements \Gedmo\Translatable\Translatable, \Serializable
 {
-    public function serialize()
-    {
-        return [
-                'code' => $this->code,
-                'name' => $this->name,
-                'is_primary' => $this->isPrimary,
-                'octgn_id' => $this->octgnId
-        ];
-    }
-    
-    public function unserialize($serialized)
-    {
-        throw new \Exception("unserialize() method unsupported");
-    }
-    
-    public function toString()
-    {
+	public function serialize() {
+		return [
+				'code' => $this->code,
+				'name' => $this->name
+		];
+	}
+
+	public function unserialize($serialized) {
+		throw new \Exception("unserialize() method unsupported");
+	}
+
+    public function toString() {
         return $this->name;
     }
-    
+
     /**
      * @var integer
      */
@@ -38,16 +33,6 @@ class Faction implements  \Serializable
      * @var string
      */
     private $name;
-
-    /**
-     * @var boolean
-     */
-    private $isPrimary;
-
-    /**
-     * @var string
-     */
-    private $octgnId;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -118,54 +103,6 @@ class Faction implements  \Serializable
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set isPrimary
-     *
-     * @param boolean $isPrimary
-     *
-     * @return Faction
-     */
-    public function setIsPrimary($isPrimary)
-    {
-        $this->isPrimary = $isPrimary;
-
-        return $this;
-    }
-
-    /**
-     * Get isPrimary
-     *
-     * @return boolean
-     */
-    public function getIsPrimary()
-    {
-        return $this->isPrimary;
-    }
-
-    /**
-     * Set octgnId
-     *
-     * @param string $octgnId
-     *
-     * @return Faction
-     */
-    public function setOctgnId($octgnId)
-    {
-        $this->octgnId = $octgnId;
-
-        return $this;
-    }
-
-    /**
-     * Get octgnId
-     *
-     * @return string
-     */
-    public function getOctgnId()
-    {
-        return $this->octgnId;
     }
 
     /**

@@ -9,64 +9,143 @@ class Card implements \Serializable
         $parts = explode('_', $snake);
         return implode('', array_map('ucfirst', $parts));
     }
-    
+
     public function serialize()
     {
         $serialized = [];
         if (empty($this->code)) {
             return $serialized;
         }
-    
+
         $mandatoryFields = [
                 'code',
-                'deck_limit',
                 'position',
-                'quantity',
                 'name',
-                'traits',
-                'is_loyal',
-                'is_unique',
-                'is_multiple',
-                'octgn_id',
+                'gametext',
+                'has_errata',
+                'image_url',
+                'uniqueness'
         ];
-    
+
         $optionalFields = [
-                'illustrator',
-                'flavor',
-                'text',
-                'cost',
+                'characteristics',
+                'destiny',
+                'episode_1',
+                'episode_7',
+                'lore'
         ];
-    
+
         $externalFields = [
-                'faction',
-                'pack',
-                'type'
+                'side',
+                'set',
+                'type',
+                'subtype',
+                'rarity'
         ];
-    
+
         switch ($this->type->getCode()) {
-            case 'agenda':
-            case 'title':
-                break;
-            case 'attachment':
-            case 'event':
-            case 'location':
-                $mandatoryFields[] = 'cost';
-                break;
+            case 'admirals-order':
+              break;
             case 'character':
-                $mandatoryFields[] = 'cost';
-                $mandatoryFields[] = 'strength';
-                $mandatoryFields[] = 'is_military';
-                $mandatoryFields[] = 'is_intrigue';
-                $mandatoryFields[] = 'is_power';
-                break;
-            case 'plot':
-                $mandatoryFields[] = 'claim';
-                $mandatoryFields[] = 'income';
-                $mandatoryFields[] = 'initiative';
-                $mandatoryFields[] = 'reserve';
-                break;
+              $optionalFields[] = 'ability';
+              $optionalFields[] = 'armor';
+              $optionalFields[] = 'clone_army';
+              $optionalFields[] = 'deploy';
+              $optionalFields[] = 'force_aptitude';
+              $optionalFields[] = 'forfeit';
+              $optionalFields[] = 'maneuver';
+              $optionalFields[] = 'model_type';
+              $optionalFields[] = 'nav_computer';
+              $optionalFields[] = 'permanent_weapon';
+              $optionalFields[] = 'pilot';
+              $optionalFields[] = 'politics';
+              $optionalFields[] = 'power';
+              $optionalFields[] = 'presence';
+              $optionalFields[] = 'republic';
+              $optionalFields[] = 'separatist';
+              $optionalFields[] = 'warrior';
+              break;
+            case 'creature':
+              $optionalFields[] = 'defense_value';
+              $optionalFields[] = 'defense_value_name';
+              $optionalFields[] = 'deploy';
+              $optionalFields[] = 'ferocity';
+              $optionalFields[] = 'forfeit';
+              $optionalFields[] = 'model_type';
+              $optionalFields[] = 'selective';
+              break;
+            case 'defensive-shield':
+              $optionalFields[] = 'grabber';
+              break;
+            case 'device':
+              break;
+            case 'effect':
+              $optionalFields[] = 'grabber';
+              break;
+            case 'epic-event':
+              break;
+            case 'interrupt':
+              break;
+            case 'jedi-test':
+              break;
+            case 'location':
+              $optionalFields[] = 'dark_side_icons';
+              $optionalFields[] = 'dark_side_text';
+              $optionalFields[] = 'light_side_icons';
+              $optionalFields[] = 'light_side_text';
+              $optionalFields[] = 'mobile';
+              $optionalFields[] = 'planet';
+              $optionalFields[] = 'scomp_link';
+              $optionalFields[] = 'site_creature';
+              $optionalFields[] = 'site_exterior';
+              $optionalFields[] = 'site_interior';
+              $optionalFields[] = 'site_starship';
+              $optionalFields[] = 'site_underground';
+              $optionalFields[] = 'site_underwater';
+              $optionalFields[] = 'site_vehicle';
+              $optionalFields[] = 'space';
+              $optionalFields[] = 'system_parsec';
+              break;
+            case 'objective':
+              break;
+            case 'podracer':
+              break;
+            case 'starship':
+              $optionalFields[] = 'ability';
+              $optionalFields[] = 'armor';
+              $optionalFields[] = 'clone_army';
+              $optionalFields[] = 'deploy';
+              $optionalFields[] = 'forfeit';
+              $optionalFields[] = 'hyperspeed';
+              $optionalFields[] = 'independent';
+              $optionalFields[] = 'maneuver';
+              $optionalFields[] = 'model_type';
+              $optionalFields[] = 'nav_computer';
+              $optionalFields[] = 'pilot';
+              $optionalFields[] = 'power';
+              $optionalFields[] = 'presence';
+              $optionalFields[] = 'republic';
+              $optionalFields[] = 'scomp_link';
+              $optionalFields[] = 'trade_federation';
+              break;
+            case 'vehicle':
+              $optionalFields[] = 'ability';
+              $optionalFields[] = 'armor';
+              $optionalFields[] = 'deploy';
+              $optionalFields[] = 'forfeit';
+              $optionalFields[] = 'landspeed';
+              $optionalFields[] = 'model_type';
+              $optionalFields[] = 'pilot';
+              $optionalFields[] = 'power';
+              $optionalFields[] = 'presence';
+              $optionalFields[] = 'scomp_link';
+              break;
+            case 'weapon':
+              $optionalFields[] = 'deploy';
+              $optionalFields[] = 'forfeit';
+              break;
         }
-    
+
         foreach ($optionalFields as $optionalField) {
             $getter = 'get' . $this->snakeToCamel($optionalField);
             $serialized[$optionalField] = $this->$getter();
@@ -74,17 +153,17 @@ class Card implements \Serializable
                 unset($serialized[$optionalField]);
             }
         }
-    
+
         foreach ($mandatoryFields as $mandatoryField) {
             $getter = 'get' . $this->snakeToCamel($mandatoryField);
             $serialized[$mandatoryField] = $this->$getter();
         }
-    
+
         foreach ($externalFields as $externalField) {
             $getter = 'get' . $this->snakeToCamel($externalField);
             $serialized[$externalField.'_code'] = $this->$getter()->getCode();
         }
-    
+
         ksort($serialized);
         return $serialized;
     }
@@ -93,12 +172,12 @@ class Card implements \Serializable
     {
         throw new \Exception("unserialize() method unsupported");
     }
-    
+
     public function toString()
     {
         return $this->name;
     }
-    
+
     /**
      * @var integer
      */
@@ -122,12 +201,12 @@ class Card implements \Serializable
     /**
      * @var integer
      */
-    private $cost;
+    private $ability;
 
     /**
      * @var string
      */
-    private $text;
+    private $gametext;
 
     /**
      * @var \DateTime
@@ -142,82 +221,257 @@ class Card implements \Serializable
     /**
      * @var integer
      */
-    private $quantity;
+    private $armor;
 
     /**
      * @var integer
      */
-    private $income;
+    private $darkSideIcons;
 
     /**
      * @var integer
      */
-    private $initiative;
+    private $lightSideIcons;
 
     /**
      * @var integer
      */
-    private $claim;
+    private $defenseValue;
 
     /**
      * @var integer
      */
-    private $reserve;
+    private $deploy;
 
     /**
      * @var integer
      */
-    private $deckLimit;
+    private $destiny;
 
     /**
      * @var integer
      */
-    private $strength;
+    private $ferocity;
+
+    /**
+     * @var integer
+     */
+    private $forfeit;
+
+    /**
+     * @var integer
+     */
+    private $hyperspeed;
+
+    /**
+     * @var integer
+     */
+    private $landspeed;
+
+    /**
+     * @var integer
+     */
+    private $maneuver;
+
+    /**
+     * @var integer
+     */
+    private $politics;
+
+    /**
+     * @var integer
+     */
+    private $power;
+
+    /**
+     * @var integer
+     */
+    private $systemParsec;
 
     /**
      * @var string
      */
-    private $traits;
+    private $characteristics;
 
     /**
      * @var string
      */
-    private $flavor;
+    private $darkSideText;
 
     /**
      * @var string
      */
-    private $illustrator;
-
-    /**
-     * @var boolean
-     */
-    private $isUnique;
-
-    /**
-     * @var boolean
-     */
-    private $isLoyal;
-
-    /**
-     * @var boolean
-     */
-    private $isMilitary;
-
-    /**
-     * @var boolean
-     */
-    private $isIntrigue;
-
-    /**
-     * @var boolean
-     */
-    private $isPower;
+    private $lightSideText;
 
     /**
      * @var string
      */
-    private $octgnId;
+    private $defenseValueName;
+
+    /**
+     * @var string
+     */
+    private $modelType;
+
+    /**
+     * @var boolean
+     */
+    private $cloneArmy;
+
+    /**
+     * @var boolean
+     */
+    private $episode1;
+
+    /**
+     * @var boolean
+     */
+    private $episode7;
+
+    /**
+     * @var boolean
+     */
+    private $firstOrder;
+
+    /**
+     * @var boolean
+     */
+    private $grabber;
+
+    /**
+     * @var boolean
+     */
+    private $hasErrata;
+
+    /**
+     * @var boolean
+     */
+    private $independent;
+
+    /**
+     * @var boolean
+     */
+    private $mobile;
+
+    /**
+     * @var boolean
+     */
+    private $navComputer;
+
+    /**
+     * @var boolean
+     */
+    private $permanentWeapon;
+
+    /**
+     * @var boolean
+     */
+    private $pilot;
+
+    /**
+     * @var boolean
+     */
+    private $planet;
+
+    /**
+     * @var boolean
+     */
+    private $presence;
+
+    /**
+     * @var boolean
+     */
+    private $republic;
+
+    /**
+     * @var boolean
+     */
+    private $resistance;
+
+    /**
+     * @var boolean
+     */
+    private $scomp_link;
+
+    /**
+     * @var boolean
+     */
+    private $selective;
+
+    /**
+     * @var boolean
+     */
+    private $separatist;
+
+    /**
+     * @var boolean
+     */
+    private $siteCreature;
+
+    /**
+     * @var boolean
+     */
+    private $siteExterior;
+
+    /**
+     * @var boolean
+     */
+    private $siteInterior;
+
+    /**
+     * @var boolean
+     */
+    private $siteStarship;
+
+    /**
+     * @var boolean
+     */
+    private $siteUnderground;
+
+    /**
+     * @var boolean
+     */
+    private $siteUnderwater;
+
+    /**
+     * @var boolean
+     */
+    private $siteVehicle;
+
+    /**
+     * @var boolean
+     */
+    private $space;
+
+    /**
+     * @var boolean
+     */
+    private $tradeFederation;
+
+    /**
+     * @var boolean
+     */
+    private $warrior;
+
+    /**
+     * @var string
+     */
+    private $forceAptitude;
+
+    /**
+     * @var string
+     */
+    private $imageUrl;
+
+    /**
+     * @var string
+     */
+    private $lore;
+
+    /**
+     * @var string
+     */
+    private $uniqueness;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -225,9 +479,9 @@ class Card implements \Serializable
     private $reviews;
 
     /**
-     * @var \AppBundle\Entity\Pack
+     * @var \AppBundle\Entity\Set
      */
-    private $pack;
+    private $set;
 
     /**
      * @var \AppBundle\Entity\Type
@@ -235,25 +489,25 @@ class Card implements \Serializable
     private $type;
 
     /**
-     * @var \AppBundle\Entity\Faction
+     * @var \AppBundle\Entity\Subtype
      */
-    private $faction;
+    private $subtype;
 
     /**
-     * @var boolean
+     * @var \AppBundle\Entity\Side
      */
-    private $isMultiple;
+    private $side;
+
+    /**
+     * @var \AppBundle\Entity\Rarity
+     */
+    private $rarity;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->isMilitary = false;
-        $this->isIntrigue = false;
-        $this->isPower = false;
-        $this->isMultiple = false;
-         
         $this->reviews = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -340,51 +594,51 @@ class Card implements \Serializable
     }
 
     /**
-     * Set cost
+     * Set ability
      *
-     * @param integer $cost
+     * @param integer $ability
      *
      * @return Card
      */
-    public function setCost($cost)
+    public function setAbility($ability)
     {
-        $this->cost = $cost;
+        $this->ability = $ability;
 
         return $this;
     }
 
     /**
-     * Get cost
+     * Get ability
      *
      * @return integer
      */
-    public function getCost()
+    public function getAbility()
     {
-        return $this->cost;
+        return $this->ability;
     }
 
     /**
-     * Set text
+     * Set gametext
      *
-     * @param string $text
+     * @param string $gametext
      *
      * @return Card
      */
-    public function setText($text)
+    public function setGametext($gametext)
     {
-        $this->text = $text;
+        $this->gametext = $gametext;
 
         return $this;
     }
 
     /**
-     * Get text
+     * Get gametext
      *
      * @return string
      */
-    public function getText()
+    public function getGametext()
     {
-        return $this->text;
+        return $this->gametext;
     }
 
     /**
@@ -436,387 +690,1227 @@ class Card implements \Serializable
     }
 
     /**
-     * Set quantity
+     * Set armor
      *
-     * @param integer $quantity
+     * @param integer $armor
      *
      * @return Card
      */
-    public function setQuantity($quantity)
+    public function setArmor($armor)
     {
-        $this->quantity = $quantity;
+        $this->armor = $armor;
 
         return $this;
     }
 
     /**
-     * Get quantity
+     * Get armor
      *
      * @return integer
      */
-    public function getQuantity()
+    public function getArmor()
     {
-        return $this->quantity;
+        return $this->armor;
     }
 
     /**
-     * Set income
+     * Set darkSideIcons
      *
-     * @param integer $income
+     * @param integer $darkSideIcons
      *
      * @return Card
      */
-    public function setIncome($income)
+    public function setDarkSideIcons($darkSideIcons)
     {
-        $this->income = $income;
+        $this->darkSideIcons = $darkSideIcons;
 
         return $this;
     }
 
     /**
-     * Get income
+     * Get darkSideIcons
      *
      * @return integer
      */
-    public function getIncome()
+    public function getDarkSideIcons()
     {
-        return $this->income;
+        return $this->darkSideIcons;
     }
 
     /**
-     * Set initiative
+     * Set lightSideIcons
      *
-     * @param integer $initiative
+     * @param integer $lightSideIcons
      *
      * @return Card
      */
-    public function setInitiative($initiative)
+    public function setLightSideIcons($lightSideIcons)
     {
-        $this->initiative = $initiative;
+        $this->lightSideIcons = $lightSideIcons;
 
         return $this;
     }
 
     /**
-     * Get initiative
+     * Get lightSideIcons
      *
      * @return integer
      */
-    public function getInitiative()
+    public function getLightSideIcons()
     {
-        return $this->initiative;
+        return $this->lightSideIcons;
     }
 
     /**
-     * Set claim
+     * Set defenseValue
      *
-     * @param integer $claim
+     * @param integer $defenseValue
      *
      * @return Card
      */
-    public function setClaim($claim)
+    public function setDefenseValue($defenseValue)
     {
-        $this->claim = $claim;
+        $this->defenseValue = $defenseValue;
 
         return $this;
     }
 
     /**
-     * Get claim
+     * Get defenseValue
      *
      * @return integer
      */
-    public function getClaim()
+    public function getDefenseValue()
     {
-        return $this->claim;
+        return $this->defenseValue;
     }
 
     /**
-     * Set reserve
+     * Set deploy
      *
-     * @param integer $reserve
+     * @param integer $deploy
      *
      * @return Card
      */
-    public function setReserve($reserve)
+    public function setDeploy($deploy)
     {
-        $this->reserve = $reserve;
+        $this->deploy = $deploy;
 
         return $this;
     }
 
     /**
-     * Get reserve
+     * Get deploy
      *
      * @return integer
      */
-    public function getReserve()
+    public function getDeploy()
     {
-        return $this->reserve;
+        return $this->deploy;
     }
 
     /**
-     * Set deckLimit
+     * Set destiny
      *
-     * @param integer $deckLimit
+     * @param integer $destiny
      *
      * @return Card
      */
-    public function setDeckLimit($deckLimit)
+    public function setDestiny($destiny)
     {
-        $this->deckLimit = $deckLimit;
+        $this->destiny = $destiny;
 
         return $this;
     }
 
     /**
-     * Get deckLimit
+     * Get destiny
      *
      * @return integer
      */
-    public function getDeckLimit()
+    public function getDestiny()
     {
-        return $this->deckLimit;
+        return $this->destiny;
     }
 
     /**
-     * Set strength
+     * Set ferocity
      *
-     * @param integer $strength
+     * @param integer $ferocity
      *
      * @return Card
      */
-    public function setStrength($strength)
+    public function setFerocity($ferocity)
     {
-        $this->strength = $strength;
+        $this->ferocity = $ferocity;
 
         return $this;
     }
 
     /**
-     * Get strength
+     * Get ferocity
      *
      * @return integer
      */
-    public function getStrength()
+    public function getFerocity()
     {
-        return $this->strength;
+        return $this->ferocity;
     }
 
     /**
-     * Set traits
+     * Set forfeit
      *
-     * @param string $traits
+     * @param integer $forfeit
      *
      * @return Card
      */
-    public function setTraits($traits)
+    public function setForfeit($forfeit)
     {
-        $this->traits = $traits;
+        $this->forfeit = $forfeit;
 
         return $this;
     }
 
     /**
-     * Get traits
+     * Get forfeit
+     *
+     * @return integer
+     */
+    public function getForfeit()
+    {
+        return $this->forfeit;
+    }
+
+    /**
+     * Set hyperspeed
+     *
+     * @param integer $hyperspeed
+     *
+     * @return Card
+     */
+    public function setHyperspeed($hyperspeed)
+    {
+        $this->hyperspeed = $hyperspeed;
+
+        return $this;
+    }
+
+    /**
+     * Get hyperspeed
+     *
+     * @return integer
+     */
+    public function getHyperspeed()
+    {
+        return $this->hyperspeed;
+    }
+
+    /**
+     * Set landspeed
+     *
+     * @param integer $landspeed
+     *
+     * @return Card
+     */
+    public function setLandspeed($landspeed)
+    {
+        $this->landspeed = $landspeed;
+
+        return $this;
+    }
+
+    /**
+     * Get landspeed
+     *
+     * @return integer
+     */
+    public function getLandspeed()
+    {
+        return $this->landspeed;
+    }
+
+    /**
+     * Set maneuver
+     *
+     * @param integer $maneuver
+     *
+     * @return Card
+     */
+    public function setManeuver($maneuver)
+    {
+        $this->maneuver = $maneuver;
+
+        return $this;
+    }
+
+    /**
+     * Get maneuver
+     *
+     * @return integer
+     */
+    public function getManeuver()
+    {
+        return $this->maneuver;
+    }
+
+    /**
+     * Set politics
+     *
+     * @param integer $politics
+     *
+     * @return Card
+     */
+    public function setPolitics($politics)
+    {
+        $this->politics = $politics;
+
+        return $this;
+    }
+
+    /**
+     * Get politics
+     *
+     * @return integer
+     */
+    public function getPolitics()
+    {
+        return $this->politics;
+    }
+
+    /**
+     * Set power
+     *
+     * @param integer $power
+     *
+     * @return Card
+     */
+    public function setPower($power)
+    {
+        $this->power = $power;
+
+        return $this;
+    }
+
+    /**
+     * Get power
+     *
+     * @return integer
+     */
+    public function getPower()
+    {
+        return $this->power;
+    }
+
+    /**
+     * Set systemParsec
+     *
+     * @param integer $systemParsec
+     *
+     * @return Card
+     */
+    public function setSystemParsec($systemParsec)
+    {
+        $this->systemParsec = $systemParsec;
+
+        return $this;
+    }
+
+    /**
+     * Get systemParsec
+     *
+     * @return integer
+     */
+    public function getSystemParsec()
+    {
+        return $this->systemParsec;
+    }
+
+    /**
+     * Set characteristics
+     *
+     * @param string $characteristics
+     *
+     * @return Card
+     */
+    public function setCharacteristics($characteristics)
+    {
+        $this->characteristics = $characteristics;
+
+        return $this;
+    }
+
+    /**
+     * Get characteristics
      *
      * @return string
      */
-    public function getTraits()
+    public function getCharacteristics()
     {
-        return $this->traits;
+        return $this->characteristics;
     }
 
     /**
-     * Set flavor
+     * Set darkSideText
      *
-     * @param string $flavor
+     * @param string $darkSideText
      *
      * @return Card
      */
-    public function setFlavor($flavor)
+    public function setDarkSideText($darkSideText)
     {
-        $this->flavor = $flavor;
+        $this->darkSideText = $darkSideText;
 
         return $this;
     }
 
     /**
-     * Get flavor
+     * Get darkSideText
      *
      * @return string
      */
-    public function getFlavor()
+    public function getDarkSideText()
     {
-        return $this->flavor;
+        return $this->darkSideText;
     }
 
     /**
-     * Set illustrator
+     * Set lightSideText
      *
-     * @param string $illustrator
+     * @param string $lightSideText
      *
      * @return Card
      */
-    public function setIllustrator($illustrator)
+    public function setLightSideText($lightSideText)
     {
-        $this->illustrator = $illustrator;
+        $this->lightSideText = $lightSideText;
 
         return $this;
     }
 
     /**
-     * Get illustrator
+     * Get lightSideText
      *
      * @return string
      */
-    public function getIllustrator()
+    public function getLightSideText()
     {
-        return $this->illustrator;
+        return $this->lightSideText;
     }
 
     /**
-     * Set isUnique
+     * Set defenseValueName
      *
-     * @param boolean $isUnique
+     * @param string $defenseValueName
      *
      * @return Card
      */
-    public function setIsUnique($isUnique)
+    public function setDefenseValueName($defenseValueName)
     {
-        $this->isUnique = $isUnique;
+        $this->defenseValueName = $defenseValueName;
 
         return $this;
     }
 
     /**
-     * Get isUnique
+     * Get defenseValueName
      *
-     * @return boolean
+     * @return string
      */
-    public function getIsUnique()
+    public function getDefenseValueName()
     {
-        return $this->isUnique;
+        return $this->defenseValueName;
     }
 
     /**
-     * Set isLoyal
+     * Set modelType
      *
-     * @param boolean $isLoyal
+     * @param string $modelType
      *
      * @return Card
      */
-    public function setIsLoyal($isLoyal)
+    public function setModelType($modelType)
     {
-        $this->isLoyal = $isLoyal;
+        $this->modelType = $modelType;
 
         return $this;
     }
 
     /**
-     * Get isLoyal
+     * Get modelType
      *
-     * @return boolean
+     * @return string
      */
-    public function getIsLoyal()
+    public function getModelType()
     {
-        return $this->isLoyal;
+        return $this->modelType;
     }
 
     /**
-     * Set isMilitary
+     * Set cloneArmy
      *
-     * @param boolean $isMilitary
+     * @param boolean $cloneArmy
      *
      * @return Card
      */
-    public function setIsMilitary($isMilitary)
+    public function setCloneArmy($cloneArmy)
     {
-        $this->isMilitary = $isMilitary;
+        $this->cloneArmy = $cloneArmy;
 
         return $this;
     }
 
     /**
-     * Get isMilitary
+     * Get cloneArmy
      *
      * @return boolean
      */
-    public function getIsMilitary()
+    public function getCloneArmy()
     {
-        return $this->isMilitary;
+        return $this->cloneArmy;
     }
 
     /**
-     * Set isIntrigue
+     * Set episode1
      *
-     * @param boolean $isIntrigue
+     * @param boolean $episode1
      *
      * @return Card
      */
-    public function setIsIntrigue($isIntrigue)
+    public function setEpisode1($episode1)
     {
-        $this->isIntrigue = $isIntrigue;
+        $this->episode1 = $episode1;
 
         return $this;
     }
 
     /**
-     * Get isIntrigue
+     * Get episode1
      *
      * @return boolean
      */
-    public function getIsIntrigue()
+    public function getEpisode1()
     {
-        return $this->isIntrigue;
+        return $this->episode1;
     }
 
     /**
-     * Set isPower
+     * Set episode7
      *
-     * @param boolean $isPower
+     * @param boolean $episode7
      *
      * @return Card
      */
-    public function setIsPower($isPower)
+    public function setEpisode7($episode7)
     {
-        $this->isPower = $isPower;
+        $this->episode7 = $episode7;
 
         return $this;
     }
 
     /**
-     * Get isPower
+     * Get episode7
      *
      * @return boolean
      */
-    public function getIsPower()
+    public function getEpisode7()
     {
-        return $this->isPower;
+        return $this->episode7;
     }
 
     /**
-     * Set octgnId
+     * Set firstOrder
      *
-     * @param boolean $octgnId
+     * @param boolean $firstOrder
      *
      * @return Card
      */
-    public function setOctgnId($octgnId)
+    public function setFirstOrder($firstOrder)
     {
-        $this->octgnId = $octgnId;
+        $this->firstOrder = $firstOrder;
 
         return $this;
     }
 
     /**
-     * Get octgnId
+     * Get firstOrder
      *
      * @return boolean
      */
-    public function getOctgnId()
+    public function getFirstOrder()
     {
-        return $this->octgnId;
+        return $this->firstOrder;
+    }
+
+    /**
+     * Set grabber
+     *
+     * @param boolean $grabber
+     *
+     * @return Card
+     */
+    public function setGrabber($grabber)
+    {
+        $this->grabber = $grabber;
+
+        return $this;
+    }
+
+    /**
+     * Get grabber
+     *
+     * @return boolean
+     */
+    public function getGrabber()
+    {
+        return $this->grabber;
+    }
+
+    /**
+     * Set hasErrata
+     *
+     * @param boolean $hasErrata
+     *
+     * @return Card
+     */
+    public function setHasErrata($hasErrata)
+    {
+        $this->hasErrata = $hasErrata;
+
+        return $this;
+    }
+
+    /**
+     * Get hasErrata
+     *
+     * @return boolean
+     */
+    public function getHasErrata()
+    {
+        return $this->hasErrata;
+    }
+
+    /**
+     * Set independent
+     *
+     * @param boolean $independent
+     *
+     * @return Card
+     */
+    public function setIndependent($independent)
+    {
+        $this->independent = $independent;
+
+        return $this;
+    }
+
+    /**
+     * Get independent
+     *
+     * @return boolean
+     */
+    public function getIndependent()
+    {
+        return $this->independent;
+    }
+
+    /**
+     * Set mobile
+     *
+     * @param boolean $mobile
+     *
+     * @return Card
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    /**
+     * Get mobile
+     *
+     * @return boolean
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * Set navComputer
+     *
+     * @param boolean $navComputer
+     *
+     * @return Card
+     */
+    public function setNavComputer($navComputer)
+    {
+        $this->navComputer = $navComputer;
+
+        return $this;
+    }
+
+    /**
+     * Get navComputer
+     *
+     * @return boolean
+     */
+    public function getNavComputer()
+    {
+        return $this->navComputer;
+    }
+
+    /**
+     * Set permanentWeapon
+     *
+     * @param boolean $permanentWeapon
+     *
+     * @return Card
+     */
+    public function setPermanentWeapon($permanentWeapon)
+    {
+        $this->permanentWeapon = $permanentWeapon;
+
+        return $this;
+    }
+
+    /**
+     * Get permanentWeapon
+     *
+     * @return boolean
+     */
+    public function getPermanentWeapon()
+    {
+        return $this->permanentWeapon;
+    }
+
+    /**
+     * Set pilot
+     *
+     * @param boolean $pilot
+     *
+     * @return Card
+     */
+    public function setPilot($pilot)
+    {
+        $this->pilot = $pilot;
+
+        return $this;
+    }
+
+    /**
+     * Get pilot
+     *
+     * @return boolean
+     */
+    public function getPilot()
+    {
+        return $this->pilot;
+    }
+
+    /**
+     * Set planet
+     *
+     * @param boolean $planet
+     *
+     * @return Card
+     */
+    public function setPlanet($planet)
+    {
+        $this->planet = $planet;
+
+        return $this;
+    }
+
+    /**
+     * Get planet
+     *
+     * @return boolean
+     */
+    public function getPlanet()
+    {
+        return $this->planet;
+    }
+
+    /**
+     * Set presence
+     *
+     * @param boolean $presence
+     *
+     * @return Card
+     */
+    public function setPresence($presence)
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+    /**
+     * Get presence
+     *
+     * @return boolean
+     */
+    public function getPresence()
+    {
+        return $this->presence;
+    }
+
+    /**
+     * Set republic
+     *
+     * @param boolean $republic
+     *
+     * @return Card
+     */
+    public function setRepublic($republic)
+    {
+        $this->republic = $republic;
+
+        return $this;
+    }
+
+    /**
+     * Get republic
+     *
+     * @return boolean
+     */
+    public function getRepublic()
+    {
+        return $this->republic;
+    }
+
+    /**
+     * Set resistance
+     *
+     * @param boolean $resistance
+     *
+     * @return Card
+     */
+    public function setResistance($resistance)
+    {
+        $this->resistance = $resistance;
+
+        return $this;
+    }
+
+    /**
+     * Get resistance
+     *
+     * @return boolean
+     */
+    public function getResistance()
+    {
+        return $this->resistance;
+    }
+
+    /**
+     * Set scompLink
+     *
+     * @param boolean $scompLink
+     *
+     * @return Card
+     */
+    public function setScompLink($scompLink)
+    {
+        $this->scompLink = $scompLink;
+
+        return $this;
+    }
+
+    /**
+     * Get scompLink
+     *
+     * @return boolean
+     */
+    public function getScompLink()
+    {
+        return $this->scompLink;
+    }
+
+    /**
+     * Set selective
+     *
+     * @param boolean $selective
+     *
+     * @return Card
+     */
+    public function setSelective($selective)
+    {
+        $this->selective = $selective;
+
+        return $this;
+    }
+
+    /**
+     * Get selective
+     *
+     * @return boolean
+     */
+    public function getSelective()
+    {
+        return $this->selective;
+    }
+
+    /**
+     * Set separatist
+     *
+     * @param boolean $separatist
+     *
+     * @return Card
+     */
+    public function setSeparatist($separatist)
+    {
+        $this->separatist = $separatist;
+
+        return $this;
+    }
+
+    /**
+     * Get separatist
+     *
+     * @return boolean
+     */
+    public function getSeparatist()
+    {
+        return $this->separatist;
+    }
+
+    /**
+     * Set siteCreature
+     *
+     * @param boolean $siteCreature
+     *
+     * @return Card
+     */
+    public function setSiteCreature($siteCreature)
+    {
+        $this->siteCreature = $siteCreature;
+
+        return $this;
+    }
+
+    /**
+     * Get siteCreature
+     *
+     * @return boolean
+     */
+    public function getSiteCreature()
+    {
+        return $this->siteCreature;
+    }
+
+    /**
+     * Set siteExterior
+     *
+     * @param boolean $siteExterior
+     *
+     * @return Card
+     */
+    public function setSiteExterior($siteExterior)
+    {
+        $this->siteExterior = $siteExterior;
+
+        return $this;
+    }
+
+    /**
+     * Get siteExterior
+     *
+     * @return boolean
+     */
+    public function getSiteExterior()
+    {
+        return $this->siteExterior;
+    }
+
+    /**
+     * Set siteInterior
+     *
+     * @param boolean $siteInterior
+     *
+     * @return Card
+     */
+    public function setSiteInterior($siteInterior)
+    {
+        $this->siteInterior = $siteInterior;
+
+        return $this;
+    }
+
+    /**
+     * Get siteInterior
+     *
+     * @return boolean
+     */
+    public function getSiteInterior()
+    {
+        return $this->siteInterior;
+    }
+
+    /**
+     * Set siteStarship
+     *
+     * @param boolean $siteStarship
+     *
+     * @return Card
+     */
+    public function setSiteStarship($siteStarship)
+    {
+        $this->siteStarship = $siteStarship;
+
+        return $this;
+    }
+
+    /**
+     * Get siteStarship
+     *
+     * @return boolean
+     */
+    public function getSiteStarship()
+    {
+        return $this->siteStarship;
+    }
+
+    /**
+     * Set siteUnderground
+     *
+     * @param boolean $siteUnderground
+     *
+     * @return Card
+     */
+    public function setSiteUnderground($siteUnderground)
+    {
+        $this->siteUnderground = $siteUnderground;
+
+        return $this;
+    }
+
+    /**
+     * Get siteUnderground
+     *
+     * @return boolean
+     */
+    public function getSiteUnderground()
+    {
+        return $this->siteUnderground;
+    }
+
+    /**
+     * Set siteUnderwater
+     *
+     * @param boolean $siteUnderwater
+     *
+     * @return Card
+     */
+    public function setSiteUnderwater($siteUnderwater)
+    {
+        $this->siteUnderwater = $siteUnderwater;
+
+        return $this;
+    }
+
+    /**
+     * Get siteUnderwater
+     *
+     * @return boolean
+     */
+    public function getSiteUnderwater()
+    {
+        return $this->siteUnderwater;
+    }
+
+    /**
+     * Set siteVehicle
+     *
+     * @param boolean $siteVehicle
+     *
+     * @return Card
+     */
+    public function setSiteVehicle($siteVehicle)
+    {
+        $this->siteVehicle = $siteVehicle;
+
+        return $this;
+    }
+
+    /**
+     * Get siteVehicle
+     *
+     * @return boolean
+     */
+    public function getSiteVehicle()
+    {
+        return $this->siteVehicle;
+    }
+
+    /**
+     * Set space
+     *
+     * @param boolean $space
+     *
+     * @return Card
+     */
+    public function setSpace($space)
+    {
+        $this->space = $space;
+
+        return $this;
+    }
+
+    /**
+     * Get space
+     *
+     * @return boolean
+     */
+    public function getSpace()
+    {
+        return $this->space;
+    }
+
+    /**
+     * Set tradeFederation
+     *
+     * @param boolean $tradeFederation
+     *
+     * @return Card
+     */
+    public function setTradeFederation($tradeFederation)
+    {
+        $this->tradeFederation = $tradeFederation;
+
+        return $this;
+    }
+
+    /**
+     * Get tradeFederation
+     *
+     * @return boolean
+     */
+    public function getTradeFederation()
+    {
+        return $this->tradeFederation;
+    }
+
+    /**
+     * Set warrior
+     *
+     * @param boolean $warrior
+     *
+     * @return Card
+     */
+    public function setWarrior($warrior)
+    {
+        $this->warrior = $warrior;
+
+        return $this;
+    }
+
+    /**
+     * Get warrior
+     *
+     * @return boolean
+     */
+    public function getWarrior()
+    {
+        return $this->warrior;
+    }
+
+    /**
+     * Set forceAptitude
+     *
+     * @param boolean $forceAptitude
+     *
+     * @return Card
+     */
+    public function setForceAptitude($forceAptitude)
+    {
+        $this->forceAptitude = $forceAptitude;
+
+        return $this;
+    }
+
+    /**
+     * Get forceAptitude
+     *
+     * @return boolean
+     */
+    public function getForceAptitude()
+    {
+        return $this->forceAptitude;
+    }
+
+    /**
+     * Set imageUrl
+     *
+     * @param boolean $imageUrl
+     *
+     * @return Card
+     */
+    public function setImageUrl($imageUrl)
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get imageUrl
+     *
+     * @return boolean
+     */
+    public function getImageUrl()
+    {
+        return $this->imageUrl;
+    }
+
+    /**
+     * Set lore
+     *
+     * @param boolean $lore
+     *
+     * @return Card
+     */
+    public function setLore($lore)
+    {
+        $this->lore = $lore;
+
+        return $this;
+    }
+
+    /**
+     * Get lore
+     *
+     * @return boolean
+     */
+    public function getLore()
+    {
+        return $this->lore;
+    }
+
+    /**
+     * Set uniqueness
+     *
+     * @param boolean $uniqueness
+     *
+     * @return Card
+     */
+    public function setUniqueness($uniqueness)
+    {
+        $this->uniqueness = $uniqueness;
+
+        return $this;
+    }
+
+    /**
+     * Get uniqueness
+     *
+     * @return boolean
+     */
+    public function getUniqueness()
+    {
+        return $this->uniqueness;
     }
 
     /**
@@ -854,27 +1948,27 @@ class Card implements \Serializable
     }
 
     /**
-     * Set pack
+     * Set set
      *
-     * @param \AppBundle\Entity\Pack $pack
+     * @param \AppBundle\Entity\Set $set
      *
      * @return Card
      */
-    public function setPack(\AppBundle\Entity\Pack $pack = null)
+    public function setSet(\AppBundle\Entity\Set $set = null)
     {
-        $this->pack = $pack;
+        $this->set = $set;
 
         return $this;
     }
 
     /**
-     * Get pack
+     * Get set
      *
-     * @return \AppBundle\Entity\Pack
+     * @return \AppBundle\Entity\Set
      */
-    public function getPack()
+    public function getSet()
     {
-        return $this->pack;
+        return $this->set;
     }
 
     /**
@@ -902,128 +1996,72 @@ class Card implements \Serializable
     }
 
     /**
-     * Set faction
+     * Set subtype
      *
-     * @param \AppBundle\Entity\Faction $faction
-     *
-     * @return Card
-     */
-    public function setFaction(\AppBundle\Entity\Faction $faction = null)
-    {
-        $this->faction = $faction;
-
-        return $this;
-    }
-
-    /**
-     * Get faction
-     *
-     * @return \AppBundle\Entity\Faction
-     */
-    public function getFaction()
-    {
-        return $this->faction;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCostIncome()
-    {
-        $cost = $this->getCost();
-        $income = $this->getIncome();
-
-        if (is_null($cost) and is_null($income)) {
-            return -1;
-        }
-        return max($cost, $income);
-    }
-
-    /**
-     * @return int
-     */
-    public function getStrengthInitiative()
-    {
-        $strength = $this->getStrength();
-        $initiative = $this->getInitiative();
-
-        if (is_null($strength) and is_null($initiative)) {
-            return -1;
-        }
-        return max($strength, $initiative);
-    }
-    /**
-     * @var string
-     */
-    private $designer;
-
-
-    /**
-     * Set designer
-     *
-     * @param string $designer
+     * @param \AppBundle\Entity\Subtype $subtype
      *
      * @return Card
      */
-    public function setDesigner($designer)
+    public function setSubtype(\AppBundle\Entity\Subtype $subtype = null)
     {
-        $this->designer = $designer;
+        $this->subtype = $subtype;
 
         return $this;
     }
 
     /**
-     * Get designer
+     * Get subtype
      *
-     * @return string
+     * @return \AppBundle\Entity\Subtype
      */
-    public function getDesigner()
+    public function getSubtype()
     {
-        return $this->designer;
+        return $this->subtype;
     }
 
     /**
-     * @return bool
-     */
-    public function getIsMultiple(): bool
-    {
-        return $this->isMultiple;
-    }
-
-    /**
-     * @param bool $isMultiple
+     * Set side
      *
-     * @return self
+     * @param \AppBundle\Entity\Side $side
+     *
+     * @return Card
      */
-    public function setIsMultiple(bool $isMultiple): self
+    public function setSide(\AppBundle\Entity\Side $side = null)
     {
-        $this->isMultiple = $isMultiple;
+        $this->side = $side;
 
         return $this;
     }
 
     /**
-     * @var string|null
+     * Get side
+     *
+     * @return \AppBundle\Entity\Side
      */
-    private $imageUrl;
-
-    /**
-     * @return string|null
-     */
-    public function getImageUrl()
+    public function getSide()
     {
-        return $this->imageUrl;
+        return $this->side;
     }
 
     /**
-     * @param string $imageUrl
+     * Set rarity
      *
-     * @return self
+     * @param \AppBundle\Entity\Rarity $rarity
+     *
+     * @return Card
      */
-    public function setImageUrl(string $imageUrl): self
+    public function setRarity(\AppBundle\Entity\Rarity $rarity = null)
     {
-        $this->imageUrl = $imageUrl;
-
+        $this->rarity = $rarity;
         return $this;
+    }
+    /**
+     * Get rarity
+     *
+     * @return \AppBundle\Entity\Rarity
+     */
+    public function getRarity()
+    {
+        return $this->rarity;
     }
 }

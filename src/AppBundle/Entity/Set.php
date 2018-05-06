@@ -1,8 +1,8 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity;
 
-class Pack implements  \Serializable
+class Set implements  \Serializable
 {
     public function serialize()
     {
@@ -12,21 +12,20 @@ class Pack implements  \Serializable
                 'date_release' => $this->dateRelease ? $this->dateRelease->format('Y-m-d') : null,
                 'name' => $this->name,
                 'position' => $this->position,
-                'size' => $this->size,
-                'cgdb_id' => $this->cgdbId
+                'size' => $this->size
         ];
     }
-    
+
     public function unserialize($serialized)
     {
         throw new \Exception("unserialize() method unsupported");
     }
-    
+
     public function toString()
     {
         return $this->name;
     }
-    
+
     /**
      * @var integer
      */
@@ -68,11 +67,6 @@ class Pack implements  \Serializable
     private $dateRelease;
 
     /**
-     * @var integer
-     */
-    private $cgdbId;
-    
-    /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $cards;
@@ -105,7 +99,7 @@ class Pack implements  \Serializable
      *
      * @param string $code
      *
-     * @return Pack
+     * @return Set
      */
     public function setCode($code)
     {
@@ -129,7 +123,7 @@ class Pack implements  \Serializable
      *
      * @param string $name
      *
-     * @return Pack
+     * @return Set
      */
     public function setName($name)
     {
@@ -153,7 +147,7 @@ class Pack implements  \Serializable
      *
      * @param integer $position
      *
-     * @return Pack
+     * @return Set
      */
     public function setPosition($position)
     {
@@ -177,7 +171,7 @@ class Pack implements  \Serializable
      *
      * @param integer $size
      *
-     * @return Pack
+     * @return Set
      */
     public function setSize($size)
     {
@@ -201,7 +195,7 @@ class Pack implements  \Serializable
      *
      * @param \DateTime $dateCreation
      *
-     * @return Pack
+     * @return Set
      */
     public function setDateCreation($dateCreation)
     {
@@ -225,7 +219,7 @@ class Pack implements  \Serializable
      *
      * @param \DateTime $dateUpdate
      *
-     * @return Pack
+     * @return Set
      */
     public function setDateUpdate($dateUpdate)
     {
@@ -249,7 +243,7 @@ class Pack implements  \Serializable
      *
      * @param \DateTime $dateRelease
      *
-     * @return Pack
+     * @return Set
      */
     public function setDateRelease($dateRelease)
     {
@@ -269,35 +263,11 @@ class Pack implements  \Serializable
     }
 
     /**
-     * Set cgdbId
-     *
-     * @param integer $cgdbId
-     *
-     * @return Pack
-     */
-    public function setCgdbId($cgdbId)
-    {
-        $this->cgdbId = $cgdbId;
-    
-        return $this;
-    }
-    
-    /**
-     * Get cgdbId
-     *
-     * @return integer
-     */
-    public function getCgdbId()
-    {
-        return $this->cgdbId;
-    }
-    
-    /**
      * Add card
      *
      * @param \AppBundle\Entity\Card $card
      *
-     * @return Pack
+     * @return Set
      */
     public function addCard(\AppBundle\Entity\Card $card)
     {
@@ -331,7 +301,7 @@ class Pack implements  \Serializable
      *
      * @param \AppBundle\Entity\Cycle $cycle
      *
-     * @return Pack
+     * @return Set
      */
     public function setCycle(\AppBundle\Entity\Cycle $cycle = null)
     {
