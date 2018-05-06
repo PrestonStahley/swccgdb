@@ -62,7 +62,7 @@ class Rarity implements \Gedmo\Translatable\Translatable, \Serializable
      *
      * @param string $code
      *
-     * @return Faction
+     * @return Rarity
      */
     public function setCode($code)
     {
@@ -86,7 +86,7 @@ class Rarity implements \Gedmo\Translatable\Translatable, \Serializable
      *
      * @param string $name
      *
-     * @return Faction
+     * @return Rarity
      */
     public function setName($name)
     {
@@ -110,7 +110,7 @@ class Rarity implements \Gedmo\Translatable\Translatable, \Serializable
      *
      * @param \AppBundle\Entity\Card $card
      *
-     * @return Faction
+     * @return Rarity
      */
     public function addCard(\AppBundle\Entity\Card $card)
     {
