@@ -173,6 +173,9 @@ AppBundle\Entity\Card:
         politics:
             type: smallint
             nullable: false
+        position:
+            type: smallint
+            nullable: false
         power:
             type: smallint
             nullable: true
