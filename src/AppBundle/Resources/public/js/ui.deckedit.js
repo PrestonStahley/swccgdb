@@ -89,27 +89,27 @@
     };
 
     /**
-     * builds the faction selector
+     * builds the side selector
      * @memberOf ui
      */
-    ui.build_faction_selector = function build_faction_selector()
+    ui.build_side_selector = function build_side_selector()
     {
-        $('[data-filter=faction_code]').empty();
-        var faction_codes = app.data.cards.distinct('faction_code').sort();
-        var neutral_index = faction_codes.indexOf('neutral');
-        faction_codes.splice(neutral_index, 1);
-        faction_codes.unshift('neutral');
+        $('[data-filter=side_code]').empty();
+        var side_codes = app.data.cards.distinct('side_code').sort();
+        var neutral_index = side_codes.indexOf('neutral');
+        side_codes.splice(neutral_index, 1);
+        side_codes.unshift('neutral');
 
-        faction_codes.forEach(function (faction_code)
+        side_codes.forEach(function (side_code)
         {
-            var example = app.data.cards.find({"faction_code": faction_code})[0];
+            var example = app.data.cards.find({"side_code": side_code})[0];
             var label = $('<label class="btn btn-default btn-sm" data-code="'
-                    + faction_code + '" title="' + example.faction_name + '"><input type="checkbox" name="' + faction_code
-                    + '"><span class="icon-' + faction_code + '"></span></label>');
+                    + side_code + '" title="' + example.side_name + '"><input type="checkbox" name="' + side_code
+                    + '"><span class="icon-' + side_code + '"></span></label>');
             label.tooltip({container: 'body'});
-            $('[data-filter=faction_code]').append(label);
+            $('[data-filter=side_code]').append(label);
         });
-        $('[data-filter=faction_code]').button();
+        $('[data-filter=side_code]').button();
     };
 
     /**
@@ -176,11 +176,11 @@
      */
     ui.init_selectors = function init_selectors()
     {
-        $('[data-filter=faction_code]').find('input[name=neutral]').prop("checked", true).parent().addClass('active');
-        $('[data-filter=faction_code]').find('input[name=' + app.deck.get_faction_code() + ']').prop("checked", true).parent().addClass('active');
-        var minor_faction_codes = app.deck.get_minor_faction_codes();
-        for(var i = 0; i < minor_faction_codes.length; i++) {
-            $('[data-filter=faction_code]').find('input[name=' + minor_faction_codes[i] + ']').prop("checked", true).parent().addClass('active');
+        $('[data-filter=side_code]').find('input[name=neutral]').prop("checked", true).parent().addClass('active');
+        $('[data-filter=side_code]').find('input[name=' + app.deck.get_side_code() + ']').prop("checked", true).parent().addClass('active');
+        var minor_side_codes = app.deck.get_minor_side_codes();
+        for(var i = 0; i < minor_side_codes.length; i++) {
+            $('[data-filter=side_code]').find('input[name=' + minor_side_codes[i] + ']').prop("checked", true).parent().addClass('active');
         }
 
         $('[data-filter=type_code]').find('input[name=character]').prop("checked", true).parent().addClass('active');
@@ -481,7 +481,7 @@
                         + '<td class="cost"><%= card.cost %><%= card.income %></td>'
                         + '<td class="cost"><%= card.strength %><%= card.initiative %></td>'
                         + '<td class="type"><span class="icon-<%= card.type_code %>" title="<%= card.type_name %>"></span></td>'
-                        + '<td class="faction"><span class="icon-<%= card.faction_code %> fg-<%= card.faction_code %>" title="<%= card.faction_name %>"></span></td>'
+                        + '<td class="side"><span class="icon-<%= card.side_code %> fg-<%= card.side_code %>" title="<%= card.side_name %>"></span></td>'
                         + '</tr>'
                         );
                 break;
@@ -707,7 +707,7 @@
     ui.on_all_loaded = function on_all_loaded()
     {
         ui.update_list_template();
-        ui.build_faction_selector();
+        ui.build_side_selector();
         ui.build_type_selector();
         ui.build_pack_selector();
         ui.init_selectors();

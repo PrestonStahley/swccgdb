@@ -12,7 +12,7 @@ class CardRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->select('c, t, f, p, y')
             ->join('c.type', 't')
-            ->join('c.faction', 'f')
+            ->join('c.side', 'f')
             ->join('c.pack', 'p')
             ->join('p.cycle', 'y')
             ->orderBY('c.code', 'ASC');
@@ -50,7 +50,7 @@ class CardRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c')
             ->select('c, t, f, p, y')
             ->join('c.type', 't')
-            ->join('c.faction', 'f')
+            ->join('c.side', 'f')
             ->join('c.pack', 'p')
             ->join('p.cycle', 'y')
             ->andWhere('c.code in (?1)')

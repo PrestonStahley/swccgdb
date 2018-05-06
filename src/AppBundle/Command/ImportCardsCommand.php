@@ -43,8 +43,8 @@ class ImportCardsCommand extends ContainerAwareCommand
         $packages = $this->getContainer()->get('assets.packages');
         $rootDir = $this->getContainer()->get('kernel')->getRootDir();
         
-        /* @var $allFactions \AppBundle\Entity\Faction[] */
-        $allFactions = $em->getRepository('AppBundle:Faction')->findAll();
+        /* @var $allSides \AppBundle\Entity\Side[] */
+        $allSides = $em->getRepository('AppBundle:Side')->findAll();
         
         /* @var $allTypes \AppBundle\Entity\Type[] */
         $allTypes = $em->getRepository('AppBundle:Type')->findAll();
@@ -100,14 +100,14 @@ class ImportCardsCommand extends ContainerAwareCommand
                 }
             }
           
-            $faction = null;
-            foreach ($allFactions as $oneFaction) {
-                if ($data[$oneFaction->getCode()] === 'Y') {
-                    $faction = $oneFaction;
+            $side = null;
+            foreach ($allSides as $oneSide) {
+                if ($data[$oneSide->getCode()] === 'Y') {
+                    $side = $oneSide;
                 }
             }
-            if (!$faction) {
-                $output->writeln("<error>Cannot find faction for this card</error>");
+            if (!$side) {
+                $output->writeln("<error>Cannot find side for this card</error>");
                 dump($data);
                 die();
             }
@@ -133,11 +133,11 @@ class ImportCardsCommand extends ContainerAwareCommand
             $text = str_replace("</b>: ", ":</b> ", $text);
             $text = preg_replace("/<em class='bbc'><b>([^<]+?)( ?)<\/b><\/em>/", "<i>\\1</i>\\2", $text);
             $text = preg_replace("/<em class='bbc'>([^<]+)<\/em>/", "", $text);
-            $text = preg_replace_callback("/\[(.*?)\]/", function ($matches) use ($allFactions) {
+            $text = preg_replace_callback("/\[(.*?)\]/", function ($matches) use ($allSides) {
                 $token = str_replace(['“', '”', '’', '&rsquo;'], ['"', '"', '\'', '\''], $matches[1]);
-                foreach ($allFactions as $faction) {
-                    if ($faction->getName() === $token || ($faction->getName() === "The Night's Watch" && $token === "Night's Watch")) {
-                        return '['.$faction->getCode().']';
+                foreach ($allSides as $side) {
+                    if ($side->getName() === $token || ($side->getName() === "The Night's Watch" && $token === "Night's Watch")) {
+                        return '['.$side->getCode().']';
                     }
                 }
                 return '['.strtolower($token).']';
@@ -155,7 +155,7 @@ class ImportCardsCommand extends ContainerAwareCommand
             $card->setCode(sprintf("%02d%03d", $pack->getCycle()->getPosition(), $position));
             $card->setCost($data['cost'] !== '' && $data['cost'] !== 'X' ? $data['cost'] : null);
             $card->setDeckLimit($data['max']);
-            $card->setFaction($faction);
+            $card->setSide($side);
             $card->setIllustrator(trim($data['illustrator']));
             $card->setIncome($data['gold'] !== '' ? $data['gold'] : null);
             $card->setInitiative($data['initiative'] !== '' ? $data['initiative'] : null);

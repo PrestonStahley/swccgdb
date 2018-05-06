@@ -9,8 +9,8 @@
             id,
             name,
             tags,
-            faction_code,
-            faction_name,
+            side_code,
+            side_name,
             unsaved,
             user_id,
             problem_labels = _.reduce(
@@ -22,7 +22,7 @@
                     },
                     {}),
             header_tpl = _.template('<h5><span class="icon icon-<%= code %>"></span> <%= name %> (<%= quantity %>)</h5>'),
-            card_line_tpl = _.template('<span class="icon icon-<%= card.type_code %> fg-<%= card.faction_code %>"></span> <a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.label %></a>'),
+            card_line_tpl = _.template('<span class="icon icon-<%= card.type_code %> fg-<%= card.side_code %>"></span> <a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.label %></a>'),
             layouts = {},
             layout_data = {};
 
@@ -45,8 +45,8 @@
         id = data.id;
         name = data.name;
         tags = data.tags;
-        faction_code = data.faction_code;
-        faction_name = data.faction_name;
+        side_code = data.side_code;
+        side_name = data.side_name;
         unsaved = data.unsaved;
         user_id = data.user_id;
 
@@ -101,9 +101,9 @@
      * @memberOf deck
      * @returns string
      */
-    deck.get_faction_code = function get_faction_code()
+    deck.get_side_code = function get_side_code()
     {
-        return faction_code;
+        return side_code;
     };
 
     /**
@@ -288,12 +288,12 @@
         var problem = deck.get_problem();
         var agendas = deck.get_agendas();
         
-        deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/factions/' + deck.get_faction_code() + '.png" class="img-responsive">'));
+        deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/sides/' + deck.get_side_code() + '.png" class="img-responsive">'));
         agendas.forEach(function (agenda) {
             deck.update_layout_section(data, 'images', $('<div><img src="' + agenda.image_url + '" class="img-responsive">'));
         });
 
-        deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + faction_name + '</h4>'));
+        deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + side_name + '</h4>'));
         agendas.forEach(function (agenda) {
             var agenda_line = $('<h5>').append($(card_line_tpl({card: agenda})));
             agenda_line.find('.icon').remove();
@@ -539,7 +539,7 @@
     {
         switch(agenda.code) {
             case '01027':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, faction_code: 'neutral'})) > 15) {
+                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, side_code: 'neutral'})) > 15) {
                     return false;
                 }
                 break;
@@ -551,8 +551,8 @@
             case '01203':
             case '01204':
             case '01205':
-                var minor_faction_code = deck.get_minor_faction_code(agenda);
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, faction_code: minor_faction_code})) < 12) {
+                var minor_side_code = deck.get_minor_side_code(agenda);
+                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, side_code: minor_side_code})) < 12) {
                     return false;
                 }
                 break;
@@ -601,11 +601,11 @@
      * @memberOf deck
      * @returns {array}
      */
-    deck.get_minor_faction_codes = function get_minor_faction_codes()
+    deck.get_minor_side_codes = function get_minor_side_codes()
     {
         return deck.get_agendas().map(function (agenda)
         {
-            return deck.get_minor_faction_code(agenda);
+            return deck.get_minor_side_code(agenda);
         });
     };
 
@@ -614,7 +614,7 @@
      * @param {object} agenda
      * @returns {string}
      */
-    deck.get_minor_faction_code = function get_minor_faction_code(agenda)
+    deck.get_minor_side_code = function get_minor_side_code(agenda)
     {
         // special case for the Core Set Banners
         var banners_core_set = {
@@ -646,11 +646,11 @@
     deck.can_include_card = function can_include_card(card)
     {
         // neutral card => yes
-        if(card.faction_code === 'neutral')
+        if(card.side_code === 'neutral')
             return true;
 
         // in-house card => yes
-        if(card.faction_code === faction_code)
+        if(card.side_code === side_code)
             return true;
 
         // out-of-house and loyal => no
@@ -683,7 +683,7 @@
             case '01203':
             case '01204':
             case '01205':
-                return card.faction_code === deck.get_minor_faction_code(agenda);
+                return card.side_code === deck.get_minor_side_code(agenda);
             case '09045':
                 return card.type_code === 'character' && card.traits.indexOf('card.traits.maester') !== -1;
         }

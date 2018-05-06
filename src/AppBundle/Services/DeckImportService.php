@@ -25,7 +25,7 @@ class DeckImportService
     {
         $data = [
             'content' => [],
-            'faction' => null,
+            'side' => null,
             'description' => ''
         ];
 
@@ -51,11 +51,11 @@ class DeckImportService
             if ($card) {
                 $data['content'][$card->getCode()] = $quantity;
             } else {
-                $faction = $this->em->getRepository('AppBundle:Faction')->findOneBy(array(
+                $side = $this->em->getRepository('AppBundle:Side')->findOneBy(array(
                     'name' => $name
                 ));
-                if ($faction) {
-                    $data['faction'] = $faction;
+                if ($side) {
+                    $data['side'] = $side;
                 }
             }
         }
@@ -67,7 +67,7 @@ class DeckImportService
     {
         $data = [
             'content' => [],
-            'faction' => null,
+            'side' => null,
             'description' => ''
         ];
 
@@ -96,11 +96,11 @@ class DeckImportService
             if ($card) {
                 $data['content'][$card->getCode()] = $qty;
             } else {
-                $faction = $this->em->getRepository('AppBundle:Faction')->findOneBy(array(
+                $side = $this->em->getRepository('AppBundle:Side')->findOneBy(array(
                     'octgnId' => $octgnId
                 ));
-                if ($faction) {
-                    $data['faction'] = $faction;
+                if ($side) {
+                    $data['side'] = $side;
                 }
             }
         }

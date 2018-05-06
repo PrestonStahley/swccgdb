@@ -64,12 +64,12 @@
   </div>
 
   <div class="form-group">
-    <label for="color">Select a faction color for your username</label>
-    {% for faction in factions %}
+    <label for="color">Select a side color for your username</label>
+    {% for side in sides %}
     <div class="radio">
-      <label class="{{ faction.code }}">
-        <input type="radio" name="user_faction_code" id="optionsRadios1" value="{{ faction.code }}" {% if user.color == faction.code %}checked{% endif %}>
-          {{ faction.name }}
+      <label class="{{ side.code }}">
+        <input type="radio" name="user_side_code" id="optionsRadios1" value="{{ side.code }}" {% if user.color == side.code %}checked{% endif %}>
+          {{ side.name }}
 	  </label>
 	</div>
 	{% endfor %}

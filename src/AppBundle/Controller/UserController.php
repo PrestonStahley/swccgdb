@@ -36,11 +36,11 @@ class UserController extends Controller
     {
         $user = $this->getUser();
 
-        $factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAll();
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAll();
 
         return $this->render('AppBundle:User:profile_edit.html.twig', array(
                 'user'=> $user,
-                'factions' => $factions
+                'sides' => $sides
         ));
     }
 
@@ -72,13 +72,13 @@ class UserController extends Controller
         }
 
         $resume = filter_var($request->get('resume'), FILTER_SANITIZE_STRING);
-        $faction_code = filter_var($request->get('user_faction_code'), FILTER_SANITIZE_STRING);
+        $side_code = filter_var($request->get('user_side_code'), FILTER_SANITIZE_STRING);
         $notifAuthor = $request->get('notif_author') ? true : false;
         $notifCommenter = $request->get('notif_commenter') ? true : false;
         $notifMention = $request->get('notif_mention') ? true : false;
         $shareDecks = $request->get('share_decks') ? true : false;
 
-        $user->setColor($faction_code);
+        $user->setColor($side_code);
         $user->setResume($resume);
         $user->setIsNotifAuthor($notifAuthor);
         $user->setIsNotifCommenter($notifCommenter);
@@ -116,7 +116,7 @@ class UserController extends Controller
                     'public_profile_url' => $public_profile_url,
                     'id' => $user_id,
                     'name' => $user->getUsername(),
-                    'faction' => $user->getColor(),
+                    'side' => $user->getColor(),
                     'donation' => $user->getDonation(),
             );
 

@@ -25,12 +25,12 @@ class BuilderController extends Controller
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
 
-        $factions = $em->getRepository('AppBundle:Faction')->findPrimaries();
+        $sides = $em->getRepository('AppBundle:Side')->findPrimaries();
         $agendas = $em->getRepository('AppBundle:Card')->findByType("agenda");
 
         return $this->render('AppBundle:Builder:initbuild.html.twig', [
                     'pagetitle' => $this->get('translator')->trans('decks.form.new'),
-                    'factions' => $factions,
+                    'sides' => $sides,
                     'agendas' => $agendas,
                         ], $response);
     }
@@ -42,41 +42,41 @@ class BuilderController extends Controller
         /* @var $em \Doctrine\ORM\EntityManager */
         $em = $this->getDoctrine()->getManager();
 
-        $faction_code = $request->request->get('faction');
+        $side_code = $request->request->get('side');
         $agenda_code = $request->request->get('agenda');
 
-        if (!$faction_code) {
-            $this->get('session')->getFlashBag()->set('error', $translator->trans("decks.build.errors.nofaction"));
+        if (!$side_code) {
+            $this->get('session')->getFlashBag()->set('error', $translator->trans("decks.build.errors.noside"));
             return $this->redirect($this->generateUrl('deck_buildform'));
         }
 
-        $faction = $em->getRepository('AppBundle:Faction')->findByCode($faction_code);
-        if (!$faction) {
-            $this->get('session')->getFlashBag()->set('error', $translator->trans("decks.build.errors.nofaction"));
+        $side = $em->getRepository('AppBundle:Side')->findByCode($side_code);
+        if (!$side) {
+            $this->get('session')->getFlashBag()->set('error', $translator->trans("decks.build.errors.noside"));
             return $this->redirect($this->generateUrl('deck_buildform'));
         }
-        $tags = [$faction_code];
+        $tags = [$side_code];
 
         if (!$agenda_code) {
             $agenda = null;
             $name = $translator->trans("decks.build.newname.noagenda", array(
-                "%faction%" => $faction->getName()
+                "%side%" => $side->getName()
             ));
             $pack = $em->getRepository('AppBundle:Pack')->findOneBy(array("code" => "Core"));
         } else {
             $agenda = $em->getRepository('AppBundle:Card')->findByCode($agenda_code);
             $name = $translator->trans("decks.build.newname.noagenda", array(
-                "%faction%" => $faction->getName(),
+                "%side%" => $side->getName(),
                 "%agenda%" => $agenda->getName()
             ));
             $pack = $agenda->getPack();
-            $tags[] = $this->get('agenda_helper')->getMinorFactionCode($agenda);
+            $tags[] = $this->get('agenda_helper')->getMinorSideCode($agenda);
         }
 
 
         $deck = new Deck();
         $deck->setDescriptionMd("");
-        $deck->setFaction($faction);
+        $deck->setSide($side);
         $deck->setLastPack($pack);
         $deck->setName($name);
         $deck->setProblem('too_few_cards');
@@ -103,13 +103,13 @@ class BuilderController extends Controller
         $response->setPublic();
         $response->setMaxAge($this->container->getParameter('cache_expiration'));
 
-        $factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAll();
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAll();
 
         return $this->render('AppBundle:Builder:directimport.html.twig', array(
                     'pagetitle' => "Import a deck",
-                    'factions' => array_map(function ($faction) {
-                        return ['code' => $faction->getCode(), 'name' => $faction->getName()];
-                    }, $factions)
+                    'sides' => array_map(function ($side) {
+                        return ['code' => $side->getCode(), 'name' => $side->getName()];
+                    }, $sides)
                         ), $response);
     }
 
@@ -144,13 +144,13 @@ class BuilderController extends Controller
             $data = $service->parseTextImport(file_get_contents($filename));
         }
 
-        if (empty($data['faction'])) {
+        if (empty($data['side'])) {
             return $this->render('AppBundle:Default:error.html.twig', [
-                'error' => "Unable to recognize the Faction of the deck."
+                'error' => "Unable to recognize the Side of the deck."
             ]);
         }
         
-        $this->get('deck_manager')->save($this->getUser(), new Deck(), null, $name, $data['faction'], $data['description'], null, $data['content'], null);
+        $this->get('deck_manager')->save($this->getUser(), new Deck(), null, $name, $data['side'], $data['description'], null, $data['content'], null);
 
         $this->getDoctrine()->getEntityManager()->flush();
 
@@ -252,7 +252,7 @@ class BuilderController extends Controller
         }
         return $this->forward('AppBundle:Builder:save', array(
                     'name' => $deck->getName() . ' (clone)',
-                    'faction_code' => $deck->getFaction()->getCode(),
+                    'side_code' => $deck->getSide()->getCode(),
                     'content' => json_encode($content),
                     'deck_id' => $deck->getParent() ? $deck->getParent()->getId() : null
         ));
@@ -280,13 +280,13 @@ class BuilderController extends Controller
             $source_deck = $deck;
         }
 
-        $faction_code = filter_var($request->get('faction_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-        if (!$faction_code) {
-            return new Response('Cannot import deck without faction');
+        $side_code = filter_var($request->get('side_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        if (!$side_code) {
+            return new Response('Cannot import deck without side');
         }
-        $faction = $em->getRepository('AppBundle:Faction')->findOneBy(['code' => $faction_code]);
-        if (!$faction) {
-            return new Response('Cannot import deck with unknown faction ' . $faction_code);
+        $side = $em->getRepository('AppBundle:Side')->findOneBy(['code' => $side_code]);
+        if (!$side) {
+            return new Response('Cannot import deck with unknown side ' . $side_code);
         }
 
         $cancel_edits = (boolean) filter_var($request->get('cancel_edits'), FILTER_SANITIZE_NUMBER_INT);
@@ -312,7 +312,7 @@ class BuilderController extends Controller
         $description = trim($request->get('description'));
         $tags = filter_var($request->get('tags'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-        $this->get('deck_manager')->save($this->getUser(), $deck, $decklist_id, $name, $faction, $description, $tags, $content, $source_deck ? $source_deck : null);
+        $this->get('deck_manager')->save($this->getUser(), $deck, $decklist_id, $name, $side, $description, $tags, $content, $source_deck ? $source_deck : null);
         $em->flush();
 
         return $this->redirect($this->generateUrl('decks_list'));
@@ -547,7 +547,7 @@ class BuilderController extends Controller
         }
         return $this->forward('AppBundle:Builder:save', array(
                     'name' => $decklist->getName(),
-                    'faction_code' => $decklist->getFaction()->getCode(),
+                    'side_code' => $decklist->getSide()->getCode(),
                     'content' => json_encode($content),
                     'decklist_id' => $decklist_id
         ));

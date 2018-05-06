@@ -38,13 +38,13 @@ class DeckManager
      * @param Deck $deck
      * @param unknown $decklist_id
      * @param unknown $name
-     * @param unknown $faction
+     * @param unknown $side
      * @param unknown $description
      * @param unknown $tags
      * @param unknown $content
      * @param unknown $source_deck
      */
-    public function save($user, $deck, $decklist_id, $name, $faction, $description, $tags, $content, $source_deck)
+    public function save($user, $deck, $decklist_id, $name, $side, $description, $tags, $content, $source_deck)
     {
         $deck_content = [];
 
@@ -56,7 +56,7 @@ class DeckManager
         }
 
         $deck->setName($name);
-        $deck->setFaction($faction);
+        $deck->setSide($side);
         $deck->setDescriptionMd($description);
         $deck->setUser($user);
         $deck->setMinorVersion($deck->getMinorVersion() + 1);
@@ -85,8 +85,8 @@ class DeckManager
         }
         $deck->setLastPack($latestPack);
         if (empty($tags)) {
-            // tags can never be empty. if it is we put faction in
-            $tags = [$faction->getCode()];
+            // tags can never be empty. if it is we put side in
+            $tags = [$side->getCode()];
         }
         if (is_string($tags)) {
             $tags = preg_split('/\s+/', $tags);

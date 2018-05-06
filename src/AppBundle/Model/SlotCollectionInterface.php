@@ -63,10 +63,10 @@ interface SlotCollectionInterface extends \Countable, \IteratorAggregate, \Array
     
     /**
      *
-     * @param string $faction_code
+     * @param string $side_code
      * @return \AppBundle\Model\SlotCollectionDecorator
      */
-    public function filterByFaction($faction_code);
+    public function filterBySide($side_code);
     
     /**
      *

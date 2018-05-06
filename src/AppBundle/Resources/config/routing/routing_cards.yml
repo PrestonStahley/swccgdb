@@ -17,7 +17,7 @@ cards_cycle:
     defaults:
         _controller: AppBundle:Search:cycle
         view: list
-        sort: faction
+        sort: side
         page: 1
 
 cards_search:

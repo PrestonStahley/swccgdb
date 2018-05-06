@@ -8,14 +8,14 @@
 <form action="{{ path('deck_initbuild') }}" method="post" enctype="application/x-www-form-urlencoded">
 <div class="row">
 	<div class="col-md-8">
-		<h1>{{ 'decks.build.choose.faction' | trans }}</h1>
+		<h1>{{ 'decks.build.choose.side' | trans }}</h1>
 		<div class="row">
-			{% for faction in factions %}
+			{% for side in sides %}
 			<div class="col-md-3 col-sm-4">
 				<label class="thumbnail">
-					<img src="{{ asset('/bundles/app/images/factions/' ~ faction.code ~ '.png') }}" class="hidden-xs">
+					<img src="{{ asset('/bundles/app/images/sides/' ~ side.code ~ '.png') }}" class="hidden-xs">
 					<div class="caption text-center" style="white-space:nowrap">
-							<input type="radio" name="faction" value="{{ faction.code }}"> <small>{{ faction.name }}</small>
+							<input type="radio" name="side" value="{{ side.code }}"> <small>{{ side.name }}</small>
 					</div>
 				</label>
 			</div>

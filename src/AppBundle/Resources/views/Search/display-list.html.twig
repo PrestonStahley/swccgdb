@@ -6,7 +6,7 @@
 <thead>
 <tr>
 <th>{{ 'card.info.name' | trans }}</th>
-<th>{{ 'card.info.faction' | trans }}</th>
+<th>{{ 'card.info.side' | trans }}</th>
 <th>{{ 'card.info.cost' | trans }}</th>
 <th>{{ 'card.info.type' | trans }}</th>
 <th>{{ 'card.info.str' | trans }}</th>
@@ -18,10 +18,10 @@
 <tr class="{% if i%2==0 %}even{% else %}odd{% endif %}">
    {% set card = cards[i] %}
 	<td data-th="Name">
-        <span class="icon icon-{{ card.type_code}} fg-{{ card.faction_code }}"></span>
+        <span class="icon icon-{{ card.type_code}} fg-{{ card.side_code }}"></span>
 		<a href="{{ card.url }}" class="card-tip{% if card.available == false %} card-preview{% endif %}" data-code="{{ card.code }}">{{ card.name }}</a>
 	</td>
-	<td data-th="Faction">{{ card.faction_name }}</td>
+	<td data-th="Side">{{ card.side_name }}</td>
 	<td data-th="Cost">{{ card.cost }}</td>
 	<td data-th="Type" >{{ card.type_name }}</td>
 	<td data-th="STR">{{ card.strength }}</td>

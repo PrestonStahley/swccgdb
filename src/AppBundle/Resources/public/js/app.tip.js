@@ -15,10 +15,10 @@
 
             content = image
                     + '<h4 class="card-name">' + app.format.name(card) + '</h4>'
-                    + '<div class="card-faction">' + app.format.faction(card) + '</div>'
+                    + '<div class="card-side">' + app.format.side(card) + '</div>'
                     + '<div class="card-info">' + app.format.info(card) + '</div>'
                     + '<div class="card-traits">' + app.format.traits(card) + '</div>'
-                    + '<div class="card-text border-' + card.faction_code + '">' + app.format.text(card) + '</div>'
+                    + '<div class="card-text border-' + card.side_code + '">' + app.format.text(card) + '</div>'
                     + '<div class="card-pack">' + app.format.pack(card) + '</div>'
                     ;
 

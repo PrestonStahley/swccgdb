@@ -152,10 +152,10 @@ class CardsData
         return $cycles;
     }
 
-    public function getPrimaryFactions()
+    public function getPrimarySides()
     {
-        $factions = $this->doctrine->getRepository('AppBundle:Faction')->findPrimaries();
-        return $factions;
+        $sides = $this->doctrine->getRepository('AppBundle:Side')->findPrimaries();
+        return $sides;
     }
 
     public function get_search_rows($conditions, $sortorder, $forceempty = false)
@@ -169,7 +169,7 @@ class CardsData
                 ->leftJoin('c.pack', 'p')
                 ->leftJoin('p.cycle', 'y')
                 ->leftJoin('c.type', 't')
-                ->leftJoin('c.faction', 'f');
+                ->leftJoin('c.side', 'f');
         $qb2 = null;
         $qb3 = null;
 
@@ -260,7 +260,7 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
-                            default: // type and faction
+                            default: // type and side
                                 {
                                     $or = [];
                                     foreach ($condition as $arg) {
@@ -418,9 +418,9 @@ class CardsData
         switch ($sortorder) {
             case 'set': $qb->orderBy('y.position')->addOrderBy('p.position')->addOrderBy('c.position');
                 break;
-            case 'faction': $qb->orderBy('c.faction')->addOrderBy('c.type');
+            case 'side': $qb->orderBy('c.side')->addOrderBy('c.type');
                 break;
-            case 'type': $qb->orderBy('c.type')->addOrderBy('c.faction');
+            case 'type': $qb->orderBy('c.type')->addOrderBy('c.side');
                 break;
             case 'cost': $qb->orderBy('c.type')->addOrderBy('c.cost')->addOrderBy('c.income');
                 break;

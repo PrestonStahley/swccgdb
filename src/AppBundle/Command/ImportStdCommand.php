@@ -47,11 +47,11 @@ class ImportStdCommand extends ContainerAwareCommand
         /* @var $helper \Symfony\Component\Console\Helper\QuestionHelper */
         $helper = $this->getHelper('question');
 
-        // factions
+        // sides
         
-        $output->writeln("Importing Factions...");
-        $factionsFileInfo = $this->getFileInfo($path, 'factions.json');
-        $imported = $this->importFactionsJsonFile($factionsFileInfo);
+        $output->writeln("Importing Sides...");
+        $sidesFileInfo = $this->getFileInfo($path, 'sides.json');
+        $imported = $this->importSidesJsonFile($sidesFileInfo);
         if (count($imported)) {
             $question = new ConfirmationQuestion("Do you confirm? (Y/n) ", true);
             if (!$helper->ask($input, $output, $question)) {
@@ -59,7 +59,7 @@ class ImportStdCommand extends ContainerAwareCommand
             }
         }
         $this->em->flush();
-        $this->loadCollection('Faction');
+        $this->loadCollection('Side');
         $output->writeln("Done.");
         
         // types
@@ -126,20 +126,20 @@ class ImportStdCommand extends ContainerAwareCommand
         $output->writeln("Done.");
     }
 
-    protected function importFactionsJsonFile(\SplFileInfo $fileinfo)
+    protected function importSidesJsonFile(\SplFileInfo $fileinfo)
     {
         $result = [];
     
         $list = $this->getDataFromFile($fileinfo);
         foreach ($list as $data) {
-            $faction = $this->getEntityFromData('AppBundle\\Entity\\Faction', $data, [
+            $side = $this->getEntityFromData('AppBundle\\Entity\\Side', $data, [
                     'code',
                     'name',
                     'is_primary'
             ], [], []);
-            if ($faction) {
-                $result[] = $faction;
-                $this->em->persist($faction);
+            if ($side) {
+                $result[] = $side;
+                $this->em->persist($side);
             }
         }
     
@@ -236,7 +236,7 @@ class ImportStdCommand extends ContainerAwareCommand
                     'is_unique',
                     'is_multiple'
             ], [
-                    'faction_code',
+                    'side_code',
                     'pack_code',
                     'type_code'
             ], [

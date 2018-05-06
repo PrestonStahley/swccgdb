@@ -2,7 +2,7 @@
 {
 
     var charts = [],
-            faction_colors = {
+            side_colors = {
                 targaryen:
                         '#1c1c1c',
 
@@ -31,37 +31,37 @@
                         '#a99560',
             };
 
-    deck_charts.chart_faction = function chart_faction()
+    deck_charts.chart_side = function chart_side()
     {
-        var factions = {};
+        var sides = {};
         var draw_deck = app.deck.get_draw_deck();
         draw_deck.forEach(function (card)
         {
-            if(!factions[card.faction_code])
-                factions[card.faction_code] = {code: card.faction_code, name: card.faction_name, count: 0};
-            factions[card.faction_code].count += card.indeck;
+            if(!sides[card.side_code])
+                sides[card.side_code] = {code: card.side_code, name: card.side_name, count: 0};
+            sides[card.side_code].count += card.indeck;
         })
 
         var data = [];
-        _.each(_.values(factions), function (faction)
+        _.each(_.values(sides), function (side)
         {
             data.push({
-                name: faction.name,
-                label: '<span class="icon icon-' + faction.code + '"></span>',
-                color: faction_colors[faction.code],
-                y: faction.count
+                name: side.name,
+                label: '<span class="icon icon-' + side.code + '"></span>',
+                color: side_colors[side.code],
+                y: side.count
             });
         })
 
-        $("#deck-chart-faction").highcharts({
+        $("#deck-chart-side").highcharts({
             chart: {
                 type: 'column'
             },
             title: {
-                text: "decks.charts.faction.title"
+                text: "decks.charts.side.title"
             },
             subtitle: {
-                text: "decks.charts.faction.subtitle"
+                text: "decks.charts.side.subtitle"
             },
             xAxis: {
                 categories: _.pluck(data, 'label'),
@@ -84,7 +84,7 @@
             series: [{
                     type: "column",
                     animation: false,
-                    name: "decks.charts.faction.label",
+                    name: "decks.charts.side.label",
                     showInLegend: false,
                     data: data
                 }],
@@ -291,7 +291,7 @@
 
     deck_charts.setup = function setup(options)
     {
-        deck_charts.chart_faction();
+        deck_charts.chart_side();
         deck_charts.chart_icon();
         deck_charts.chart_strength();
         deck_charts.chart_cost();

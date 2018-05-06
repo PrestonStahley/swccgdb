@@ -1,5 +1,5 @@
-<div class="card-faction">
-	<span class="icon-{{ card.faction_code }} fg-{{ card.faction_code }}"></span>
-	<span class="card-faction">{{ card.faction_name }}</span>.
-	{% if card.faction_code != 'neutral' %}{% if card.is_loyal %} {{'card.info.loyal' | trans}}.{% else %} {{'card.info.nonloyal' | trans}}.{% endif %}{% endif %}
+<div class="card-side">
+	<span class="icon-{{ card.side_code }} fg-{{ card.side_code }}"></span>
+	<span class="card-side">{{ card.side_name }}</span>.
+	{% if card.side_code != 'neutral' %}{% if card.is_loyal %} {{'card.info.loyal' | trans}}.{% else %} {{'card.info.nonloyal' | trans}}.{% endif %}{% endif %}
 </div>

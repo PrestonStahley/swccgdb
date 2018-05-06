@@ -3,10 +3,10 @@
 	<div class="row" style="margin-bottom:1em">
 		<div class="col-sm-4">
 			<div class="form-group">
-				<label for="">{{ 'decklist.list.search.faction.label' | trans }}</label> <select class="form-control" id="faction" name="faction">
-					<option value="">{{ 'decklist.list.search.faction.any' | trans}}</option>
-					{% for faction in factions %}
-					<option value="{{ faction.code }}"{% if faction_selected is defined  and faction_selected == faction.code %} selected="selected"{% endif %}>{{ faction.name }}</option>
+				<label for="">{{ 'decklist.list.search.side.label' | trans }}</label> <select class="form-control" id="side" name="side">
+					<option value="">{{ 'decklist.list.search.side.any' | trans}}</option>
+					{% for side in sides %}
+					<option value="{{ side.code }}"{% if side_selected is defined  and side_selected == side.code %} selected="selected"{% endif %}>{{ side.name }}</option>
 					{% endfor %}
 				</select>
 			</div>

@@ -5,7 +5,7 @@ login_required: You must be logged in for this operation.
 
 userby: by %user%
 seemore:
-  faction: More in this faction
+  side: More in this side
 noimage: No image
 
 nav:
@@ -53,19 +53,19 @@ decks:
     too_many_agendas: Contains more than one Agenda
     too_few_cards: Contains too few cards
     too_many_copies: Contains too many copies of a card (by title)
-    invalid_cards: Contains forbidden cards (cards no permitted by Faction or Agenda)
+    invalid_cards: Contains forbidden cards (cards no permitted by Side or Agenda)
     agenda: Doesn't comply with the Agenda conditions
   build:
     choose:
-      faction: Choose your faction
+      side: Choose your side
       agenda: Choose an agenda
       noagenda: No agenda
     start: Create the deck and start building
     newname:
-      noagenda: "New deck: %faction%"
-      agenda: "New deck: %faction%, %agenda%"
+      noagenda: "New deck: %side%"
+      agenda: "New deck: %side%, %agenda%"
     errors:
-      nofaction: A faction is required.
+      noside: A side is required.
   edit:
     unsaved: This deck has unsaved changes. Please save the deck or cancel the changes before making further edits.
     refresh: Refresh all application data
@@ -88,8 +88,8 @@ decks:
         display: "{1} Display on 1 column | ]1, Inf] Display on %cols% columns"
         usecore: "{1} Use 1 Core Set | ]1, Inf] Use %core% Core Sets"
         factype:
-          cumulative: Faction/Type cumulative
-          exclusive: Faction/Type exclusive
+          cumulative: Side/Type cumulative
+          exclusive: Side/Type exclusive
       searchhint: Find a card or filter the list
     notes:
       tags:
@@ -175,7 +175,7 @@ decks:
       flavor: Flavor text
       claim: Claim value
       pack_code: Pack
-      faction_code: Faction
+      side_code: Side
       is_intrigue: Intrigue icon
       reserve: Reserve value
       illustrator: Illustrator
@@ -193,8 +193,8 @@ decks:
       quantity: Quantity in pack
       designer: Designer
   charts:
-    faction:
-      title: Card Factions
+    side:
+      title: Card Sides
       subtitle: Draw deck only
       label: "# cards"
     icon:
@@ -296,8 +296,8 @@ decklist:
       favorites: Favorite decklists
       mine: My decklists
     search:
-      faction:
-        label: Faction
+      side:
+        label: Side
         any: any
       author: 
         label: Author name
@@ -338,7 +338,7 @@ search:
   sort:
     name: Sort by Name
     set: Sort by Set
-    faction: Sort by Faction
+    side: Sort by Side
     type: Sort by Type
     costgold: Sort by Cost/Gold
     strini: Sort by Strength/Initiative
@@ -381,7 +381,7 @@ card:
     unique: Unique
     text: Text
     flavor: Flavor text
-    faction: Faction
+    side: Side
     set: Set
     cost: Cost
     costgold: Cost/Gold
@@ -404,7 +404,7 @@ card:
       costgold: C.
       strini: S.
       type: T.
-      faction: F.
+      side: F.
 
 challenges:
   military: Military

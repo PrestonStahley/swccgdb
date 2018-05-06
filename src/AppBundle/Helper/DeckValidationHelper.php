@@ -26,10 +26,10 @@ class DeckValidationHelper
 
     public function canIncludeCard($deck, $card)
     {
-        if ($card->getFaction()->getCode() === 'neutral') {
+        if ($card->getSide()->getCode() === 'neutral') {
             return true;
         }
-        if ($card->getFaction()->getCode() === $deck->getFaction()->getCode()) {
+        if ($card->getSide()->getCode() === $deck->getSide()->getCode()) {
             return true;
         }
         if ($card->getIsLoyal()) {
@@ -55,7 +55,7 @@ class DeckValidationHelper
             case '01203':
             case '01204':
             case '01205':
-                return $this->agenda_helper->getMinorFactionCode($agenda) === $card->getFaction()->getCode();
+                return $this->agenda_helper->getMinorSideCode($agenda) === $card->getSide()->getCode();
             case '09045':
                 $trait = $this->translator->trans('card.traits.maester');
                 if (preg_match("/$trait\\./", $card->getTraits())) {
@@ -157,9 +157,9 @@ class DeckValidationHelper
 
     public function validateBanner(\AppBundle\Model\SlotCollectionInterface $slots, \AppBundle\Entity\Card $agenda)
     {
-        $minorFactionCode = $this->agenda_helper->getMinorFactionCode($agenda);
-        $matchingFactionPlots = $slots->getDrawDeck()->filterByFaction($minorFactionCode)->countCards();
-        if ($matchingFactionPlots < 12) {
+        $minorSideCode = $this->agenda_helper->getMinorSideCode($agenda);
+        $matchingSidePlots = $slots->getDrawDeck()->filterBySide($minorSideCode)->countCards();
+        if ($matchingSidePlots < 12) {
             return false;
         }
         return true;
@@ -170,7 +170,7 @@ class DeckValidationHelper
         $drawDeck = $slots->getDrawDeck();
         $count = 0;
         foreach ($drawDeck as $slot) {
-            if ($slot->getCard()->getFaction()->getCode() === 'neutral') {
+            if ($slot->getCard()->getSide()->getCode() === 'neutral') {
                 $count += $slot->getQuantity();
             }
         }

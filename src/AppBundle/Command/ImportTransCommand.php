@@ -56,7 +56,7 @@ class ImportTransCommand extends ContainerAwareCommand
             $path = substr($path, 0, strlen($path) - 1);
         }
         
-        $things = ['faction', 'type', 'cycle', 'pack'];
+        $things = ['side', 'type', 'cycle', 'pack'];
         
         foreach ($locales as $locale) {
             if ($locale === $default_locale) {

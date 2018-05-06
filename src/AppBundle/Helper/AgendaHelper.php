@@ -4,7 +4,7 @@ namespace AppBundle\Helper;
 
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Card;
-use AppBundle\Entity\Faction;
+use AppBundle\Entity\Side;
 
 class AgendaHelper
 {
@@ -14,11 +14,11 @@ class AgendaHelper
     }
     
     /**
-     * Get the minor faction code
+     * Get the minor side code
      * @param Card $agenda
      * @return string
      */
-    public function getMinorFactionCode(Card $agenda)
+    public function getMinorSideCode(Card $agenda)
     {
         if (empty($agenda)) {
             return null;
@@ -42,15 +42,15 @@ class AgendaHelper
     }
 
     /**
-     * Get the minor faction
+     * Get the minor side
      * @param Card $agenda
-     * @return Faction
+     * @return Side
      */
-    public function getMinorFaction(Card $agenda)
+    public function getMinorSide(Card $agenda)
     {
-        $code = $this->getMinorFactionCode($agenda);
+        $code = $this->getMinorSideCode($agenda);
         if ($code) {
-            return $this->entityManager->getRepository('AppBundle:Faction')->findOneBy([ 'code' => $code ]);
+            return $this->entityManager->getRepository('AppBundle:Side')->findOneBy([ 'code' => $code ]);
         }
         return null;
     }

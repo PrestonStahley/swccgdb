@@ -322,7 +322,7 @@ class SocialController extends Controller
         $em = $doctrine->getEntityManager();
 
         $cards_code = $request->query->get('cards');
-        $faction_code = filter_var($request->query->get('faction'), FILTER_SANITIZE_STRING);
+        $side_code = filter_var($request->query->get('side'), FILTER_SANITIZE_STRING);
         $author_name = filter_var($request->query->get('author'), FILTER_SANITIZE_STRING);
         $decklist_name = filter_var($request->query->get('name'), FILTER_SANITIZE_STRING);
         $sort = $request->query->get('sort');
@@ -374,8 +374,8 @@ class SocialController extends Controller
             'name' => $decklist_name
         );
         $params['sort_' . $sort] = ' selected="selected"';
-        $params['factions'] = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAllAndOrderByName();
-        $params['faction_selected'] = $faction_code;
+        $params['sides'] = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
+        $params['side_selected'] = $side_code;
 
         if (!empty($cards_code) && is_array($cards_code)) {
             $cards = $this->getDoctrine()->getRepository('AppBundle:Card')->findAllByCodes($cards_code);
@@ -394,7 +394,7 @@ class SocialController extends Controller
      * displays the lists of decklists
      */
 
-    public function listAction($type, $faction = null, $page = 1, Request $request)
+    public function listAction($type, $side = null, $page = 1, Request $request)
     {
         $translator = $this->get('translator');
 
@@ -1025,7 +1025,7 @@ class SocialController extends Controller
         $response->setPublic();
         $response->setMaxAge($this->container->getParameter('cache_expiration'));
 
-        $factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAllAndOrderByName();
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
 
         $categories = [];
         $on = 0;
@@ -1064,7 +1064,7 @@ class SocialController extends Controller
         $searchForm = $this->renderView(
             'AppBundle:Search:form.html.twig',
             array(
-            'factions' => $factions,
+            'sides' => $sides,
             'allowed' => $categories,
             'on' => $on,
             'off' => $off,

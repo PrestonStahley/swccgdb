@@ -60,15 +60,15 @@
 </div>
 </fieldset>
 <fieldset>
-<legend>{{ 'card.info.faction' | trans }}</legend>
+<legend>{{ 'card.info.side' | trans }}</legend>
 <div class="row">
     <div class="col-sm-12">
         <div class="form-group">
 			<div class="btn-group" data-toggle="buttons">
-			{% for faction in factions %}
-				<label class="btn btn-default active" title="{{ faction.name }}" data-toggle="tooltip" data-container="body">
-					<input type="checkbox" name="f[]" checked value="{{ faction.code }}">
-					<span class="icon icon-{{ faction.code }}"></span>
+			{% for side in sides %}
+				<label class="btn btn-default active" title="{{ side.name }}" data-toggle="tooltip" data-container="body">
+					<input type="checkbox" name="f[]" checked value="{{ side.code }}">
+					<span class="icon icon-{{ side.code }}"></span>
 				</label>
 			{% endfor %}
 			</div>

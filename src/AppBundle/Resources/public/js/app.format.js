@@ -17,10 +17,10 @@
         return (card.is_unique ? '<span class="icon-unique"></span> ' : "") + card.name;
     }
 
-    format.faction = function faction(card)
+    format.side = function side(card)
     {
-        var text = '<span class="fg-' + card.faction_code + ' icon-' + card.faction_code + '"></span> ' + card.faction_name + '. ';
-        if(card.faction_code != 'neutral') {
+        var text = '<span class="fg-' + card.side_code + ' icon-' + card.side_code + '"></span> ' + card.side_name + '. ';
+        if(card.side_code != 'neutral') {
             if(card.is_loyal)
                 text += 'card.info.loyal' + '. ';
             else

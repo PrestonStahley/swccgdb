@@ -152,11 +152,11 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
         return new SlotCollectionDecorator(new ArrayCollection($drawDeck));
     }
 
-    public function filterByFaction($faction_code)
+    public function filterBySide($side_code)
     {
         $slots = [];
         foreach ($this->slots as $slot) {
-            if ($slot->getCard()->getFaction()->getCode() === $faction_code) {
+            if ($slot->getCard()->getSide()->getCode() === $side_code) {
                 $slots[] = $slot;
             }
         }

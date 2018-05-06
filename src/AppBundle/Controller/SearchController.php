@@ -14,7 +14,7 @@ class SearchController extends Controller
             'b' => 'claim',
             'c' => 'cycle',
             'e' => 'pack',
-            'f' => 'faction',
+            'f' => 'side',
             'g' => 'isIntrigue',
             'h' => 'reserve',
             'i' => 'illustrator',
@@ -72,7 +72,7 @@ class SearchController extends Controller
 
         $cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
         $types = $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
-        $factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAllAndOrderByName();
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
 
         $list_traits = $this->getDoctrine()->getRepository('AppBundle:Card')->findTraits();
         $traits = [];
@@ -96,7 +96,7 @@ class SearchController extends Controller
                 "packs" => $packs,
                 "cycles" => $cycles,
                 "types" => $types,
-                "factions" => $factions,
+                "sides" => $sides,
                 "traits" => $traits,
                 "illustrators" => $illustrators,
         ), $response);
@@ -112,7 +112,7 @@ class SearchController extends Controller
         $game_name = $this->container->getParameter('game_name');
         $publisher_name = $this->container->getParameter('publisher_name');
         
-        $meta = $card->getName().", a ".$card->getFaction()->getName()." ".$card->getType()->getName()." card for $game_name from the set ".$card->getPack()->getName()." published by $publisher_name.";
+        $meta = $card->getName().", a ".$card->getSide()->getName()." ".$card->getType()->getName()." card for $game_name from the set ".$card->getPack()->getName()." published by $publisher_name.";
 
         return $this->forward(
             'AppBundle:Search:display',
@@ -199,7 +199,7 @@ class SearchController extends Controller
         $sort = $request->query->get('sort') ?: 'name';
 
         $operators = array(":","!","<",">");
-        $factions = $this->getDoctrine()->getRepository('AppBundle:Faction')->findAll();
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAll();
 
         $params = [];
         if ($request->query->get('q') != "") {
@@ -209,7 +209,7 @@ class SearchController extends Controller
             $val = $request->query->get($key);
             if (isset($val) && $val != "") {
                 if (is_array($val)) {
-                    if ($searchName == "faction" && count($val) == count($factions)) {
+                    if ($searchName == "side" && count($val) == count($sides)) {
                         continue;
                     }
                     $params[] = $key.":".implode("|", array_map(function ($s) {
@@ -383,7 +383,7 @@ class SearchController extends Controller
                 $sortfields = array(
                     'set' => 'pack_name',
                     'name' => 'name',
-                    'faction' => 'faction_name',
+                    'side' => 'side_name',
                     'type' => 'type_name',
                     'cost' => 'cost',
                     'strength' => 'strength',

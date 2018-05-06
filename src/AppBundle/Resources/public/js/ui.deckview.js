@@ -34,8 +34,8 @@
                 DisplaySort = 'position';
                 ui.refresh_deck()();
                 break;
-            case 'btn-sort-faction':
-                DisplaySort = 'faction';
+            case 'btn-sort-side':
+                DisplaySort = 'side';
                 ui.refresh_deck()();
                 break;
             case 'btn-sort-name':

@@ -4,7 +4,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class FactionRepository extends EntityRepository
+class SideRepository extends EntityRepository
 {
     public function findAllAndOrderByName()
     {
