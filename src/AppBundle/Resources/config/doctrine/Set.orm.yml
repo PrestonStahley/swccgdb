@@ -1,6 +1,6 @@
 AppBundle\Entity\Set:
     type: entity
-    table: set
+    table: cardset
     repositoryClass: AppBundle\Repository\SetRepository
     manyToOne:
         cycle:
