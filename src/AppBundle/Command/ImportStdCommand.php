@@ -134,8 +134,7 @@ class ImportStdCommand extends ContainerAwareCommand
         foreach ($list as $data) {
             $side = $this->getEntityFromData('AppBundle\\Entity\\Side', $data, [
                     'code',
-                    'name',
-                    'is_primary'
+                    'name'
             ], [], []);
             if ($side) {
                 $result[] = $side;
@@ -197,8 +196,7 @@ class ImportStdCommand extends ContainerAwareCommand
                     'name',
                     'position',
                     'size',
-                    'date_release',
-                    'cgdb_id'
+                    'date_release'
             ], [
                     'cycle_code'
             ], []);
@@ -226,25 +224,69 @@ class ImportStdCommand extends ContainerAwareCommand
         foreach ($cardsData as $cardData) {
             $card = $this->getEntityFromData('AppBundle\Entity\Card', $cardData, [
                     'code',
-                    'deck_limit',
-                    'position',
-                    'quantity',
+                    'gametext',
+                    'has_errata',
+                    'image_url',
                     'name',
-                    'text',
-                    'flavor',
-                    'is_loyal',
-                    'is_unique',
-                    'is_multiple'
+                    'position',
+                    'uniqueness'
             ], [
-                    'side_code',
+                    'rarity_code',
                     'set_code',
-                    'type_code'
+                    'side_code',
+                    'type_code',
+                    'subtype_code'
             ], [
-                    'designer',
-                    'illustrator',
-                    'traits',
+                    'ability',
+                    'armor',
+                    'characteristics',
                     'cost',
-                    'octgn_id'
+                    'clone_army',
+                    'dark_side_icons',
+                    'dark_side_text',
+                    'defense_value',
+                    'defense_value_name',
+                    'deploy',
+                    'destiny',
+                    'episode_1',
+                    'episode_7',
+                    'ferocity',
+                    'first_order',
+                    'force_aptitude',
+                    'forfeit',
+                    'grabber',
+                    'hyperspeed',
+                    'independent',
+                    'landspeed',
+                    'light_side_icons',
+                    'light_side_text',
+                    'lore',
+                    'maneuver',
+                    'mobile',
+                    'model_type',
+                    'nav_computer',
+                    'permanent_weapon',
+                    'pilot',
+                    'planet',
+                    'politics',
+                    'power',
+                    'presence',
+                    'republic',
+                    'resistance',
+                    'scomp_link',
+                    'selective',
+                    'separatist',
+                    'site_creature',
+                    'site_exterior',
+                    'site_interior',
+                    'site_starship',
+                    'site_underground',
+                    'site_underwater',
+                    'site_vehicle',
+                    'space',
+                    'system_parsec',
+                    'trade_federation',
+                    'warrior'
             ]);
             if ($card) {
                 $result[] = $card;

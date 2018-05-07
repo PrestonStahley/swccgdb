@@ -17,8 +17,6 @@ class SideType extends AbstractType
         $builder
             ->add('code')
             ->add('name')
-            ->add('is_primary')
-            ->add('octgn_id')
         ;
     }
     
