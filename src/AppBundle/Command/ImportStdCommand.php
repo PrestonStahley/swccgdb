@@ -308,7 +308,6 @@ class ImportStdCommand extends ContainerAwareCommand
                     'ability',
                     'armor',
                     'characteristics',
-                    'cost',
                     'clone_army',
                     'dark_side_icons',
                     'dark_side_text',
