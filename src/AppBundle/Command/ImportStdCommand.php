@@ -76,7 +76,37 @@ class ImportStdCommand extends ContainerAwareCommand
         $this->em->flush();
         $this->loadCollection('Type');
         $output->writeln("Done.");
-        
+
+        // subtypes
+
+        $output->writeln("Importing Subtypes...");
+        $subtypesFileInfo = $this->getFileInfo($path, 'subtypes.json');
+        $imported = $this->importSubtypesJsonFile($subtypesFileInfo);
+        if (count($imported)) {
+            $question = new ConfirmationQuestion("Do you confirm? (Y/n) ", true);
+            if (!$helper->ask($input, $output, $question)) {
+                die();
+            }
+        }
+        $this->em->flush();
+        $this->loadCollection('Subtype');
+        $output->writeln("Done.");
+
+        // rarities
+
+        $output->writeln("Importing Rarities...");
+        $raritiesFileInfo = $this->getFileInfo($path, 'rarities.json');
+        $imported = $this->importRaritiesJsonFile($raritiesFileInfo);
+        if (count($imported)) {
+            $question = new ConfirmationQuestion("Do you confirm? (Y/n) ", true);
+            if (!$helper->ask($input, $output, $question)) {
+                die();
+            }
+        }
+        $this->em->flush();
+        $this->loadCollection('Rarity');
+        $output->writeln("Done.");
+
         // cycles
 
         $output->writeln("Importing Cycles...");
@@ -163,7 +193,45 @@ class ImportStdCommand extends ContainerAwareCommand
     
         return $result;
     }
-    
+
+    protected function importSubtypesJsonFile(\SplFileInfo $fileinfo)
+    {
+        $result = [];
+
+        $list = $this->getDataFromFile($fileinfo);
+        foreach ($list as $data) {
+            $subtype = $this->getEntityFromData('AppBundle\\Entity\\Subtype', $data, [
+                    'code',
+                    'name'
+            ], [], []);
+            if ($subtype) {
+                $result[] = $subtype;
+                $this->em->persist($subtype);
+            }
+        }
+
+        return $result;
+    }
+
+    protected function importRaritiesJsonFile(\SplFileInfo $fileinfo)
+    {
+        $result = [];
+
+        $list = $this->getDataFromFile($fileinfo);
+        foreach ($list as $data) {
+            $rarity = $this->getEntityFromData('AppBundle\\Entity\\Rarity', $data, [
+                    'code',
+                    'name'
+            ], [], []);
+            if ($rarity) {
+                $result[] = $rarity;
+                $this->em->persist($rarity);
+            }
+        }
+
+        return $result;
+    }
+
     protected function importCyclesJsonFile(\SplFileInfo $fileinfo)
     {
         $result = [];
