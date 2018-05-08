@@ -483,7 +483,6 @@ class ImportStdCommand extends ContainerAwareCommand
     {
         $mandatoryKeys = [
                 'ability',
-                'strength',
                 'deploy',
                 'destiny',
                 'forfeit',
