@@ -478,47 +478,16 @@ class ImportStdCommand extends ContainerAwareCommand
             return $entity;
         }
     }
-    
-    protected function importAgendaData(Card $card, $data)
-    {
-        $mandatoryKeys = [
-        ];
-        
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
-    }
-
-    protected function importAttachmentData(Card $card, $data)
-    {
-        $mandatoryKeys = [
-                'cost'
-        ];
-
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
-    }
 
     protected function importCharacterData(Card $card, $data)
     {
         $mandatoryKeys = [
-                'cost',
+                'ability',
                 'strength',
-                'is_military',
-                'is_intrigue',
-                'is_power'
-        ];
-
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
-    }
-
-    protected function importEventData(Card $card, $data)
-    {
-        $mandatoryKeys = [
-                'cost'
+                'deploy',
+                'destiny',
+                'forfeit',
+                'power'
         ];
 
         foreach ($mandatoryKeys as $key) {
@@ -529,31 +498,10 @@ class ImportStdCommand extends ContainerAwareCommand
     protected function importLocationData(Card $card, $data)
     {
         $mandatoryKeys = [
-                'cost'
-        ];
-
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
-    }
-
-    protected function importPlotData(Card $card, $data)
-    {
-        $mandatoryKeys = [
-                'claim',
-                'income',
-                'initiative',
-                'reserve'
-        ];
-
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
-    }
-
-    protected function importTitleData(Card $card, $data)
-    {
-        $mandatoryKeys = [
+                'dark_side_icons',
+                'dark_side_text',
+                'light_side_icons',
+                'light_side_text'
         ];
 
         foreach ($mandatoryKeys as $key) {
