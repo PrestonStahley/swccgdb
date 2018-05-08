@@ -161,7 +161,9 @@ class Card implements \Serializable
 
         foreach ($externalFields as $externalField) {
             $getter = 'get' . $this->snakeToCamel($externalField);
-            $serialized[$externalField.'_code'] = $this->$getter()->getCode();
+            $object = $this->$getter();
+            if($object)
+              $serialized[$externalField.'_code'] = $this->$getter()->getCode();
         }
 
         ksort($serialized);
