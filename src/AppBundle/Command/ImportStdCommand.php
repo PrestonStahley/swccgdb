@@ -479,33 +479,91 @@ class ImportStdCommand extends ContainerAwareCommand
         }
     }
 
+    protected function importAdmiralsorderData(Card $card, $data)
+    {
+
+    }
+
     protected function importCharacterData(Card $card, $data)
     {
-        $mandatoryKeys = [
-                'ability',
-                'deploy',
-                'destiny',
-                'forfeit',
-                'power'
-        ];
+        // Use if fields need to be required
 
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
+        // $mandatoryKeys = [
+        //         'ability',
+        //         'deploy',
+        //         'destiny',
+        //         'forfeit',
+        //         'power'
+        // ];
+        //
+        // foreach ($mandatoryKeys as $key) {
+        //     $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
+        // }
+    }
+
+    protected function importCreatureData(Card $card, $data)
+    {
+
+    }
+
+    protected function importDefensiveshieldData(Card $card, $data)
+    {
+
+    }
+
+    protected function importDeviceData(Card $card, $data)
+    {
+
+    }
+
+    protected function importEffectData(Card $card, $data)
+    {
+
+    }
+
+    protected function importEpiceventData(Card $card, $data)
+    {
+
+    }
+
+    protected function importInterruptData(Card $card, $data)
+    {
+
+    }
+
+    protected function importJeditestData(Card $card, $data)
+    {
+
     }
 
     protected function importLocationData(Card $card, $data)
     {
-        $mandatoryKeys = [
-                'dark_side_icons',
-                'dark_side_text',
-                'light_side_icons',
-                'light_side_text'
-        ];
 
-        foreach ($mandatoryKeys as $key) {
-            $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        }
+    }
+
+    protected function importObjectiveData(Card $card, $data)
+    {
+
+    }
+
+    protected function importPodracerData(Card $card, $data)
+    {
+
+    }
+
+    protected function importStarshipData(Card $card, $data)
+    {
+
+    }
+
+    protected function importVehicleData(Card $card, $data)
+    {
+
+    }
+
+    protected function importWeaponData(Card $card, $data)
+    {
+
     }
 
     protected function getDataFromFile(\SplFileInfo $fileinfo)
