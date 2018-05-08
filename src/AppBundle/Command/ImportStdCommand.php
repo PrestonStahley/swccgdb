@@ -447,6 +447,9 @@ class ImportStdCommand extends ContainerAwareCommand
             $foreignEntityShortName = ucfirst(str_replace('_code', '', $key));
     
             if (!key_exists($key, $data)) {
+                if ($key === "subtype_code"){
+                  continue;
+                }
                 throw new \Exception("Missing key [$key] in ".json_encode($data));
             }
 
