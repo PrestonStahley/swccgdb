@@ -1,6 +1,3 @@
 <div class="card-text border-{{ card.side_code }}">
-	{{ card.text|raw }}
-	{% if card.designer is not empty %}
-	<p class="card-designer">{{ card.designer }}</p>
-	{% endif %}
+	{{ card.gametext|raw }}
 </div>

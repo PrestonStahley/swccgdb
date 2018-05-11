@@ -475,12 +475,12 @@ class CardsData
         if ($api) {
             unset($cardinfo['id']);
         } else {
-            $cardinfo['text'] = $this->replaceSymbols($cardinfo['text']);
-            $cardinfo['text'] = $this->splitInParagraphs($cardinfo['text']);
+            $cardinfo['gametext'] = $this->replaceSymbols($cardinfo['gametext']);
+            $cardinfo['gametext'] = $this->splitInParagraphs($cardinfo['gametext']);
         }
 
-        $cardinfo['characteristics'] = $this->parseKeywords($cardinfo['lore'], $api);
-        $cardinfo['text'] = $this->parseKeywords($cardinfo['lore'], $api);
+        $cardinfo['characteristics'] = $this->parseKeywords($cardinfo['characteristics'], $api);
+        $cardinfo['gametext'] = $this->parseKeywords($cardinfo['gametext'], $api);
         $cardinfo['lore'] = $this->parseKeywords($cardinfo['lore'], $api);
 
         return $cardinfo;
