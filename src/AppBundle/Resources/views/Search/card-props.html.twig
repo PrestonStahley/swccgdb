@@ -2,10 +2,10 @@
 
 <span class="card-props">
 {% if card.type_code == 'character' %}
-	{{'card.info.power' | trans}}: {{ macros.integer_or_x(card.power) }}.
-	{{'card.info.ability' | trans}}: {{ macros.integer_or_x(card.ability) }}.
+	Power: {{ macros.integer_or_x(card.power) }}.
+	Ability: {{ macros.integer_or_x(card.ability) }}.
 {% endif %}
 {% if card.type_code == 'location' %}
-{% if card.system_parsec %}{{'card.info.system_parsec' | trans}}: {{ macros.integer_or_x(card.system_parsec) }}{% endif %}
+{% if card.system_parsec %}Parsec: {{ macros.integer_or_x(card.system_parsec) }}{% endif %}
 {% endif %}
 </span>
