@@ -57,13 +57,13 @@ class CardsData
     {
         if ($api) {
           static $displayTextReplacements = [
-              '\\b' => '',
               '\\b0' => '',
+              '\\b' => '',
           ];
         } else {
           static $displayTextReplacements = [
-              '\\b' => '<b>',
               '\\b0' => '</b>',
+              '\\b' => '<b>',
           ];
         }
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
