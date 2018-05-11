@@ -479,11 +479,7 @@ class CardsData
 
         $cardinfo['url'] = $this->router->generate('cards_zoom', array('card_code' => $card->getCode()), UrlGeneratorInterface::ABSOLUTE_URL);
 
-        if ($card->getIsMultiple()) {
-            $cardinfo['label'] = $card->getName() . ' (' . $card->getSet()->getCode() . ')';
-        } else {
-            $cardinfo['label'] = $card->getName();
-        }
+        $cardinfo['label'] = $card->getName();
 
         if ($api) {
             unset($cardinfo['id']);
