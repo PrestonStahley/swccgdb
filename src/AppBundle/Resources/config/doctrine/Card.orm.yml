@@ -198,10 +198,6 @@ AppBundle\Entity\Card:
         separatist:
             type: boolean
             nullable: true
-        scompLink:
-            type: boolean
-            nullable: true
-            column: scomp_link
         siteCreature:
             type: boolean
             nullable: true
