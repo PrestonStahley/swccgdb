@@ -38,45 +38,35 @@ class CardsData
     public function replaceSymbols($text)
     {
         static $displayTextReplacements = [
-            '[baratheon]' => '<span class="icon-baratheon"></span>',
-            '[intrigue]' => '<span class="icon-intrigue"></span>',
-            '[greyjoy]' => '<span class="icon-greyjoy"></span>',
-            '[lannister]' => '<span class="icon-lannister"></span>',
-            '[martell]' => '<span class="icon-martell"></span>',
-            '[military]' => '<span class="icon-military"></span>',
-            '[thenightswatch]' => '<span class="icon-thenightswatch"></span>',
-            '[power]' => '<span class="icon-power"></span>',
-            '[stark]' => '<span class="icon-stark"></span>',
-            '[targaryen]' => '<span class="icon-targaryen"></span>',
-            '[tyrell]' => '<span class="icon-tyrell"></span>',
             '[unique]' => '<span class="icon-unique"></span>',
+            '[restricted]' => '<span class="icon-restricted"></span>',
+            '[maintain]' => '<span class="icon-maintain"></span>',
+            '[recycle]' => '<span class="icon-recycle"></span>',
+            '[sacrifice]' => '<span class="icon-martell"></span>',
         ];
 
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
     }
 
     /**
-     * Searches for single keywords and surround them with <abbr>
+     * Remove weird keyword symbols or replace with markup.
      * @param string $text
      * @return string
      */
-    public function addAbbrTags($text)
+    public function parseKeywords($text, $api = false)
     {
-        static $keywords = ['renown', 'intimidate', 'stealth', 'insight', 'limited', 'pillage', 'terminal', 'ambush', 'bestow'];
-
-        $locale = $this->request_stack->getCurrentRequest() ? $this->request_stack->getCurrentRequest()->getLocale() : 'en';
-
-        foreach ($keywords as $keyword) {
-            $translated = $this->translator->trans('keyword.' . $keyword . ".name", array(), "messages", $locale);
-
-            $text = preg_replace_callback("/\b($translated)\b/i", function ($matches) use ($keyword) {
-                return "<abbr data-keyword=\"$keyword\">" . $matches[1] . "</abbr>";
-            }, $text);
+        if ($api) {
+          static $displayTextReplacements = [
+              '\\b' => '',
+              '\\b0' => '',
+          ];
+        } else {
+          static $displayTextReplacements = [
+              '\\b' => '<b>',
+              '\\b0' => '</b>',
+          ];
         }
-
-
-
-        return $text;
+        return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
     }
 
     public function splitInParagraphs($text)
@@ -483,15 +473,14 @@ class CardsData
 
         if ($api) {
             unset($cardinfo['id']);
-            $cardinfo['ci'] = $card->getCostIncome();
-            $cardinfo['si'] = $card->getStrengthInitiative();
         } else {
             $cardinfo['text'] = $this->replaceSymbols($cardinfo['text']);
-            $cardinfo['text'] = $this->addAbbrTags($cardinfo['text']);
             $cardinfo['text'] = $this->splitInParagraphs($cardinfo['text']);
-
-            $cardinfo['flavor'] = $this->replaceSymbols($cardinfo['flavor']);
         }
+
+        $cardinfo['characteristics'] = $this->parseKeywords($cardinfo['lore'], $api);
+        $cardinfo['text'] = $this->parseKeywords($cardinfo['lore'], $api);
+        $cardinfo['lore'] = $this->parseKeywords($cardinfo['lore'], $api);
 
         return $cardinfo;
     }
