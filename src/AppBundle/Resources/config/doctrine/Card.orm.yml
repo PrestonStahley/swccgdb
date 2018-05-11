@@ -1,4 +1,4 @@
-nullable: trueAppBundle\Entity\Card:
+AppBundle\Entity\Card:
     type: entity
     table: card
     repositoryClass: AppBundle\Repository\CardRepository
