@@ -1,4 +1,4 @@
-AppBundle\Entity\Card:
+nullable: trueAppBundle\Entity\Card:
     type: entity
     table: card
     repositoryClass: AppBundle\Repository\CardRepository
@@ -50,33 +50,33 @@ AppBundle\Entity\Card:
             nullable: false
         ability:
             type: smallint
-            nullable: false
+            nullable: true
         armor:
             type: smallint
-            nullable: false
+            nullable: true
         characteristics:
             type: text
-            nullable: false
+            nullable: true
         cloneArmy:
             type: boolean
-            nullable: false
+            nullable: true
             column: clone_army
         darkSideIcons:
             type: smallint
-            nullable: false
+            nullable: true
             column: dark_side_icons
         darkSideText:
             type: text
-            nullable: false
+            nullable: true
             column: dark_side_text
         defenseValue:
             type: smallint
-            nullable: false
+            nullable: true
             column: defense_value
         defenseValueName:
             type: string
             length: 255
-            nullable: false
+            nullable: true
             column: defense_value_name
         deploy:
             type: smallint
@@ -86,23 +86,23 @@ AppBundle\Entity\Card:
             nullable: true
         episode1:
             type: boolean
-            nullable: false
+            nullable: true
             column: episode_1
         episode7:
             type: boolean
-            nullable: false
+            nullable: true
             column: episode_7
         ferocity:
             type: smallint
             nullable: true
         firstOrder:
             type: boolean
-            nullable: false
+            nullable: true
             column: first_order
         forceAptitude:
             type: string
             length: 255
-            nullable: false
+            nullable: true
             column: force_aptitude
         forfeit:
             type: smallint
@@ -112,45 +112,45 @@ AppBundle\Entity\Card:
             nullable: false
         grabber:
             type: boolean
-            nullable: false
+            nullable: true
         hasErrata:
             type: boolean
             nullable: false
             column: has_errata
         hyperspeed:
             type: smallint
-            nullable: false
+            nullable: true
         imageUrl:
             type: text
             nullable: false
             column: image_url
         independent:
             type: boolean
-            nullable: false
+            nullable: true
         landspeed:
             type: smallint
             nullable: true
         lightSideIcons:
             type: smallint
-            nullable: false
+            nullable: true
             column: light_side_icons
         lightSideText:
             type: text
-            nullable: false
+            nullable: true
             column: light_side_text
         lore:
             type: text
-            nullable: false
+            nullable: true
         maneuver:
             type: smallint
-            nullable: false
+            nullable: true
         mobile:
             type: boolean
-            nullable: false
+            nullable: true
         modelType:
             type: string
             length: 255
-            nullable: false
+            nullable: true
             column: model_type
         name:
             type: string
@@ -158,88 +158,88 @@ AppBundle\Entity\Card:
             nullable: false
         navComputer:
             type: boolean
-            nullable: false
+            nullable: true
             column: nav_computer
         permanentWeapon:
             type: boolean
-            nullable: false
+            nullable: true
             column: permanent_weapon
         pilot:
             type: boolean
-            nullable: false
+            nullable: true
         planet:
             type: boolean
-            nullable: false
+            nullable: true
         politics:
             type: smallint
-            nullable: false
+            nullable: true
         position:
             type: smallint
-            nullable: false
+            nullable: true
         power:
             type: smallint
             nullable: true
         presence:
             type: smallint
-            nullable: false
+            nullable: true
         republic:
             type: boolean
-            nullable: false
+            nullable: true
         resistance:
             type: boolean
-            nullable: false
+            nullable: true
         scompLink:
             type: boolean
-            nullable: false
+            nullable: true
             column: scomp_link
         selective:
             type: boolean
-            nullable: false
+            nullable: true
         separatist:
             type: boolean
-            nullable: false
+            nullable: true
         scompLink:
             type: boolean
-            nullable: false
+            nullable: true
             column: scomp_link
         siteCreature:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_creature
         siteExterior:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_exterior
         siteInterior:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_interior
         siteStarship:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_starship
         siteUnderground:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_underground
         siteUnderwater:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_underwater
         siteVehicle:
             type: boolean
-            nullable: false
+            nullable: true
             column: site_vehicle
         space:
             type: boolean
-            nullable: false
+            nullable: true
         systemParsec:
             type: smallint
             nullable: true
             column: system_parsec
         tradeFederation:
             type: boolean
-            nullable: false
+            nullable: true
             column: trade_federation
         uniqueness:
             type: string
@@ -247,7 +247,7 @@ AppBundle\Entity\Card:
             nullable: false
         warrior:
             type: boolean
-            nullable: false
+            nullable: true
         dateCreation:
             type: datetime
             nullable: false
