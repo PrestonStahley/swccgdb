@@ -3,7 +3,7 @@
 	{% if card.type_code == 'effect' or card.type_code == 'interrupt' or card.type_code == 'weapon' or card.type_code == 'vehicle' %}
 		{% if card.subtype_name is not empty %}<span class="card-subtype">{{ card.subtype_name }}</span> {% endif %}
 		<span class="card-type">{{ card.type_name }}.</span>
-	{% else if card.type_code == 'starship' %}
+	{% elseif card.type_code == 'starship' %}
 		<span class="card-type">{{ card.type_name }}.</span>
 		<span class="card-subtype">{{ card.subtype_name }}: {{card.model_type}}.</span>
 	{% else %}
