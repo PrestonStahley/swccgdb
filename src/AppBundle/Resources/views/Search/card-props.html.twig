@@ -8,16 +8,15 @@
 	{% if card.model_type is not empty %}{{card.model_type}} {% endif %}
 {% endif %}
 {% if card.type_code == 'starship' %}
-	{% if card.model_type is not empty %}{{card.model_type}}.{% endif %}
 	Power: {{ macros.integer_or_x(card.power) }}.
 	Maneuver: {{ macros.integer_or_x(card.maneuver) }}.
-	{% if card.hyperspeed is not empty %}Hyperspeed: {{card.hyperspeed}}.{% endif %}
+	{% if card.hyperspeed > 0 %}Hyperspeed: {{ macros.integer_or_x(card.hyperspeed) }}.{% endif %}
 {% endif %}
 {% if card.type_code == 'vehicle' %}
 	Power: {{ macros.integer_or_x(card.power) }}.
-	{% if card.armor is not empty %}Armor: {{ macros.integer_or_x(card.armor) }}.{% endif %}
-	{% if card.maneuver is not empty %}Maneuver: {{ macros.integer_or_x(card.maneuver) }}.{% endif %}
-	{% if card.landspeed is not empty %}landspeed: {{card.landspeed}}. {% endif %}
+	{% if card.armor > 0 %}Armor: {{ macros.integer_or_x(card.armor) }}.{% endif %}
+	{% if card.maneuver > 0 %}Maneuver: {{ macros.integer_or_x(card.maneuver) }}.{% endif %}
+	{% if card.landspeed > 0 %}Landspeed: {{card.landspeed}}. {% endif %}
 {% endif %}
 {% if card.type_code == 'location' %}
 {% if card.system_parsec %}Parsec: {{ macros.integer_or_x(card.system_parsec) }}{% endif %}
