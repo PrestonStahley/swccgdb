@@ -85,7 +85,7 @@
     format.uniqueness = function uniqueness(card)
     {
         var text = card.uniqueness || '';
-        text = text.replace('*', '&bull;')
+        text = text.replace(/\*/g, '&bull;')
         return text + ' ';
     };
 
