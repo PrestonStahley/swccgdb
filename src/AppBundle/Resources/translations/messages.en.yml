@@ -400,6 +400,7 @@ card:
     plotlimit: Plot deck limit
     quantity: Quantity
     illustrator: Illustrator
+    rarity: Rarity
     short:
       costgold: C.
       strini: S.

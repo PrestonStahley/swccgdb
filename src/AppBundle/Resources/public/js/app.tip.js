@@ -9,15 +9,14 @@
 
     function display_card_on_element(card, element, event)
     {
+        console.log(card);
         var content;
         if(mode === 'text') {
-            var image = card.image_url ? '<div class="card-thumbnail card-thumbnail-' + (card.type_code === 'plot' ? 4 : 3) + 'x card-thumbnail-' + card.type_code + '" style="background-image:url(' + card.image_url + ')"></div>' : "";
+            var image = card.image_url ? '<div class="card-thumbnail card-thumbnail-' + (card.subtype_code === 'site' ? 4 : 3) + 'x card-thumbnail-' + card.type_code + '" style="background-image:url(' + card.image_url + ')"></div>' : "";
 
             content = image
                     + '<h4 class="card-name">' + app.format.name(card) + '</h4>'
-                    + '<div class="card-side">' + app.format.side(card) + '</div>'
                     + '<div class="card-info">' + app.format.info(card) + '</div>'
-                    + '<div class="card-traits">' + app.format.traits(card) + '</div>'
                     + '<div class="card-text border-' + card.side_code + '">' + app.format.text(card) + '</div>'
                     + '<div class="card-set">' + app.format.set(card) + '</div>'
                     ;
