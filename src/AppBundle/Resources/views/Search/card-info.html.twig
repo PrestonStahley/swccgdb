@@ -10,6 +10,8 @@
 		<span class="card-type">{{ card.type_name }}.</span>
 		{% if card.subtype_name is not empty %}<span class="card-subtype">{{ card.subtype_name }}.</span>{% endif %}
 	{% endif %}
-	<span class="card-props">{% include 'AppBundle:Search:card-props.html.twig' %}</span>
+	</p>
+	<p>
+		{% include 'AppBundle:Search:card-props.html.twig' %}
 	</p>
 </div>
