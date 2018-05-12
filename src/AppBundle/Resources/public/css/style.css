@@ -6,14 +6,17 @@ body {
 
 
 .card-content {
-    font: 16px/20px 'Crimson Text', serif;
+
 }
 .card-content abbr[title] {
     border-bottom: none;
 }
 .card-name {
     font-family: 'Anton', sans-serif;
-    font-weight: 700;
+    font-weight: normal;
+}
+a.card-name:hover {
+  text-decoration: none;
 }
 .card-preview {
     color: red;
@@ -30,10 +33,11 @@ body {
     border-left-style: solid;
 }
 .card-text p {
-    margin: 6px;
+    margin-left: 10px;
 }
 .card-flavor {
-    font-style: italic;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight:300;
 }
 .card-flavor cite {
     white-space: nowrap;
