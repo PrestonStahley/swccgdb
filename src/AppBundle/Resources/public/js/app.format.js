@@ -86,7 +86,7 @@
     {
         var text = card.uniqueness || '';
         text = text.replace('*', '&bull;')
-        return text;
+        return text + ' ';
     };
 
 })(app.format = {}, jQuery);
