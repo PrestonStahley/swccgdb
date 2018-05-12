@@ -24,10 +24,6 @@ a.card-name:hover {
 .card-type, .card-designer {
     font-weight: 700;
 }
-.card-traits, .card-text i {
-    font-weight: 700;
-    font-style: italic;
-}
 .card-text {
     border-left-width: 2px;
     border-left-style: solid;

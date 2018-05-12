@@ -43,7 +43,7 @@ class CardsData
             '[maintain]' => '<span class="icon-maintain"></span>',
             '[recycle]' => '<span class="icon-recycle"></span>',
             '[sacrifice]' => '<span class="icon-martell"></span>',
-            '*' => '&bul;',
+            '*' => '&bull;',
         ];
 
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
@@ -60,11 +60,15 @@ class CardsData
           static $displayTextReplacements = [
               '\\b0' => '',
               '\\b' => '',
+              '\\ul0' => '',
+              '\\ul' => '',
           ];
         } else {
           static $displayTextReplacements = [
               '\\b0' => '</b>',
               '\\b' => '<b>',
+              '\\ul0' => '<i>',
+              '\\ul' => '</i>',
           ];
         }
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
