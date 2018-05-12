@@ -21,7 +21,7 @@ a.card-name:hover {
 .card-preview {
     color: red;
 }
-.card-type, .card-designer {
+.card-type, .card-subtype {
     font-weight: 700;
 }
 .card-text {
