@@ -7,15 +7,11 @@
 	{% if card.force_aptitude is not empty %}{{card.force_aptitude}} {% endif %}
 	{% if card.model_type is not empty %}{{card.model_type}} {% endif %}
 {% endif %}
-{% if card.type_code == 'starship' %}
-	Power: {{ macros.integer_or_x(card.power) }}.
-	Maneuver: {{ macros.integer_or_x(card.maneuver) }}.
-	{% if card.hyperspeed > 0 %}Hyperspeed: {{ macros.integer_or_x(card.hyperspeed) }}.{% endif %}
-{% endif %}
-{% if card.type_code == 'vehicle' %}
+{% if card.type_code == 'starship' or card.type_code == 'vehicle' %}
 	Power: {{ macros.integer_or_x(card.power) }}.
 	{% if card.armor > 0 %}Armor: {{ macros.integer_or_x(card.armor) }}.{% endif %}
 	{% if card.maneuver > 0 %}Maneuver: {{ macros.integer_or_x(card.maneuver) }}.{% endif %}
+	{% if card.hyperspeed > 0 %}Hyperspeed: {{ macros.integer_or_x(card.hyperspeed) }}.{% endif %}
 	{% if card.landspeed > 0 %}Landspeed: {{card.landspeed}}. {% endif %}
 {% endif %}
 {% if card.type_code == 'location' %}
