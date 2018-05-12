@@ -12,7 +12,7 @@ body {
     border-bottom: none;
 }
 .card-name {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Anton', sans-serif;
     font-weight: 700;
 }
 .card-preview {
@@ -296,7 +296,7 @@ ol {
 /************** INDEX PAGE ***************/
 
 h1.site-title {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Anton', sans-serif;
     position:relative;
     font-size:64px;
     text-transform: uppercase;
@@ -304,7 +304,7 @@ h1.site-title {
     margin-top: 0;
 }
 div.site-slogan {
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Anton', sans-serif;
     position:relative;
     font-size:30px;
     text-align:center;
