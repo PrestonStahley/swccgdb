@@ -14,7 +14,7 @@
      */
     format.name = function name(card)
     {
-        return (card.uniqueness ? card.uniqueness : '') + card.name;
+        return (card.uniqueness ? app.format.uniqueness(card) : '') + card.name;
     }
 
     format.side = function side(card)
@@ -34,7 +34,7 @@
      */
     format.set = function set(card)
     {
-        var text = card.set_code + ', ' + card.rarity_code;
+        var text = '<span class="set-code">' + card.set_code + '</span>, <span class="rarity-code">' + card.rarity_code + '</span>';
         return text;
     }
 
@@ -50,7 +50,7 @@
             case 'weapon':
             case 'vehicle':
                 if(card.subtype_name) {
-                  text += '<span class="card-subtype">' + card.subtype_name + '. </span>';
+                  text += '<span class="card-subtype">' + card.subtype_name + ' </span>';
                 }
                 text += '<span class="card-type">' + card.type_name + '. </span>';
                 break;
@@ -77,6 +77,16 @@
         text = text.replace(/\[(\w+)\]/g, '<span class="icon-$1"></span>')
         text = text.split("\n").join('</p><p>');
         return '<p>' + text + '</p>';
+    };
+
+    /**
+     * @memberOf format
+     */
+    format.uniqueness = function uniqueness(card)
+    {
+        var text = card.uniqueness || '';
+        text = text.replace('*', '&bull;')
+        return text;
     };
 
 })(app.format = {}, jQuery);

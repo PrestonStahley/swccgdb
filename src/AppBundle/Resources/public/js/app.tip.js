@@ -16,7 +16,7 @@
 
             content = image
                     + '<h4 class="card-name">' + app.format.name(card) + '</h4>'
-                    + '<div class="card-info">' + app.format.info(card) + '</div>'
+                    + '<div class="card-info"><p>' + app.format.info(card) + '</p></div>'
                     + '<div class="card-text border-' + card.side_code + '">' + app.format.text(card) + '</div>'
                     + '<div class="card-set">' + app.format.set(card) + '</div>'
                     ;
