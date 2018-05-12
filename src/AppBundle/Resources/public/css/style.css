@@ -45,6 +45,10 @@ a.card-name:hover {
     content: "\2013\FEFF";
 }
 
+.set-code, .rarity-code {
+  text-transform: uppercase;
+}
+
 .color-military {
     color: #c8232a;
 }

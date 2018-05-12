@@ -3,9 +3,9 @@
 <span class="card-props">
 {% if card.type_code == 'character' %}
 	Power: {{ macros.integer_or_x(card.power) }}.
-	Ability: {{ macros.integer_or_x(card.ability) }}.
-	{% if card.force_aptitude is not empty %}{{card.force_aptitude}} {% endif %}
-	{% if card.model_type is not empty %}{{card.model_type}} {% endif %}
+	{% if card.ability > 0 %}Ability: {{ macros.integer_or_x(card.ability) }}.{% endif %}
+	{% if card.force_aptitude is not empty %}{{card.force_aptitude}}.{% endif %}
+	{% if card.model_type is not empty %}{{card.model_type}}.{% endif %}
 {% endif %}
 {% if card.type_code == 'starship' or card.type_code == 'vehicle' %}
 	Power: {{ macros.integer_or_x(card.power) }}.
