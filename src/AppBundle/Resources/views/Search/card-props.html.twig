@@ -4,6 +4,7 @@
 {% if card.type_code == 'character' %}
 	Power: {{ macros.integer_or_x(card.power) }}.
 	Ability: {{ macros.integer_or_x(card.ability) }}.
+	{% if card.force_aptitude is not empty %}{{card.force_aptitude}} {% endif %}
 {% endif %}
 {% if card.type_code == 'location' %}
 {% if card.system_parsec %}Parsec: {{ macros.integer_or_x(card.system_parsec) }}{% endif %}
