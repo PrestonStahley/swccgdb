@@ -34,7 +34,7 @@
      */
     format.set = function set(card)
     {
-        var text = '<span class="set-code">' + card.set_code + '</span>, <span class="rarity-code">' + card.rarity_code + '</span>';
+        var text = '<span class="set-name">' + card.set_name + '</span>, <span class="rarity-code">' + card.rarity_code + '</span>';
         return text;
     }
 
