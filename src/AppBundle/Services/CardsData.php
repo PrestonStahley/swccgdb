@@ -67,8 +67,8 @@ class CardsData
           static $displayTextReplacements = [
               '\\b0' => '</b>',
               '\\b' => '<b>',
-              '\\ul0' => '<i>',
-              '\\ul' => '</i>',
+              '\\ul0' => '</i>',
+              '\\ul' => '<i>',
           ];
         }
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);

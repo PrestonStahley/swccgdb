@@ -1,2 +1,1 @@
-{% if card.uniqueness %}{{card.uniqueness}} {% endif %}
-<a href="{{ card.url }}" class="card-name card-tip{% if card.available == false %} card-preview{% endif %}" data-code="{{ card.code }}">{{ card.name }}</a>
+<a href="{{ card.url }}" class="card-name card-tip{% if card.available == false %} card-preview{% endif %}" data-code="{{ card.code }}">{% if card.uniqueness %}{{card.uniqueness|raw}} {% endif %}{{ card.name }}</a>
