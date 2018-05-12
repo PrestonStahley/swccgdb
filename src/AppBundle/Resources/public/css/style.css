@@ -31,12 +31,14 @@ a.card-name:hover {
 .card-text {
     border-left-width: 2px;
     border-left-style: solid;
+    font-size:16px;
 }
 .card-text p {
     margin-left: 10px;
 }
 .card-flavor {
     font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 16px;
     font-weight:300;
 }
 .card-flavor cite {

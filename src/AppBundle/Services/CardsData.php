@@ -43,6 +43,7 @@ class CardsData
             '[maintain]' => '<span class="icon-maintain"></span>',
             '[recycle]' => '<span class="icon-recycle"></span>',
             '[sacrifice]' => '<span class="icon-martell"></span>',
+            '*' => '&bul;',
         ];
 
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
@@ -475,6 +476,7 @@ class CardsData
         if ($api) {
             unset($cardinfo['id']);
         } else {
+            $cardinfo['uniqueness'] = $this->replaceSymbols($cardinfo['uniqueness']);
             $cardinfo['gametext'] = $this->replaceSymbols($cardinfo['gametext']);
             $cardinfo['gametext'] = $this->splitInParagraphs($cardinfo['gametext']);
         }
