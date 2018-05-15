@@ -181,6 +181,20 @@ class Card implements \Serializable
     }
 
     /**
+     * Get icon
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+      $typeCode = $this->type->getCode();
+      if ($typeCode == "character") {
+        return $this->subtype->getCode();
+      }
+      return $typeCode;
+    }
+
+    /**
      * @var integer
      */
     private $id;
