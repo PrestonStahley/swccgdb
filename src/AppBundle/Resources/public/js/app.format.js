@@ -55,13 +55,13 @@
                 text += '<span class="card-type">' + card.type_name + '. </span>';
                 break;
             case 'starship':
-                text += '<span class="card-type">' + card.type_name + '. </span>';
                 text += '<span class="card-subtype">' + card.subtype_name + ': ' + card.model_type + '</span>';
                 break;
             default:
-                text += '<span class="card-type">' + card.type_name + '. </span>';
                 if(card.subtype_name) {
                   text += '<span class="card-subtype">' + card.subtype_name + '. </span>';
+                } else {
+                  text += '<span class="card-type">' + card.type_name + '. </span>';
                 }
                 break;
         }
