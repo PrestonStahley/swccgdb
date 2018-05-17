@@ -2,6 +2,7 @@
 
 {% block main %}
 
+<div class="table-responsive">
 <table class="rwd-table table table-striped">
 <thead>
 <tr>
@@ -9,7 +10,7 @@
 <th>{{ 'card.info.side' | trans }}</th>
 <th>{{ 'card.info.type' | trans }}</th>
 <th>{{ 'card.info.set' | trans }}</th>
-<th>{{ 'card.info.rarity' | trans }}</th>
+<th></th>
 </tr>
 </thead>
 {% for i in 0..cards|length-1 %}
@@ -26,5 +27,6 @@
 </tr>
 {% endfor %}
 </table>
+</div>
 
 {% endblock %}
