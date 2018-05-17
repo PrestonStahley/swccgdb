@@ -469,104 +469,10 @@ class ImportStdCommand extends ContainerAwareCommand
                 $entity->$setter($foreignEntity);
             }
         }
-    
-        // special case for Card
-        if ($entityName === 'AppBundle\Entity\Card') {
-            // calling a function whose name depends on the type_code
-            $functionName = 'import' . $entity->getType()->getName() . 'Data';
-            $this->$functionName($entity, $data);
-        }
-    
+
         if ($entity->serialize() !== $orig) {
             return $entity;
         }
-    }
-
-    protected function importAdmiralsorderData(Card $card, $data)
-    {
-
-    }
-
-    protected function importCharacterData(Card $card, $data)
-    {
-        // Use if fields need to be required
-
-        // $mandatoryKeys = [
-        //         'ability',
-        //         'deploy',
-        //         'destiny',
-        //         'forfeit',
-        //         'power'
-        // ];
-        //
-        // foreach ($mandatoryKeys as $key) {
-        //     $this->copyKeyToEntity($card, 'AppBundle\Entity\Card', $data, $key, true);
-        // }
-    }
-
-    protected function importCreatureData(Card $card, $data)
-    {
-
-    }
-
-    protected function importDefensiveshieldData(Card $card, $data)
-    {
-
-    }
-
-    protected function importDeviceData(Card $card, $data)
-    {
-
-    }
-
-    protected function importEffectData(Card $card, $data)
-    {
-
-    }
-
-    protected function importEpiceventData(Card $card, $data)
-    {
-
-    }
-
-    protected function importInterruptData(Card $card, $data)
-    {
-
-    }
-
-    protected function importJeditestData(Card $card, $data)
-    {
-
-    }
-
-    protected function importLocationData(Card $card, $data)
-    {
-
-    }
-
-    protected function importObjectiveData(Card $card, $data)
-    {
-
-    }
-
-    protected function importPodracerData(Card $card, $data)
-    {
-
-    }
-
-    protected function importStarshipData(Card $card, $data)
-    {
-
-    }
-
-    protected function importVehicleData(Card $card, $data)
-    {
-
-    }
-
-    protected function importWeaponData(Card $card, $data)
-    {
-
     }
 
     protected function getDataFromFile(\SplFileInfo $fileinfo)
