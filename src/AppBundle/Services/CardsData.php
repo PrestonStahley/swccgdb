@@ -38,23 +38,20 @@ class CardsData
     public function replaceSymbols($text)
     {
         static $displayTextReplacements = [
-            '[unique]' => '<span class="icon-unique"></span>',
-            '[restricted]' => '<span class="icon-restricted"></span>',
             '[maintain]' => '<span class="icon-maintain"></span>',
             '[recycle]' => '<span class="icon-recycle"></span>',
             '[sacrifice]' => '<span class="icon-martell"></span>',
-            '*' => '&bull;',
         ];
 
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
     }
 
     /**
-     * Remove weird keyword symbols or replace with markup.
+     * Remove weird symbols or replace with markup.
      * @param string $text
      * @return string
      */
-    public function parseKeywords($text, $api = false)
+    public function formatKeywords($text, $api = false)
     {
         if ($api) {
           static $displayTextReplacements = [
@@ -62,6 +59,7 @@ class CardsData
               '\\b' => '',
               '\\ul0' => '',
               '\\ul' => '',
+              '\\par' => '',
           ];
         } else {
           static $displayTextReplacements = [
@@ -69,8 +67,28 @@ class CardsData
               '\\b' => '<b>',
               '\\ul0' => '</i>',
               '\\ul' => '<i>',
+              '\\par' => '<br/>',
           ];
         }
+        return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
+    }
+
+    /**
+     * Remove uniqueness indicators (*) or replace with markup.
+     * @param string $text
+     * @return string
+     */
+    public function formatUniqueness($text, $api = false)
+    {
+      if ($api) {
+        static $displayTextReplacements = [
+            '*' => '',
+        ];
+      } else {
+        static $displayTextReplacements = [
+            '*' => '&bull;',
+        ];
+      }
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
     }
 
@@ -482,14 +500,14 @@ class CardsData
         if ($api) {
             unset($cardinfo['id']);
         } else {
-            $cardinfo['uniqueness'] = $this->replaceSymbols($cardinfo['uniqueness']);
+            $cardinfo['uniqueness'] = $this->formatUniqueness($cardinfo['uniqueness']);
             $cardinfo['gametext'] = $this->replaceSymbols($cardinfo['gametext']);
             $cardinfo['gametext'] = $this->splitInParagraphs($cardinfo['gametext']);
         }
 
-        $cardinfo['characteristics'] = $this->parseKeywords($cardinfo['characteristics'], $api);
-        $cardinfo['gametext'] = $this->parseKeywords($cardinfo['gametext'], $api);
-        $cardinfo['lore'] = $this->parseKeywords($cardinfo['lore'], $api);
+        $cardinfo['characteristics'] = $this->formatKeywords($cardinfo['characteristics'], $api);
+        $cardinfo['gametext'] = $this->formatKeywords($cardinfo['gametext'], $api);
+        $cardinfo['lore'] = $this->formatKeywords($cardinfo['lore'], $api);
 
         return $cardinfo;
     }
