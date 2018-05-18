@@ -12,18 +12,20 @@ class SearchController extends Controller
             ''  => 'code',
             'c' => 'cycle',
             'e' => 'set',
-            'f' => 'side',
-            'r' => 'date_release',
+            's' => 'side',
+            'r' => 'rarity',
             't' => 'type',
+            'st' => 'subtype',
             'x' => 'text',
     );
 
     public static $searchTypes = array(
             't' => 'code',
             'e' => 'code',
-            'f' => 'code',
+            's' => 'code',
+            'st' => 'code',
+            'r' => 'code',
             ''  => 'string',
-            'r' => 'string',
             'x' => 'string',
             'c' => 'integer',
     );

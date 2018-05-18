@@ -4,7 +4,9 @@
     var SmartFilterQuery = [];
 
     var configuration = {
-        d: [add_integer_sf, 'destiny', 'Destiny'],
+        e: [add_integer_sf, 'set_code', 'Set'],
+        t: [add_integer_sf, 'type_code', 'Card type'],
+        st: [add_integer_sf, 'type_code', 'Card subtype'],
         r: [add_string_sf, 'rarity_code', 'Rarity'],
         s: [add_string_sf, 'side_code', 'Side']
     };
