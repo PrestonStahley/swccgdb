@@ -57,6 +57,9 @@
             case 'starship':
                 text += '<span class="card-subtype">' + card.subtype_name + ': ' + card.model_type + '</span>';
                 break;
+            case 'creature':
+                text += '<span class="card-subtype">' + card.model_type + ' ' + card.type_name + '</span>';
+                break;
             default:
                 if(card.subtype_name) {
                   text += '<span class="card-subtype">' + card.subtype_name + '. </span>';

@@ -5,6 +5,8 @@
 		<span class="card-type">{{ card.type_name }}.</span>
 	{% elseif card.type_code == 'starship' %}
 		<span class="card-subtype">{{ card.subtype_name }}: {{card.model_type}}.</span>
+	{% elseif card.type_code == 'creature' %}
+		<span class="card-subtype">{{card.model_type}} {{ card.type_name }}.</span>
 	{% else %}
 		{% if card.subtype_name is not empty %}
 			<span class="card-subtype">{{ card.subtype_name }}.</span>
