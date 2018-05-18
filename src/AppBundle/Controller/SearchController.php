@@ -10,28 +10,12 @@ class SearchController extends Controller
 {
     public static $searchKeys = array(
             ''  => 'code',
-            'a' => 'flavor',
-            'b' => 'claim',
             'c' => 'cycle',
             'e' => 'set',
             'f' => 'side',
-            'g' => 'isIntrigue',
-            'h' => 'reserve',
-            'i' => 'illustrator',
-            'd' => 'designer',
-            'k' => 'traits',
-            'l' => 'isLoyal',
-            'm' => 'isMilitary',
-            'n' => 'income',
-            'o' => 'cost',
-            'p' => 'isPower',
             'r' => 'date_release',
-            's' => 'strength',
             't' => 'type',
-            'u' => 'isUnique',
-            'v' => 'initiative',
             'x' => 'text',
-            'y' => 'quantity',
     );
 
     public static $searchTypes = array(
@@ -39,25 +23,9 @@ class SearchController extends Controller
             'e' => 'code',
             'f' => 'code',
             ''  => 'string',
-            'a' => 'string',
-            'i' => 'string',
-            'd' => 'string',
-            'k' => 'string',
             'r' => 'string',
             'x' => 'string',
-            'b' => 'integer',
             'c' => 'integer',
-            'h' => 'integer',
-            'n' => 'integer',
-            'o' => 'integer',
-            's' => 'integer',
-            'v' => 'integer',
-            'y' => 'integer',
-            'g' => 'boolean',
-            'l' => 'boolean',
-            'm' => 'boolean',
-            'p' => 'boolean',
-            'u' => 'boolean',
     );
 
     public function formAction()
@@ -74,22 +42,6 @@ class SearchController extends Controller
         $types = $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
         $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
 
-        $list_traits = $this->getDoctrine()->getRepository('AppBundle:Card')->findTraits();
-        $traits = [];
-        foreach ($list_traits as $card) {
-            $subs = explode('.', $card["traits"]);
-            foreach ($subs as $sub) {
-                $traits[trim($sub)] = 1;
-            }
-        }
-        $traits = array_filter(array_keys($traits));
-        sort($traits);
-
-        $list_illustrators = $dbh->executeQuery("SELECT DISTINCT c.illustrator FROM card c WHERE c.illustrator != '' ORDER BY c.illustrator")->fetchAll();
-        $illustrators = array_map(function ($card) {
-            return $card["illustrator"];
-        }, $list_illustrators);
-
         return $this->render('AppBundle:Search:searchform.html.twig', array(
                 "pagetitle" => $this->get("translator")->trans('search.title'),
                 "pagedescription" => "Find all the cards of the game, easily searchable.",
@@ -97,8 +49,6 @@ class SearchController extends Controller
                 "cycles" => $cycles,
                 "types" => $types,
                 "sides" => $sides,
-                "traits" => $traits,
-                "illustrators" => $illustrators,
         ), $response);
     }
 
@@ -385,8 +335,6 @@ class SearchController extends Controller
                     'name' => 'name',
                     'side' => 'side_name',
                     'type' => 'type_name',
-                    'cost' => 'cost',
-                    'strength' => 'strength',
                 );
 
                 $brokenlist = [];
