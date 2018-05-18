@@ -83,10 +83,12 @@ class CardsData
       if ($api) {
         static $displayTextReplacements = [
             '*' => '',
+            '<>' => '',
         ];
       } else {
         static $displayTextReplacements = [
             '*' => '&bull;',
+            '<>' => '&loz;',
         ];
       }
         return str_replace(array_keys($displayTextReplacements), array_values($displayTextReplacements), $text);
