@@ -13,7 +13,7 @@
         d: [add_integer_sf, 'Deploy', 'Deploy'],
         f: [add_integer_sf, 'forfeit', 'Forfeit'],
         p: [add_integer_sf, 'power', 'Power'],
-        des: [add_integer_sf, 'destiny', 'Destiny']
+        y: [add_integer_sf, 'destiny', 'Destiny']
     };
 
     /**
