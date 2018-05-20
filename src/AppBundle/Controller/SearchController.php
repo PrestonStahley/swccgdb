@@ -21,7 +21,7 @@ class SearchController extends Controller
             'd' => 'deploy',
             'f' => 'forfeit',
             'p' => 'power',
-            'des' => 'destiny',
+            'y' => 'destiny',
     );
 
     public static $searchTypes = array(
@@ -37,7 +37,7 @@ class SearchController extends Controller
             'd' => 'integer',
             'f' => 'integer',
             'p' => 'integer',
-            'des' => 'integer',
+            'y' => 'integer',
     );
 
     public function formAction()
