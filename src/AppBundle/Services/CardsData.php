@@ -446,7 +446,9 @@ class CardsData
         $qb->addOrderBy('c.name');
         $qb->addOrderBy('c.code');
         echo "<!-- " . $rows = $qb->getQuery()->getSQL() . " -->";
-        echo "<!-- " . $rows = $qb->getQuery()->getParameters() . " -->";
+        foreach ($query->getParameters() as $param) {
+          echo "<!-- {$param->getName()} -> {$param->getValue()} -->";
+        }
         $rows = $qb->getQuery()->getResult();
 
         return $rows;
