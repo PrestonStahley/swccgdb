@@ -18,6 +18,10 @@ class SearchController extends Controller
             't' => 'type',
             'b' => 'subtype',
             'x' => 'gametext',
+            'd' => 'deploy',
+            'f' => 'forfeit',
+            'p' => 'power',
+            'des' => 'destiny',
     );
 
     public static $searchTypes = array(
@@ -30,6 +34,10 @@ class SearchController extends Controller
             'k' => 'string',
             'x' => 'string',
             'c' => 'integer',
+            'd' => 'integer',
+            'f' => 'integer',
+            'p' => 'integer',
+            'des' => 'integer',
     );
 
     public function formAction()

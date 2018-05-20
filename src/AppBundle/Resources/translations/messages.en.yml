@@ -383,30 +383,18 @@ card:
     lore: Lore
     side: Side
     set: Set
-    cost: Cost
-    costgold: Cost/Gold
+    deploy: Deploy
+    forfeit: Forfeit
+    power: Power
+    destiny: Destiny
     type: Type
     subtype: Subtype
-    strength: Strength
-    str: STR
-    strini: Strength/Initiative
     characteristics: Characteristics
     set: Set
-    loyal: Loyal
-    nonloyal: Non-Loyal
-    income: Income
-    initiative: Initiative
-    claim: Claim
-    reserve: Reserve
-    plotlimit: Plot deck limit
-    quantity: Quantity
-    illustrator: Illustrator
     rarity: Rarity
     short:
-      costgold: C.
-      strini: S.
       type: T.
-      side: F.
+      side: S.
 
 challenges:
   military: Military
