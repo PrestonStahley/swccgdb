@@ -185,7 +185,7 @@ class CardsData
                 ->leftJoin('p.cycle', 'y')
                 ->leftJoin('c.type', 't')
                 ->leftJoin('c.subtype', 'b')
-                ->leftJoin('c.side', 'f');
+                ->leftJoin('c.side', 's');
         $qb2 = null;
         $qb3 = null;
 
