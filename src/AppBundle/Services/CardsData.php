@@ -356,17 +356,17 @@ class CardsData
                                         switch ($operator) {
                                             case ':':
                                                 $or[] = "((c.characteristics = ?$i) or (c.characteristics like ?" . ($i + 1) . ") or (c.characteristics like ?" . ($i + 2) . ") or (c.characteristics like ?" . ($i + 3) . "))";
-                                                $qb->setParameter($i++, "$arg.");
-                                                $qb->setParameter($i++, "$arg. %");
-                                                $qb->setParameter($i++, "%. $arg.");
-                                                $qb->setParameter($i++, "%. $arg. %");
+                                                $qb->setParameter($i++, "$arg");
+                                                $qb->setParameter($i++, "$arg %");
+                                                $qb->setParameter($i++, "%. $arg");
+                                                $qb->setParameter($i++, "%. $arg %");
                                                 break;
                                             case '!':
                                                 $or[] = "(c.characteristics is null or ((c.characteristics != ?$i) and (c.characteristics not like ?" . ($i + 1) . ") and (c.characteristics not like ?" . ($i + 2) . ") and (c.characteristics not like ?" . ($i + 3) . ")))";
-                                                $qb->setParameter($i++, "$arg.");
-                                                $qb->setParameter($i++, "$arg. %");
-                                                $qb->setParameter($i++, "%. $arg.");
-                                                $qb->setParameter($i++, "%. $arg. %");
+                                                $qb->setParameter($i++, "$arg");
+                                                $qb->setParameter($i++, "$arg %");
+                                                $qb->setParameter($i++, "%. $arg");
+                                                $qb->setParameter($i++, "%. $arg %");
                                                 break;
                                         }
                                     }
