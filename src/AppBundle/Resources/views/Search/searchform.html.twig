@@ -121,32 +121,11 @@
 </div>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group">
-			<label for="t">{{ 'card.info.type' | trans }}</label>
-			<div>
-				<select class="form-control" name="t" id="t">
-					<option value="">{{ 'search.any' | trans }}</option>
-					{% for type in types %}
-					<option value="{{ type.code }}">{{ type.name }}</option>
-					{% endfor %}
-				</select>
-			</div>
 		</div>
-	</div>
-    <div class="col-sm-4">
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-			<label for="g">{{ 'challenges.intrigue' | trans }}</label>
-			<div>
-				<select class="form-control" name="g" id="g">
-					<option value="">{{ 'search.any' | trans }}</option>
-					<option value="1">{{ 'search.yes' | trans }}</option>
-					<option value="0">{{ 'search.no' | trans }}</option>
-				</select>
-			</div>
+		<div class="col-sm-4">
 		</div>
-    </div>
+		<div class="col-sm-4">
+		</div>
 </div>
 </fieldset>
 <fieldset>

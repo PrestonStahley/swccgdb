@@ -380,7 +380,7 @@ card:
     name: Name
     unique: Unique
     gametext: Text
-    lore: Lore text
+    lore: Lore
     side: Side
     set: Set
     cost: Cost

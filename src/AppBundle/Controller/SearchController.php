@@ -42,6 +42,7 @@ class SearchController extends Controller
 
         $cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
         $types = $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
+        $subtypes = $this->getDoctrine()->getRepository('AppBundle:Subtype')->findAll();
         $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
 
         return $this->render('AppBundle:Search:searchform.html.twig', array(
@@ -50,6 +51,7 @@ class SearchController extends Controller
                 "sets" => $sets,
                 "cycles" => $cycles,
                 "types" => $types,
+                "subtypes" => $subtypes,
                 "sides" => $sides,
         ), $response);
     }
