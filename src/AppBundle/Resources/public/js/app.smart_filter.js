@@ -9,10 +9,10 @@
         b: [add_integer_sf, 'type_code', 'Card subtype'],
         r: [add_string_sf, 'rarity_code', 'Rarity'],
         k: [add_string_sf, 'characteristic', 'Characteristic'],
-        s: [add_string_sf, 'side_code', 'Side']
-        d: [add_integer_sf, 'Deploy', 'Deploy']
-        f: [add_integer_sf, 'forfeit', 'Forfeit']
-        p: [add_integer_sf, 'power', 'Power']
+        s: [add_string_sf, 'side_code', 'Side'],
+        d: [add_integer_sf, 'Deploy', 'Deploy'],
+        f: [add_integer_sf, 'forfeit', 'Forfeit'],
+        p: [add_integer_sf, 'power', 'Power'],
         des: [add_integer_sf, 'destiny', 'Destiny']
     };
 
