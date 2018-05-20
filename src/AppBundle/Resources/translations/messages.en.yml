@@ -379,13 +379,14 @@ card:
   info:
     name: Name
     unique: Unique
-    text: Text
-    flavor: Flavor text
+    gametext: Text
+    lore: Lore text
     side: Side
     set: Set
     cost: Cost
     costgold: Cost/Gold
     type: Type
+    subtype: Subtype
     strength: Strength
     str: STR
     strini: Strength/Initiative

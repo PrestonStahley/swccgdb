@@ -43,7 +43,7 @@
 <div class="row">
     <div class="col-sm-6">
 		<div class="form-group">
-			<label for="x">{{ 'card.info.text' | trans }}</label>
+			<label for="x">{{ 'card.info.gametext' | trans }}</label>
 			<div>
 				<input class="form-control" size="40" id="x" name="x" value="">
 			</div>
@@ -51,7 +51,7 @@
     </div>
     <div class="col-sm-6">
 		<div class="form-group">
-			<label for="a">{{ 'card.info.flavor' | trans }}</label>
+			<label for="a">{{ 'card.info.lore' | trans }}</label>
 			<div>
 				<input class="form-control" size="30" id="a" name="a" value="">
 			</div>
@@ -68,7 +68,7 @@
 			{% for side in sides %}
 				<label class="btn btn-default active" title="{{ side.name }}" data-toggle="tooltip" data-container="body">
 					<input type="checkbox" name="f[]" checked value="{{ side.code }}">
-					<span class="icon icon-{{ side.code }}"></span>
+					{{ side.name }}
 				</label>
 			{% endfor %}
 			</div>
@@ -94,26 +94,28 @@
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-			<label for="l">{{ 'card.info.loyal' | trans }}</label>
-			<div>
-				<select class="form-control" name="l" id="l">
-					<option value="">{{ 'search.any' | trans }}</option>
-					<option value="1">{{ 'search.yes' | trans }}</option>
-					<option value="0">{{ 'search.no' | trans }}</option>
-				</select>
-			</div>
+					<label for="t">{{ 'card.info.type' | trans }}</label>
+					<div>
+						<select class="form-control" name="t" id="t">
+							<option value="">{{ 'search.any' | trans }}</option>
+							{% for type in types %}
+							<option value="{{ type.code }}">{{ type.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
 		</div>
     </div>
     <div class="col-sm-4">
         <div class="form-group">
-			<label for="m">{{ 'challenges.military' | trans }}</label>
-			<div>
-				<select class="form-control" name="m" id="m">
-					<option value="">{{ 'search.any' | trans }}</option>
-					<option value="1">{{ 'search.yes' | trans }}</option>
-					<option value="0">{{ 'search.no' | trans }}</option>
-				</select>
-			</div>
+					<label for="b">{{ 'card.info.subtype' | trans }}</label>
+					<div>
+						<select class="form-control" name="b" id="b">
+							<option value="">{{ 'search.any' | trans }}</option>
+							{% for subtype in subtypes %}
+							<option value="{{ subtype.code }}">{{ subtype.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
 		</div>
     </div>
 </div>
@@ -138,45 +140,6 @@
 			<label for="g">{{ 'challenges.intrigue' | trans }}</label>
 			<div>
 				<select class="form-control" name="g" id="g">
-					<option value="">{{ 'search.any' | trans }}</option>
-					<option value="1">{{ 'search.yes' | trans }}</option>
-					<option value="0">{{ 'search.no' | trans }}</option>
-				</select>
-			</div>
-		</div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group">
-			<label for="k">{{ 'card.info.traits' | trans }}</label>
-			<div>
-				<select class="form-control" name="k" id="k">
-					<option value="">{{ 'search.any' | trans }}</option>
-					{% for trait in traits %}
-					<option value="{{ trait }}">{{ trait }}</option>
-					{% endfor %}
-				</select>
-			</div>
-		</div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-			<label for="u">{{ 'card.info.unique' | trans }}</label>
-			<div>
-				<select class="form-control" name="u" id="u">
-					<option value="">{{ 'search.any' | trans }}</option>
-					<option value="1">{{ 'search.yes' | trans }}</option>
-					<option value="0">{{ 'search.no' | trans }}</option>
-				</select>
-			</div>
-		</div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-			<label for="p">{{ 'challenges.power' | trans }}</label>
-			<div>
-				<select class="form-control" name="p" id="p">
 					<option value="">{{ 'search.any' | trans }}</option>
 					<option value="1">{{ 'search.yes' | trans }}</option>
 					<option value="0">{{ 'search.no' | trans }}</option>

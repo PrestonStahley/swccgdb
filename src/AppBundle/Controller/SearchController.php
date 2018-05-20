@@ -15,15 +15,15 @@ class SearchController extends Controller
             's' => 'side',
             'r' => 'rarity',
             't' => 'type',
-            'st' => 'subtype',
-            'x' => 'text',
+            'b' => 'subtype',
+            'x' => 'gametext',
     );
 
     public static $searchTypes = array(
             't' => 'code',
             'e' => 'code',
             's' => 'code',
-            'st' => 'code',
+            'b' => 'code',
             'r' => 'code',
             ''  => 'string',
             'x' => 'string',
@@ -63,7 +63,7 @@ class SearchController extends Controller
 
         $game_name = $this->container->getParameter('game_name');
         $publisher_name = $this->container->getParameter('publisher_name');
-        
+
         $meta = $card->getName().", a ".$card->getSide()->getName()." ".$card->getType()->getName()." card for $game_name from the set ".$card->getSet()->getName()." published by $publisher_name.";
 
         return $this->forward(
@@ -89,7 +89,7 @@ class SearchController extends Controller
 
         $game_name = $this->container->getParameter('game_name');
         $publisher_name = $this->container->getParameter('publisher_name');
-        
+
         $meta = $set->getName().", a set of cards for $game_name"
                 .($set->getDateRelease() ? " published on ".$set->getDateRelease()->format('Y/m/d') : "")
                 ." by $publisher_name.";
@@ -120,7 +120,7 @@ class SearchController extends Controller
 
         $game_name = $this->container->getParameter('game_name');
         $publisher_name = $this->container->getParameter('publisher_name');
-        
+
         $meta = $cycle->getName().", a cycle of dataset for $game_name published by $publisher_name.";
 
         $key = array_search('cycle', SearchController::$searchKeys);
@@ -257,7 +257,7 @@ class SearchController extends Controller
             'short' => 1000,
         );
         $includeReviews = false;
-        
+
         if (!array_key_exists($view, $pagesizes)) {
             $view = 'list';
         }
