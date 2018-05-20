@@ -341,7 +341,7 @@ class CardsData
                                         switch ($operator) {
                                             case ':': $or[] = "(c.lore like ?$i)";
                                                 break;
-                                            case '!': $or[] = "(c.lore is null or c.flavor not like ?$i)";
+                                            case '!': $or[] = "(c.lore is null or c.lore not like ?$i)";
                                                 break;
                                         }
                                         $qb->setParameter($i++, "%$arg%");
@@ -445,6 +445,7 @@ class CardsData
         }
         $qb->addOrderBy('c.name');
         $qb->addOrderBy('c.code');
+        echo "<!-- " . $rows = $qb->getQuery() . " -->";
         $rows = $qb->getQuery()->getResult();
 
         return $rows;
