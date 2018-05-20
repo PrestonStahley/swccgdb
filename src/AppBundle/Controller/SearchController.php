@@ -49,9 +49,11 @@ class SearchController extends Controller
 
         $list_characteristics = $dbh->executeQuery("SELECT DISTINCT c.characteristics FROM card c WHERE c.characteristics != ''")->fetchAll();
     		$characteristics = [];
+        $displayTextReplacements = array('\\b0', '\\b');
     		foreach($list_characteristics as $card) {
     			$subs = explode(',', $card["characteristics"]);
     			foreach($subs as $sub) {
+            $sub = str_replace($displayTextReplacements, "", $sub);
     				$characteristics[trim($sub)] = 1;
     			}
     		}

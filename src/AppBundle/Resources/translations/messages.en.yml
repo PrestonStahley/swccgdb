@@ -390,7 +390,7 @@ card:
     strength: Strength
     str: STR
     strini: Strength/Initiative
-    traits: Traits
+    characteristics: Characteristics
     set: Set
     loyal: Loyal
     nonloyal: Non-Loyal
