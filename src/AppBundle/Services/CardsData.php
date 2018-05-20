@@ -180,10 +180,11 @@ class CardsData
         // construction de la requete sql
         $repo = $this->doctrine->getRepository('AppBundle:Card');
         $qb = $repo->createQueryBuilder('c')
-                ->select('c', 'p', 'y', 't', 'f')
+                ->select('c', 'p', 'y', 't', 'b', 'f')
                 ->leftJoin('c.set', 'p')
                 ->leftJoin('p.cycle', 'y')
                 ->leftJoin('c.type', 't')
+                ->leftJoin('c.subtype', 'b')
                 ->leftJoin('c.side', 'f');
         $qb2 = null;
         $qb3 = null;
@@ -318,14 +319,14 @@ class CardsData
                                     $qb->andWhere(implode(" or ", $or));
                                     break;
                                 }
-                            case 'x': // text
+                            case 'x': // gametext
                                 {
                                     $or = [];
                                     foreach ($condition as $arg) {
                                         switch ($operator) {
-                                            case ':': $or[] = "(c.text like ?$i)";
+                                            case ':': $or[] = "(c.gametext like ?$i)";
                                                 break;
-                                            case '!': $or[] = "(c.text is null or c.text not like ?$i)";
+                                            case '!': $or[] = "(c.gametext is null or c.text not like ?$i)";
                                                 break;
                                         }
                                         $qb->setParameter($i++, "%$arg%");
@@ -333,14 +334,14 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
-                            case 'a': // flavor
+                            case 'a': // lore
                                 {
                                     $or = [];
                                     foreach ($condition as $arg) {
                                         switch ($operator) {
-                                            case ':': $or[] = "(c.flavor like ?$i)";
+                                            case ':': $or[] = "(c.lore like ?$i)";
                                                 break;
-                                            case '!': $or[] = "(c.flavor is null or c.flavor not like ?$i)";
+                                            case '!': $or[] = "(c.lore is null or c.flavor not like ?$i)";
                                                 break;
                                         }
                                         $qb->setParameter($i++, "%$arg%");
@@ -348,20 +349,20 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
-                            case 'k': // subtype (traits)
+                            case 'k': // characteristics
                                 {
                                     $or = [];
                                     foreach ($condition as $arg) {
                                         switch ($operator) {
                                             case ':':
-                                                $or[] = "((c.traits = ?$i) or (c.traits like ?" . ($i + 1) . ") or (c.traits like ?" . ($i + 2) . ") or (c.traits like ?" . ($i + 3) . "))";
+                                                $or[] = "((c.characteristics = ?$i) or (c.characteristics like ?" . ($i + 1) . ") or (c.characteristics like ?" . ($i + 2) . ") or (c.characteristics like ?" . ($i + 3) . "))";
                                                 $qb->setParameter($i++, "$arg.");
                                                 $qb->setParameter($i++, "$arg. %");
                                                 $qb->setParameter($i++, "%. $arg.");
                                                 $qb->setParameter($i++, "%. $arg. %");
                                                 break;
                                             case '!':
-                                                $or[] = "(c.traits is null or ((c.traits != ?$i) and (c.traits not like ?" . ($i + 1) . ") and (c.traits not like ?" . ($i + 2) . ") and (c.traits not like ?" . ($i + 3) . ")))";
+                                                $or[] = "(c.characteristics is null or ((c.characteristics != ?$i) and (c.characteristics not like ?" . ($i + 1) . ") and (c.characteristics not like ?" . ($i + 2) . ") and (c.characteristics not like ?" . ($i + 3) . ")))";
                                                 $qb->setParameter($i++, "$arg.");
                                                 $qb->setParameter($i++, "$arg. %");
                                                 $qb->setParameter($i++, "%. $arg.");

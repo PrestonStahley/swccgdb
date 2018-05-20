@@ -13,6 +13,7 @@ class SearchController extends Controller
             'c' => 'cycle',
             'e' => 'set',
             's' => 'side',
+            'k' => 'characteristic',
             'r' => 'rarity',
             't' => 'type',
             'b' => 'subtype',
@@ -26,6 +27,7 @@ class SearchController extends Controller
             'b' => 'code',
             'r' => 'code',
             ''  => 'string',
+            'k' => 'string',
             'x' => 'string',
             'c' => 'integer',
     );
@@ -45,6 +47,17 @@ class SearchController extends Controller
         $subtypes = $this->getDoctrine()->getRepository('AppBundle:Subtype')->findAll();
         $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
 
+        $list_characteristics = $dbh->executeQuery("SELECT DISTINCT c.characteristics FROM card c WHERE c.characteristics != ''")->fetchAll();
+    		$characteristics = [];
+    		foreach($list_characteristics as $card) {
+    			$subs = explode(',', $card["characteristics"]);
+    			foreach($subs as $sub) {
+    				$characteristics[trim($sub)] = 1;
+    			}
+    		}
+    		$characteristics = array_filter(array_keys($characteristics));
+    		sort($characteristics);
+
         return $this->render('AppBundle:Search:searchform.html.twig', array(
                 "pagetitle" => $this->get("translator")->trans('search.title'),
                 "pagedescription" => "Find all the cards of the game, easily searchable.",
@@ -53,6 +66,7 @@ class SearchController extends Controller
                 "types" => $types,
                 "subtypes" => $subtypes,
                 "sides" => $sides,
+                "characteristics" => $characteristics,
         ), $response);
     }
 

@@ -80,47 +80,58 @@
 <legend>{{ 'search.attributes' | trans }}</legend>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group">
-			<label for="e">{{ 'card.info.set' | trans }}</label>
-			<div>
-				<select class="form-control" name="e" id="e">
-					<option value="">{{ 'search.any' | trans }}</option>
-					{% for set in sets %}
-					<option value="{{ set.code }}">{{ set.label }}</option>
-					{% endfor %}
-				</select>
+    	<div class="form-group">
+				<label for="e">{{ 'card.info.set' | trans }}</label>
+				<div>
+					<select class="form-control" name="e" id="e">
+						<option value="">{{ 'search.any' | trans }}</option>
+						{% for set in sets %}
+						<option value="{{ set.code }}">{{ set.label }}</option>
+						{% endfor %}
+					</select>
+				</div>
 			</div>
-		</div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group">
-					<label for="t">{{ 'card.info.type' | trans }}</label>
-					<div>
-						<select class="form-control" name="t" id="t">
-							<option value="">{{ 'search.any' | trans }}</option>
-							{% for type in types %}
-							<option value="{{ type.code }}">{{ type.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-		</div>
+    	<div class="form-group">
+				<label for="t">{{ 'card.info.type' | trans }}</label>
+				<div>
+					<select class="form-control" name="t" id="t">
+						<option value="">{{ 'search.any' | trans }}</option>
+						{% for type in types %}
+						<option value="{{ type.code }}">{{ type.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group">
-					<label for="b">{{ 'card.info.subtype' | trans }}</label>
-					<div>
-						<select class="form-control" name="b" id="b">
-							<option value="">{{ 'search.any' | trans }}</option>
-							{% for subtype in subtypes %}
-							<option value="{{ subtype.code }}">{{ subtype.name }}</option>
-							{% endfor %}
-						</select>
-					</div>
-		</div>
+    	<div class="form-group">
+				<label for="b">{{ 'card.info.subtype' | trans }}</label>
+				<div>
+					<select class="form-control" name="b" id="b">
+						<option value="">{{ 'search.any' | trans }}</option>
+						{% for subtype in subtypes %}
+						<option value="{{ subtype.code }}">{{ subtype.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-4">
+			<div class="form-group">
+				<label for="k">{{ 'card.info.characteristics' | trans }}</label>
+				<div>
+					<select class="form-control" name="k" id="k">
+						<option value="">{{ 'search.any' | trans }}</option>
+						{% for characteristic in characteristics %}
+						<option value="{{ characteristic }}">{{ characteristic }}</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
 		</div>
 		<div class="col-sm-4">
 		</div>
