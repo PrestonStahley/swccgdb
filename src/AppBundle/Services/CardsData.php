@@ -180,7 +180,7 @@ class CardsData
         // construction de la requete sql
         $repo = $this->doctrine->getRepository('AppBundle:Card');
         $qb = $repo->createQueryBuilder('c')
-                ->select('c', 'p', 'y', 't', 'b', 'f')
+                ->select('c', 'p', 'y', 't', 'b', 's')
                 ->leftJoin('c.set', 'p')
                 ->leftJoin('p.cycle', 'y')
                 ->leftJoin('c.type', 't')
