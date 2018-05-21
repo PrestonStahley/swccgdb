@@ -184,7 +184,7 @@ AppBundle\Entity\Card:
             type: smallint
             nullable: true
         presence:
-            type: smallint
+            type: boolean
             nullable: true
         republic:
             type: boolean
