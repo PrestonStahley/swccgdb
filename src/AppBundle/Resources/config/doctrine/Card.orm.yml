@@ -124,6 +124,10 @@ AppBundle\Entity\Card:
             type: text
             nullable: false
             column: image_url
+        imageUrl2:
+            type: text
+            nullable: true
+            column: image_url_2
         independent:
             type: boolean
             nullable: true
