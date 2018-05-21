@@ -39,14 +39,14 @@
         	<div class="col-sm-7" style="margin-bottom:2em">
         		<div>
         			{% if card.image_url %}
-								{% if card.image_url_2 %}
+								{% if card.image_url2 %}
 									<div class="card-double-sided">
 										<div class="card" onclick="this.classList.toggle('is-flipped');this.classList.add('has-flipped');">
 											<div class="card__face card__face--front">
 												<img src="{{ card.image_url }}" class="img-responsive"/>
 											</div>
 											<div class="card__face card__face--back">
-												<img src="{{ card.image_url_2 }}" class="img-responsive"/>
+												<img src="{{ card.image_url2 }}" class="img-responsive"/>
 											</div>
 										</div>
 									</div>

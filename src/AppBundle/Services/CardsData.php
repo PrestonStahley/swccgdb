@@ -493,6 +493,10 @@ class CardsData
         $cardinfo['label'] = $card->getName();
         $cardinfo['image_url'] = 'https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/' . $cardinfo['image_url'];
 
+        if($cardinfo['image_url2']) {
+          $cardinfo['image_url2'] = 'https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/' . $cardinfo['image_url2'];
+        }
+
         $cardinfo['icon'] = $card->getIcon();
 
         if ($api) {
