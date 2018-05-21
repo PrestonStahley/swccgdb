@@ -32,7 +32,8 @@ class Card implements \Serializable
                 'destiny',
                 'episode_1',
                 'episode_7',
-                'lore'
+                'lore',
+                'image_url_2'
         ];
 
         $externalFields = [
@@ -478,6 +479,11 @@ class Card implements \Serializable
      * @var string
      */
     private $imageUrl;
+
+    /**
+     * @var string
+     */
+    private $imageUrl2;
 
     /**
      * @var string
@@ -1860,7 +1866,7 @@ class Card implements \Serializable
     /**
      * Set imageUrl
      *
-     * @param boolean $imageUrl
+     * @param string $imageUrl
      *
      * @return Card
      */
@@ -1874,11 +1880,35 @@ class Card implements \Serializable
     /**
      * Get imageUrl
      *
-     * @return boolean
+     * @return string
      */
     public function getImageUrl()
     {
         return $this->imageUrl;
+    }
+
+    /**
+     * Set imageUrl2
+     *
+     * @param string $imageUrl
+     *
+     * @return Card
+     */
+    public function setImageUrl2($imageUrl)
+    {
+        $this->imageUrl2 = $imageUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get imageUrl2
+     *
+     * @return string
+     */
+    public function getImageUrl2()
+    {
+        return $this->imageUrl2;
     }
 
     /**
