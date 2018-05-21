@@ -453,27 +453,27 @@ article.review {
 article.review:first-child {
     margin-top: 0;
 }
-article.review .review-like { 
-    float:left; 
-    font-size: 120%; 
-    width:50px 
+article.review .review-like {
+    float:left;
+    font-size: 120%;
+    width:50px
 }
-article.review .review-content { 
-    margin-left: 50px 
+article.review .review-content {
+    margin-left: 50px
 }
-article.review .review-text :first-child { 
-    margin-top: 0px 
+article.review .review-text :first-child {
+    margin-top: 0px
 }
-article.review .review-date { 
-    clear: both; 
-    text-align: right 
+article.review .review-date {
+    clear: both;
+    text-align: right
 }
-article.review .review-author { 
-    text-align: right 
+article.review .review-author {
+    text-align: right
 }
-article.review .review-comment { 
-    border-top: 1px solid #ddd; 
-    padding: 0.5em; 
+article.review .review-comment {
+    border-top: 1px solid #ddd;
+    padding: 0.5em;
 }
 
 /****************** BOOTSTRAP MARKDOWN *******************/
@@ -515,4 +515,54 @@ article.review .review-comment {
 
 .diff {
     background: rgba(255,0,0,.5);
+}
+
+
+/*************** Objective flip *****************/
+
+.card-double-sided {
+  width: 350px;
+  height: 490px;
+  perspective: 1000px;
+}
+
+.card-double-sided .card {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card-double-sided .card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-double-sided .card:hover {
+    animation-duration: 450ms;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    animation-name: wiggle;
+}
+
+.card-double-sided .card.has-flipped:hover {
+  animation:none;
+}
+
+.card-double-sided .card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-double-sided .card__face--back {
+  transform: rotateY(180deg);
+}
+
+@keyframes wiggle {
+  0% {   transform: rotateY(10deg); }
+  50% {   transform: rotateY(-10deg); }
+  100% { transform: translate(0, 0); }
 }

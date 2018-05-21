@@ -17,7 +17,7 @@
     <div class="col-md-9">
         <div class="row">
 {% for card in cards %}
-        	<div class="col-sm-7" style="margin-bottom:2em">
+        	<div class="col-sm-5" style="margin-bottom:2em">
         		<div>
         			<div class="panel panel-default border-{{ card.side_code }}">
         				<div class="panel-heading border-{{ card.side_code }} bg-{{ card.side_code }}">
@@ -36,10 +36,25 @@
                                 <p>Link: <a href="{{ path('decklists_list',{type:'find',_locale:app.request.locale,'cards[]':card.code}) }}">Decklists</a></p>
         		</div>
         	</div>
-        	<div class="col-sm-5" style="margin-bottom:2em">
+        	<div class="col-sm-7" style="margin-bottom:2em">
         		<div>
         			{% if card.image_url %}
-        			   <img src="{{ card.image_url }}" alt="{{ card.name }}" class="img-responsive" style="margin:auto">
+								{% if card.image_url_2 %}
+									<div class="card-double-sided">
+										<div class="card" onclick="this.classList.toggle('is-flipped');this.classList.add('has-flipped');">
+											<div class="card__face card__face--front">
+												<img src="{{ card.image_url }}" class="img-responsive"/>
+											</div>
+											<div class="card__face card__face--back">
+												<img src="{{ card.image_url_2 }}" class="img-responsive"/>
+											</div>
+										</div>
+									</div>
+								{% else %}
+									<div class="card">
+										<img src="{{ card.image_url }}" alt="{{ card.name }}" class="img-responsive"/>
+									</div>
+								{% endif %}
         			{% else %}
         			   <div class="no-image" style="margin:auto"><div class="no-image-text">{{ 'noimage' | trans }}</div></div>
         			{% endif %}
