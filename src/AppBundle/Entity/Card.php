@@ -33,7 +33,8 @@ class Card implements \Serializable
                 'episode_1',
                 'episode_7',
                 'lore',
-                'image_url_2'
+                'image_url_2',
+                'is_horizontal'
         ];
 
         $externalFields = [

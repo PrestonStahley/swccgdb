@@ -131,6 +131,9 @@ AppBundle\Entity\Card:
         independent:
             type: boolean
             nullable: true
+        isHorizontal:
+            type: boolean
+            nullable: true
         landspeed:
             type: smallint
             nullable: true

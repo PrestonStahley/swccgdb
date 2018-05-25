@@ -526,6 +526,11 @@ article.review .review-comment {
   overflow: hidden;
 }
 
+.card.horizontal {
+  max-width:490px;
+  max-height: 350px;
+}
+
 /*************** Objective flip *****************/
 
 .card-double-sided {

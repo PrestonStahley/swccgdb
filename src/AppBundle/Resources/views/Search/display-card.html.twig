@@ -52,7 +52,7 @@
 										</div>
 									</div>
 								{% else %}
-									<div class="card">
+									<div class="card{{ (card.subtype_code == 'site' || card.is_horizontal == true) ? ' horizontal' }}">
 										<img src="{{ card.image_url }}" alt="{{ card.name }}" class="img-responsive"/>
 									</div>
 								{% endif %}
