@@ -55,7 +55,8 @@ class SearchController extends Controller
         $cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
         $types = $this->getDoctrine()->getRepository('AppBundle:Type')->findAll();
         $subtypes = $this->getDoctrine()->getRepository('AppBundle:Subtype')->findAll();
-        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAllAndOrderByName();
+        $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findAll();
+        $rarities = $this->getDoctrine()->getRepository('AppBundle:Rarity')->findAll();
 
         $list_characteristics = $dbh->executeQuery("SELECT DISTINCT c.characteristics FROM card c WHERE c.characteristics != ''")->fetchAll();
     		$characteristics = [];
@@ -79,6 +80,7 @@ class SearchController extends Controller
                 "subtypes" => $subtypes,
                 "sides" => $sides,
                 "characteristics" => $characteristics,
+                "rarities" => $rarities,
         ), $response);
     }
 
