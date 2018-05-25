@@ -286,7 +286,7 @@ class CardsData
                                             case '!': $or[] = "(p.code not like ?$i)";
                                                 break;
                                         }
-                                        $qb->setParameter($i++, $arg);
+                                        $qb->setParameter($i++, "%$arg%");
                                     }
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
