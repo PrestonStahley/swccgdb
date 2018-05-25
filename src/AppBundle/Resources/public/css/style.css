@@ -537,15 +537,24 @@ article.review .review-comment {
 .card-double-sided .card {
   width: 100%;
   height: 100%;
-  transition: transform 0.5s;
-  transform-style: preserve-3d;
   cursor: pointer;
   position: relative;
   overflow: visible;
+  -webkit-transition: -webkit-transform 0.6s;
+  -moz-transition: -moz-transform 0.6s;
+  -o-transition: -o-transform 0.6s;
+  transition: transform 0.6s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 
 .card-double-sided .card.is-flipped {
-  transform: rotateY(180deg);
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
 }
 
 .card-double-sided .card .flip-tip {
@@ -575,9 +584,15 @@ article.review .review-comment {
   position: absolute;
   width: 100%;
   height: 100%;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 .card-double-sided .card__face--back {
-  transform: rotateY(180deg);
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
 }
