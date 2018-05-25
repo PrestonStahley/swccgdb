@@ -42,6 +42,7 @@
 								{% if card.image_url2 %}
 									<div class="card-double-sided">
 										<div class="card" onclick="this.classList.toggle('is-flipped');this.classList.add('has-flipped');">
+											<div class="flip-tip"><span class="fa fa-hand-pointer-o"></span> Flip</div>
 											<div class="card__face card__face--front">
 												<img src="{{ card.image_url }}" class="img-responsive"/>
 											</div>

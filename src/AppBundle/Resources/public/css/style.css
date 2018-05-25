@@ -517,6 +517,14 @@ article.review .review-comment {
     background: rgba(255,0,0,.5);
 }
 
+/*************** Card *****************/
+
+.card {
+  max-width: 350px;
+  max-height: 490px;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
 /*************** Objective flip *****************/
 
@@ -539,15 +547,20 @@ article.review .review-comment {
   transform: rotateY(180deg);
 }
 
-.card-double-sided .card:hover {
-    animation-duration: 450ms;
-    animation-timing-function: linear;
-    animation-iteration-count: 1;
-    animation-name: wiggle;
+.card-double-sided .card .flip-tip {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  background-color: rgba(0,0,0,.8);
+  color:#fff;
 }
 
-.card-double-sided .card.has-flipped:hover {
-  animation:none;
+.card-double-sided .card:hover .flip-tip {
+  display: block;
+}
+
+.card-double-sided .card.has-flipped:hover .flip-tip {
+  display: none;
 }
 
 .card-double-sided .card__face {
@@ -559,10 +572,4 @@ article.review .review-comment {
 
 .card-double-sided .card__face--back {
   transform: rotateY(180deg);
-}
-
-@keyframes wiggle {
-  0% {   transform: rotateY(10deg); }
-  50% {   transform: rotateY(-10deg); }
-  100% { transform: translate(0, 0); }
 }
