@@ -277,7 +277,21 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
-                            default: // type and side
+                            case 'r': {
+                                    $or = [];
+                                    foreach ($condition as $arg) {
+                                        switch ($operator) {
+                                            case ':': $or[] = "(p.code like ?$i)";
+                                                break;
+                                            case '!': $or[] = "(p.code not like ?$i)";
+                                                break;
+                                        }
+                                        $qb->setParameter($i++, $arg);
+                                    }
+                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
+                                    break;
+                                }
+                            default: // type, subtype, side
                                 {
                                     $or = [];
                                     foreach ($condition as $arg) {
@@ -365,36 +379,6 @@ class CardsData
                                     $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
                                     break;
                                 }
-                            case 'i': // illustrator
-                                {
-                                    $or = [];
-                                    foreach ($condition as $arg) {
-                                        switch ($operator) {
-                                            case ':': $or[] = "(c.illustrator = ?$i)";
-                                                break;
-                                            case '!': $or[] = "(c.illustrator != ?$i)";
-                                                break;
-                                        }
-                                        $qb->setParameter($i++, $arg);
-                                    }
-                                    $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
-                                    break;
-                                }
-                            case 'd': // designer
-                            {
-                                $or = [];
-                                foreach ($condition as $arg) {
-                                    switch ($operator) {
-                                        case ':': $or[] = "(c.designer like ?$i)";
-                                            break;
-                                        case '!': $or[] = "(c.designer is null or c.designer not like ?$i)";
-                                            break;
-                                    }
-                                    $qb->setParameter($i++, "%$arg%");
-                                }
-                                $qb->andWhere(implode($operator == '!' ? " and " : " or ", $or));
-                                break;
-                            }
                             case 'r': // release
                                 {
                                     $or = [];
