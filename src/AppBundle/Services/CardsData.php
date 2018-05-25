@@ -281,9 +281,9 @@ class CardsData
                                     $or = [];
                                     foreach ($condition as $arg) {
                                         switch ($operator) {
-                                            case ':': $or[] = "(p.code like ?$i)";
+                                            case ':': $or[] = "(r.code like ?$i)";
                                                 break;
-                                            case '!': $or[] = "(p.code not like ?$i)";
+                                            case '!': $or[] = "(r.code not like ?$i)";
                                                 break;
                                         }
                                         $qb->setParameter($i++, "%$arg%");
