@@ -328,7 +328,7 @@ ol {
   background-size: 140px 100px;
 }
 
-.card-thumbnail-objective {
+.card-thumbnail-objective, .card-thumbnail-epic-event {
   background-position: 50% 28%;
   height:55px;
 }
