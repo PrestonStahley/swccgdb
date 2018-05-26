@@ -338,6 +338,10 @@ ol {
   height:55px;
 }
 
+.card-thumbnail-location {
+  background-position: 50% 50%;
+}
+
 /************** INDEX PAGE ***************/
 
 h1.site-title {
