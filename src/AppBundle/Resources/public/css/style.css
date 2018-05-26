@@ -153,6 +153,16 @@ div.tags span.tag:not(:first-child)::before {
 .social-icon-comment{color:green}
 .social-icon-version{color:blue}
 
+.pager li > a, .pager li > span {
+  border-radius: 5px;
+}
+
+.pager li > a:hover, .pager li > a:focus {
+  background-color:#101010;
+  border-color:#101010;
+  color:#fff;
+}
+
 @media (min-width: 768px) {
   .container.main {
     margin-top: 20px;
