@@ -4,6 +4,7 @@
 {% if card.type_code == 'character' %}
 	Power: {{ macros.integer_or_x(card.power) }}.
 	{% if card.ability > 0 %}Ability: {{ macros.integer_or_x(card.ability) }}.{% endif %}
+	{% if card.armor > 0 %}Armor: {{ macros.integer_or_x(card.armor) }}.{% endif %}
 	{% if card.force_aptitude is not empty %}{{card.force_aptitude}}.{% endif %}
 	{% if card.model_type is not empty %}{{card.model_type}}.{% endif %}
 {% endif %}

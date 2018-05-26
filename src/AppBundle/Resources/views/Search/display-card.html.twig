@@ -21,6 +21,9 @@
         		<div>
         			<div class="panel panel-default border-{{ card.side_code }}">
         				<div class="panel-heading border-{{ card.side_code }} bg-{{ card.side_code }}">
+									{% if card.type_code == 'location' %}
+										<span class="panel-subtitle">{{ card.side_name }}</span>
+									{% endif %}
         					<h3 class="panel-title">
         						{% include 'AppBundle:Search:card-name-with-link.html.twig' %}
         					</h3>

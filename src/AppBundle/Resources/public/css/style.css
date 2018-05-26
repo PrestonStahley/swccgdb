@@ -39,10 +39,14 @@ a.card-name:hover {
 }
 .card-text.border-location-light {
   background-color: #f5f5f5;
+  padding:10px 20px;
+  border-radius: 5px;
 }
 .card-text.border-location-dark {
   background-color: #101010;
   color:#fff;
+  padding:10px 20px;
+  border-radius: 5px;
 }
 .card-text p {
     margin: 0;
@@ -179,6 +183,11 @@ div.tags span.tag:not(:first-child)::before {
   background-color:#101010;
   border-color:#101010;
   color:#fff;
+}
+
+.panel-heading .panel-subtitle {
+  color: #777;
+  float:right;
 }
 
 @media (min-width: 768px) {
