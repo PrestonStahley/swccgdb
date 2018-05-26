@@ -25,12 +25,30 @@ a.card-name:hover {
     font-weight: 700;
 }
 .card-text {
-    border-left-width: 2px;
-    border-left-style: solid;
-    font-size:16px;
+  margin-bottom: 15px;
+}
+.card-text.border-light {
+  background-color: #f5f5f5;
+  border-radius:10px;
+  border:4px double #e0e0e0;
+}
+.card-text.border-dark {
+  background-color: #101010;
+  border:4px double #555;
+  color:#fff;
+}
+.card-text.border-location-light {
+  background-color: #f5f5f5;
+}
+.card-text.border-location-dark {
+  background-color: #101010;
+  color:#fff;
 }
 .card-text p {
-    margin-left: 10px;
+    margin: 0;
+    padding:10px 20px;
+    font-size:15px;
+    line-height: 1.5em;
 }
 .card-flavor {
     font-family: 'Open Sans Condensed', sans-serif;
