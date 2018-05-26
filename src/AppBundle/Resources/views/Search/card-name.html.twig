@@ -1,2 +1,1 @@
-{% if card.uniqueness is not empty %}{{card.uniqueness}} {% endif %}
-<span class="card-name{% if card.available == false %} card-preview{% endif %}">{{ card.name }}</span>
+{% if card.uniqueness %}{{card.uniqueness|raw}} {% endif %}{{ card.name }}
