@@ -324,6 +324,7 @@ class ImportStdCommand extends ContainerAwareCommand
                     'grabber',
                     'hyperspeed',
                     'independent',
+                    'is_horizontal',
                     'image_url_2',
                     'landspeed',
                     'light_side_icons',
