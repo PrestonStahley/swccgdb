@@ -369,6 +369,11 @@ class Card implements \Serializable
     /**
      * @var boolean
      */
+    private $isHorizontal;
+
+    /**
+     * @var boolean
+     */
     private $mobile;
 
     /**
@@ -1334,6 +1339,30 @@ class Card implements \Serializable
     public function getIndependent()
     {
         return $this->independent;
+    }
+
+    /**
+     * Set isHorizontal
+     *
+     * @param boolean $isHorizontal
+     *
+     * @return Card
+     */
+    public function setIsHorizontal($isHorizontal)
+    {
+        $this->isHorizontal = $isHorizontal;
+
+        return $this;
+    }
+
+    /**
+     * Get isHorizontal
+     *
+     * @return boolean
+     */
+    public function getIsHorizontal()
+    {
+        return $this->isHorizontal;
     }
 
     /**
