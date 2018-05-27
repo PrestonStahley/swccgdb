@@ -279,8 +279,8 @@
     {
         var row = $(this).closest('.card-container');
         var code = row.data('code');
-        var action = $(this).val();
-        ui.on_quantity_change(code, action);
+        var command = $(this).data('command');
+        ui.on_quantity_change(code, command);
     };
 
     /**
@@ -328,13 +328,13 @@
     /**
      * @memberOf ui
      */
-    ui.on_quantity_change = function on_quantity_change(card_code, action)
+    ui.on_quantity_change = function on_quantity_change(card_code, command)
     {
         var quantity = app.deck.get_nb_cards(app.deck.get_cards(null, {code: card_code}));
-        if (action == '+') {
+        if (command == '+') {
           quantity++;
         }
-        if (quantity > 0 && action == '-') {
+        if (quantity > 0 && command == '-') {
           quantity--;
         }
         var update_all = app.deck.set_card_copies(card_code, quantity);
@@ -386,7 +386,7 @@
         });
 
         $('#config-options').on('change', 'input', ui.on_config_change);
-        $('#collection').on('click', 'input[type=button]', ui.on_list_quantity_change);
+        $('#collection').on('click', 'button[type=button]', ui.on_list_quantity_change);
 
         // $('#cardModal').on('keypress', function (event)
         // {
@@ -438,9 +438,9 @@
             case 1:
                 DisplayColumnsTpl = _.template(
                         '<tr>'
-                        + '<td><div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="-"/><input type="button" name="qty-<%= card.code %>" value="+"/></div></td>'
+                        + '<td><div class="btn-group"><button type="button" class="btn btn-default btn-sm" data-command="-"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm" data-command="+"><span class="fa fa-plus"></span></button></div></td>'
                         + '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.label %></a></td>'
-                        + '<td class="type"><span class="icon-<%= card.type_code %>" title="<%= card.type_name %>"></span></td>'
+                        + '<td class="type"><%= card.type_name %></td>'
                         + '</tr>'
                         );
                 break;
@@ -451,7 +451,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h4 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h4>'
-                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="-"/><input type="button" name="qty-<%= card.code %>" value="+"/></div>'
+                        + '<div class="btn-group"><button type="button" class="btn btn-default btn-sm" data-command="-"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm" data-command="+"><span class="fa fa-plus"></span></button></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'
@@ -464,7 +464,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h5 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h5>'
-                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="-"/><input type="button" name="qty-<%= card.code %>" value="+"/></div>'
+                        + '<div class="btn-group"><button type="button" class="btn btn-default btn-sm" data-command="-"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm" data-command="+"><span class="fa fa-plus"></span></button></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'

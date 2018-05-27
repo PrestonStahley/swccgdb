@@ -252,6 +252,10 @@ ol {
     height: 70px;
 }
 
+#collection-table tr.card-container > td {
+  vertical-align: middle;
+}
+
 /********* LIST OF DECKS ************/
 
 .list-decks>tbody>tr>td {
@@ -384,97 +388,6 @@ div.site-slogan {
     font-size: 107%;
 }
 
-/************** FACTIONS COLORS **************/
-.bg-side a, .bg-side span {
-    color: inherit;
-}
-.bg-targaryen {
-    background-color: #1c1c1c !important;
-    color: white !important;
-}
-.bg-baratheon {
-    background-color: #e3d852 !important;
-}
-.bg-stark {
-    background-color: #cfcfcf !important;
-}
-.bg-greyjoy {
-    background-color: #1d7a99 !important;
-    color: white !important;
-}
-.bg-lannister {
-    background-color: #c00106 !important;
-    color: white !important;
-}
-.bg-tyrell {
-    background-color: #509f16 !important;
-    color: white !important;
-}
-.bg-thenightswatch {
-    background-color: #7a7a7a !important;
-}
-.bg-martell {
-    background-color: #e89521 !important;
-}
-.bg-neutral {
-    background-color: #a99560 !important;
-}
-
-.fg-targaryen {
-    color: #1c1c1c !important;
-}
-.fg-baratheon {
-    color: #e3d852 !important;
-}
-.fg-stark {
-    color: #cfcfcf !important;
-}
-.fg-greyjoy {
-    color: #1d7a99 !important;
-}
-.fg-lannister {
-    color: #c00106 !important;
-}
-.fg-tyrell {
-    color: #509f16 !important;
-}
-.fg-thenightswatch {
-    color: #7a7a7a !important;
-}
-.fg-martell {
-    color: #e89521 !important;
-}
-.fg-neutral {
-    color: #a99560 !important;
-}
-
-.border-targaryen {
-    border-color: #1c1c1c !important;
-}
-.border-baratheon {
-    border-color: #e3d852 !important;
-}
-.border-stark {
-    border-color: #cfcfcf !important;
-}
-.border-greyjoy {
-    border-color: #1d7a99 !important;
-}
-.border-lannister {
-    border-color: #c00106 !important;
-}
-.border-tyrell {
-    border-color: #509f16 !important;
-}
-.border-thenightswatch {
-    border-color: #7a7a7a !important;
-}
-.border-martell {
-    border-color: #e89521 !important;
-}
-.border-neutral {
-    border-color: #a99560 !important;
-}
 
 /**************** REVIEW ON CARD PAGE ******************/
 
