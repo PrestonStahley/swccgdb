@@ -2,7 +2,7 @@
 
 
 {% block body %}
-<div class="container">
+<div class="main container">
 
 {% if app.request.hasPreviousSession %}
 	{% for type, messages in app.session.flashbag.all() %}
