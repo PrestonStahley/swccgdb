@@ -330,7 +330,7 @@
      */
     ui.on_quantity_change = function on_quantity_change(card_code, action)
     {
-        var quantity = deck.get_nb_cards(deck.get_cards(null, {code: card_code});
+        var quantity = deck.get_nb_cards(deck.get_cards(null, {code: card_code}));
         if (action == '+') {
           quantity++;
         }
