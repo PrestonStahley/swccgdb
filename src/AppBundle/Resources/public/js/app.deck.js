@@ -1,4 +1,4 @@
-/* global _, app, Translator */
+/* global _, app */
 
 (function app_deck(deck, $)
 {
@@ -13,14 +13,12 @@
             side_name,
             unsaved,
             user_id,
-            problem_labels = _.reduce(
-                    ['too_many_plots', 'too_few_plots', 'too_many_different_plots', 'too_many_agendas', 'too_few_cards', 'too_many_copies', 'invalid_cards', 'agenda'],
-                    function (problems, key)
-                    {
-                        problems[key] = 'decks.problems.' + key;
-                        return problems;
-                    },
-                    {}),
+            problem_labels = {
+          		too_few_cards: "Contains too few cards",
+          		too_many_cards: "Contains too many cards",
+              too_many_objectives: "A deck can only contain one Objective card",
+              objective: "Doesn't comply with the Objective conditions"
+          	},
             header_tpl = _.template('<h5><span class="icon icon-<%= code %>"></span> <%= name %> (<%= quantity %>)</h5>'),
             card_line_tpl = _.template('<span class="icon icon-<%= card.type_code %> fg-<%= card.side_code %>"></span> <a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.label %></a>'),
             layouts = {},
@@ -35,7 +33,7 @@
 
     /**
      * @memberOf deck
-     * @param {object} data 
+     * @param {object} data
      */
     deck.init = function init(data)
     {
@@ -63,9 +61,9 @@
 
     /**
      * Sets the slots of the deck
-     * 
+     *
      * @memberOf deck
-     * @param {object} slots 
+     * @param {object} slots
      */
     deck.set_slots = function set_slots(slots)
     {
@@ -118,29 +116,17 @@
     /**
      * @memberOf deck
      */
-    deck.get_agendas = function get_agendas()
+    deck.get_objectives = function get_objectives()
     {
         return deck.get_cards(null, {
-            type_code: 'agenda'
+            type_code: 'objective'
         });
     };
 
     /**
      * @memberOf deck
-     * @returns boolean
-     */
-    deck.is_alliance = function is_alliance()
-    {
-        return !(_.isUndefined(_.find(deck.get_agendas(), function (card)
-        {
-            return card.code === '06018';
-        })));
-    };
-
-    /**
-     * @memberOf deck
-     * @param {object} sort 
-     * @param {object} query 
+     * @param {object} sort
+     * @param {object} query
      */
     deck.get_cards = function get_cards(sort, query)
     {
@@ -159,58 +145,25 @@
 
     /**
      * @memberOf deck
-     * @param {object} sort 
+     * @param {object} sort
      */
     deck.get_draw_deck = function get_draw_deck(sort)
     {
         return deck.get_cards(sort, {
             type_code: {
-                '$nin': ['agenda', 'plot']
+                '$nin': []
             }
         });
     };
 
     /**
      * @memberOf deck
-     * @param {object} sort 
+     * @param {object} sort
      */
     deck.get_draw_deck_size = function get_draw_deck_size(sort)
     {
         var draw_deck = deck.get_draw_deck();
         return deck.get_nb_cards(draw_deck);
-    };
-
-    /**
-     * @memberOf deck
-     * @param {object} sort 
-     */
-    deck.get_plot_deck = function get_plot_deck(sort)
-    {
-        return deck.get_cards(sort, {
-            type_code: 'plot'
-        });
-    };
-
-    /**
-     * @memberOf deck
-     * @returns the number of plot cards
-     * @param {object} sort 
-     */
-    deck.get_plot_deck_size = function get_plot_deck_size(sort)
-    {
-        var plot_deck = deck.get_plot_deck();
-        return deck.get_nb_cards(plot_deck);
-    };
-
-    /**
-     * @memberOf deck
-     * @returns the number of different plot cards
-     * @param {object} sort 
-     */
-    deck.get_plot_deck_variety = function get_plot_deck_variety(sort)
-    {
-        var plot_deck = deck.get_plot_deck();
-        return plot_deck.length;
     };
 
     deck.get_nb_cards = function get_nb_cards(cards)
@@ -254,8 +207,8 @@
 
     /**
      * @memberOf deck
-     * @param {object} container 
-     * @param {object} options 
+     * @param {object} container
+     * @param {object} options
      */
     deck.display = function display(container, options)
     {
@@ -286,25 +239,9 @@
         };
 
         var problem = deck.get_problem();
-        var agendas = deck.get_agendas();
-        
-        deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/sides/' + deck.get_side_code() + '.png" class="img-responsive">'));
-        agendas.forEach(function (agenda) {
-            deck.update_layout_section(data, 'images', $('<div><img src="' + agenda.image_url + '" class="img-responsive">'));
-        });
 
+        deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/sides/' + deck.get_side_code() + '.png" class="img-responsive">'));
         deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + side_name + '</h4>'));
-        agendas.forEach(function (agenda) {
-            var agenda_line = $('<h5>').append($(card_line_tpl({card: agenda})));
-            agenda_line.find('.icon').remove();
-            deck.update_layout_section(data, 'meta', agenda_line);
-        });
-        var drawDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.drawdeck', deck.get_draw_deck_size(), {count: deck.get_draw_deck_size()}) + '</div>');
-        drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
-        deck.update_layout_section(data, 'meta', drawDeckSection);
-        var plotDeckSection = $('<div>' + Translator.transChoice('decks.edit.meta.plotdeck', deck.get_plot_deck_size(), {count: deck.get_plot_deck_size()}) + '</div>');
-        plotDeckSection.addClass(problem && problem.indexOf('plots') !== -1 ? 'text-danger' : '');
-        deck.update_layout_section(data, 'meta', plotDeckSection);
         //deck.update_layout_section(data, 'meta', $('<div>Sets: ' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '</div>'));
         var sets = _.map(deck.get_included_sets(), function (set)
         {
@@ -359,45 +296,7 @@
             return false;
 
         var updated_other_card = false;
-        if(nb_copies > 0) {
-            // card-specific rules
-            switch(card.type_code) {
-                case 'agenda':
-                    // is deck alliance before the change
-                    var is_alliance = deck.is_alliance();
-                    // is deck alliance with the new card
-                    if(card.traits.indexOf('card.traits.banner') === -1) {
-                        is_alliance = false;
-                    } else {
-                        var nb_banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp('card.traits.banner' + '\\.')}));
-                        if(nb_banners >= 2)
-                            is_alliance = false;
-                    }
-                    if(card.code === '06018')
-                        is_alliance = true;
-                    if(is_alliance) {
-                        deck.get_agendas().forEach(function (agenda)
-                        {
-                            if(agenda.code !== '06018' && agenda.traits.indexOf('card.traits.banner') === -1) {
-                                app.data.cards.update({
-                                    code: agenda.code
-                                }, {
-                                    indeck: 0
-                                });
-                                updated_other_card = true;
-                            }
-                        });
-                    } else {
-                        app.data.cards.update({
-                            type_code: 'agenda'
-                        }, {
-                            indeck: 0
-                        });
-                        updated_other_card = true;
-                    }
-                    break;
-            }
-        }
+
         app.data.cards.updateById(card_code, {
             indeck: nb_copies
         });
@@ -463,49 +362,13 @@
      */
     deck.get_problem = function get_problem()
     {
-        var agendas = deck.get_agendas();
-        var expectedPlotDeckSize = 7;
-        var expectedMaxDoublePlot = 1;
+        var objectives = deck.get_objectives();
         var expectedMaxAgendaCount = 1;
         var expectedMinCardCount = 60;
-        agendas.forEach(function (agenda) {
-            if(agenda && agenda.code === '05045') {
-                expectedPlotDeckSize = 12;
-            } else if(agenda && agenda.code === '10045') {
-                expectedPlotDeckSize = 10;
-                expectedMaxDoublePlot = 2;
-            }
-        });
-        // exactly 7 plots
-        if(deck.get_plot_deck_size() > expectedPlotDeckSize) {
-            return 'too_many_plots';
-        }
-        if(deck.get_plot_deck_size() < expectedPlotDeckSize) {
-            return 'too_few_plots';
-        }
 
-        var expectedPlotDeckSpread = expectedPlotDeckSize - expectedMaxDoublePlot;
-        // at least 6 different plots
-        if(deck.get_plot_deck_variety() < expectedPlotDeckSpread) {
-            return 'too_many_different_plots';
-        }
-
-        // no more than 1 agenda, unless Alliance
-        if(deck.is_alliance()) {
-            expectedMaxAgendaCount = 3;
-            expectedMinCardCount = 75;
-            var unwanted = _.find(deck.get_agendas(), function (agenda)
-            {
-                return agenda.code !== '06018' && agenda.traits.indexOf('card.traits.banner') === -1;
-            });
-            if(unwanted) {
-                return 'too_many_agendas';
-            }
-        }
-
-        // no more than 1 agenda
-        if(deck.get_nb_cards(deck.get_agendas()) > expectedMaxAgendaCount) {
-            return 'too_many_agendas';
+        // no more than 1 objective
+        if(deck.get_nb_cards(deck.get_objectives()) > expectedMaxAgendaCount) {
+            return 'too_many_objectives';
         }
 
         // at least 60 others cards
@@ -513,122 +376,36 @@
             return 'too_few_cards';
         }
 
-        // too many copies of one card
-        if(!_.isUndefined(_.findKey(deck.get_copies_and_deck_limit(), function (value)
-        {
-            return value.nb_copies > value.deck_limit;
-        }))) {
-            return 'too_many_copies';
-        }            
-
-        // no invalid card
-        if(deck.get_invalid_cards().length > 0) {
-            return 'invalid_cards';
-        }
-
-        // the condition(s) of the agendas must be fulfilled
-        var agendas = deck.get_agendas();
-        for(var i=0; i<agendas.length; i++) {
-            if(!deck.validate_agenda(agendas[i])) {
-                return 'agenda';
+        // the condition(s) of the objective must be fulfilled
+        var objectives = deck.get_objectives();
+        for(var i=0; i<objectives.length; i++) {
+            if(!deck.validate_objective(objectives[i])) {
+                return 'objective';
             }
         }
     };
 
-    deck.validate_agenda = function validate_agenda(agenda)
+    deck.validate_objective = function validate_objective(objective)
     {
-        switch(agenda.code) {
-            case '01027':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, side_code: 'neutral'})) > 15) {
+        switch(objective.code) {
+            case '07029':
+                var hasDantooine = (deck.get_nb_cards(deck.get_cards(null, {code: '01022'})) > 0);
+                if(!hasDantooine) {
                     return false;
                 }
                 break;
-            case '01198':
-            case '01199':
-            case '01200':
-            case '01201':
-            case '01202':
-            case '01203':
-            case '01204':
-            case '01205':
-                var minor_side_code = deck.get_minor_side_code(agenda);
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: {$in: ['character', 'attachment', 'location', 'event']}, side_code: minor_side_code})) < 12) {
-                    return false;
-                }
-                break;
-            case '04037':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp('card.traits.winter' + '\\.')})) > 0) {
-                    return false;
-                }
-                break;
-            case '04038':
-                if(deck.get_nb_cards(deck.get_cards(null, {type_code: 'plot', traits: new RegExp('card.traits.summer' + '\\.')})) > 0) {
-                    return false;
-                }
-                break;
-            case '05045':
-                var schemeCards = deck.get_cards(null, {type_code: 'plot', traits: new RegExp('card.traits.scheme' + '\\.')});
-                var totalSchemes = deck.get_nb_cards(schemeCards);
-                var uniqueSchemes = schemeCards.length;
-                if(totalSchemes !== 5 || uniqueSchemes !== 5) {
-                    return false;
-                }
-                break;
-            case '06018':
-                var agendas = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda'}));
-                var banners = deck.get_nb_cards(deck.get_cards(null, {type_code: 'agenda', traits: new RegExp('card.traits.banner' + '\\.')}));
-                if(agendas - banners !== 1) {
-                    return false;
-                }
-                break;
-            case '06119':
-                var loyalCharacters = deck.get_nb_cards(deck.get_cards(null, {type_code: 'character', is_loyal: true}));
-                if(loyalCharacters > 0) {
-                    return false;
-                }
-                break;
-            case '09045':
-                var maesters = deck.get_nb_cards(deck.get_cards(null, {type_code: 'character', traits: new RegExp('card.traits.maester' + '\\.')}));
-                if(maesters < 12) {
-                    return false;
-                }
+            case '07060':
+            case '07084':
+            case '07091':
+            case '07115':
+            case '07179':
+            case '07228':
+            case '07232':
+            case '07234':
+            case '07275':
                 break;
         }
         return true;
-    };
-
-    /**
-     * @memberOf deck
-     * @returns {array}
-     */
-    deck.get_minor_side_codes = function get_minor_side_codes()
-    {
-        return deck.get_agendas().map(function (agenda)
-        {
-            return deck.get_minor_side_code(agenda);
-        });
-    };
-
-    /**
-     * @memberOf deck
-     * @param {object} agenda
-     * @returns {string}
-     */
-    deck.get_minor_side_code = function get_minor_side_code(agenda)
-    {
-        // special case for the Core Set Banners
-        var banners_core_set = {
-            '01198': 'baratheon',
-            '01199': 'greyjoy',
-            '01200': 'lannister',
-            '01201': 'martell',
-            '01202': 'thenightswatch',
-            '01203': 'stark',
-            '01204': 'targaryen',
-            '01205': 'tyrell'
-        };
-
-        return banners_core_set[agenda.code];
     };
 
     deck.get_invalid_cards = function get_invalid_cards()
@@ -645,25 +422,15 @@
      */
     deck.can_include_card = function can_include_card(card)
     {
-        // neutral card => yes
-        if(card.side_code === 'neutral')
-            return true;
 
-        // in-house card => yes
+        // no objectives
+        if (card.type_code === "objective") {
+      		return false;
+      	}
+
+        // matching side => yes
         if(card.side_code === side_code)
             return true;
-
-        // out-of-house and loyal => no
-        if(card.is_loyal)
-            return false;
-
-        // agenda => yes
-        var agendas = deck.get_agendas();
-        for(var i = 0; i < agendas.length; i++) {
-            if(deck.card_allowed_by_agenda(agendas[i], card)) {
-                return true;
-            }
-        }
 
         // if none above => no
         return false;
