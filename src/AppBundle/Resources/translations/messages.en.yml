@@ -392,6 +392,7 @@ card:
     characteristics: Characteristics
     set: Set
     rarity: Rarity
+    quantity: Quantity
     short:
       type: T.
       side: S.

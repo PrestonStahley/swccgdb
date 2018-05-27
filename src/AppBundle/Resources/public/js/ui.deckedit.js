@@ -48,10 +48,10 @@
     ui.init_config_buttons = function init_config_buttons()
     {
         // radio
-        ['display-column', 'core-set', 'buttons-behavior'].forEach(function (radio)
-        {
-            $('input[name=' + radio + '][value=' + Config[radio] + ']').prop('checked', true);
-        });
+        // ['display-column', 'core-set', 'buttons-behavior'].forEach(function (radio)
+        // {
+        //     $('input[name=' + radio + '][value=' + Config[radio] + ']').prop('checked', true);
+        // });
         // checkbox
         ['show-unusable', 'show-only-deck'].forEach(function (checkbox)
         {
@@ -75,27 +75,6 @@
                 maxqty: max_qty
             });
         });
-    };
-
-    /**
-     * builds the side selector
-     * @memberOf ui
-     */
-    ui.build_side_selector = function build_side_selector()
-    {
-        $('[data-filter=side_code]').empty();
-        var side_codes = app.data.cards.distinct('side_code').sort();
-
-        side_codes.forEach(function (side_code)
-        {
-            var example = app.data.cards.find({"side_code": side_code})[0];
-            var label = $('<label class="btn btn-default btn-sm" data-code="'
-                    + side_code + '" title="' + example.side_name + '"><input type="checkbox" name="' + side_code
-                    + '"><span class="icon-' + side_code + '"></span></label>');
-            label.tooltip({container: 'body'});
-            $('[data-filter=side_code]').append(label);
-        });
-        $('[data-filter=side_code]').button();
     };
 
     /**
@@ -401,14 +380,14 @@
         });
 
         $('#config-options').on('change', 'input', ui.on_config_change);
-        $('#collection').on('change', 'input[type=radio]', ui.on_list_quantity_change);
+        // $('#collection').on('change', 'input[type=radio]', ui.on_list_quantity_change);
 
-        $('#cardModal').on('keypress', function (event)
-        {
-            var num = parseInt(event.which, 10) - 48;
-            $('#cardModal input[type=radio][value=' + num + ']').trigger('change');
-        });
-        $('#cardModal').on('change', 'input[type=radio]', ui.on_modal_quantity_change);
+        // $('#cardModal').on('keypress', function (event)
+        // {
+        //     var num = parseInt(event.which, 10) - 48;
+        //     $('#cardModal input[type=radio][value=' + num + ']').trigger('change');
+        // });
+        // $('#cardModal').on('change', 'input[type=radio]', ui.on_modal_quantity_change);
 
         $('thead').on('click', 'a[data-sort]', ui.on_table_sort_click);
 
@@ -453,7 +432,7 @@
             case 1:
                 DisplayColumnsTpl = _.template(
                         '<tr>'
-                        + '<td><div class="btn-group" data-toggle="buttons"><%= radios %></div></td>'
+                        + '<td><div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="decrement">-</input><input type="button" name="qty-<%= card.code %>" value="increment">+</input></div></td>'
                         + '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.label %></a></td>'
                         + '<td class="cost"><%= card.cost %><%= card.income %></td>'
                         + '<td class="cost"><%= card.strength %><%= card.initiative %></td>'
@@ -469,7 +448,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h4 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h4>'
-                        + '<div class="btn-group" data-toggle="buttons"><%= radios %></div>'
+                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="decrement">-</input><input type="button" name="qty-<%= card.code %>" value="increment">+</input></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'
@@ -482,7 +461,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h5 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h5>'
-                        + '<div class="btn-group" data-toggle="buttons"><%= radios %></div>'
+                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="decrement">-</input><input type="button" name="qty-<%= card.code %>" value="increment">+</input></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'
@@ -496,20 +475,19 @@
      */
     ui.build_row = function build_row(card)
     {
-        var radios = '', radioTpl = _.template(
-                '<label class="btn btn-xs btn-default <%= active %>"><input type="radio" name="qty-<%= card.code %>" value="<%= i %>"><%= i %></label>'
-                );
-
-        for(var i = 0; i <= card.maxqty; i++) {
-            radios += radioTpl({
-                i: i,
-                active: (i === card.indeck ? ' active' : ''),
-                card: card
-            });
-        }
+        // var radios = '', radioTpl = _.template(
+        //         '<label class="btn btn-xs btn-default <%= active %>"><input type="radio" name="qty-<%= card.code %>" value="<%= i %>"><%= i %></label>'
+        //         );
+        //
+        // for(var i = 0; i <= card.maxqty; i++) {
+        //     radios += radioTpl({
+        //         i: i,
+        //         active: (i === card.indeck ? ' active' : ''),
+        //         card: card
+        //     });
+        // }
 
         var html = DisplayColumnsTpl({
-            radios: radios,
             url: Routing.generate('cards_zoom', {card_code: card.code}),
             card: card
         });
@@ -572,9 +550,9 @@
                     }
             );
 
-            if(unusable) {
-                row.find('label').addClass("disabled").find('input[type=radio]').attr("disabled", true);
-            }
+            // if(unusable) {
+            //     row.find('label').addClass("disabled").find('input[type=radio]').attr("disabled", true);
+            // }
 
             if(Config['display-column'] > 1 && (counter % Config['display-column'] === 0)) {
                 container = $('<div class="row"></div>').appendTo($('#collection-grid'));
@@ -683,7 +661,6 @@
     ui.on_all_loaded = function on_all_loaded()
     {
         ui.update_list_template();
-        ui.build_side_selector();
         ui.build_type_selector();
         ui.build_set_selector();
         ui.init_selectors();
