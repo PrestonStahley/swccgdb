@@ -61,17 +61,6 @@
     };
 
     /**
-     * removes titles, which cannot be used in decks
-     * @memberOf ui
-     */
-    ui.remove_melee_titles = function remove_melee_titles()
-    {
-        app.data.cards.remove({
-            'type_code': 'title'
-        });
-    };
-
-    /**
      * sets the maxqty of each card
      * @memberOf ui
      */
@@ -96,9 +85,6 @@
     {
         $('[data-filter=side_code]').empty();
         var side_codes = app.data.cards.distinct('side_code').sort();
-        var neutral_index = side_codes.indexOf('neutral');
-        side_codes.splice(neutral_index, 1);
-        side_codes.unshift('neutral');
 
         side_codes.forEach(function (side_code)
         {
@@ -119,7 +105,7 @@
     ui.build_type_selector = function build_type_selector()
     {
         $('[data-filter=type_code]').empty();
-        ['agenda', 'plot', 'character', 'attachment', 'location', 'event'].forEach(function (type_code)
+        ['location', 'character', 'device', 'weapon', 'starship', 'vehicle', 'effect', 'interrupt'].forEach(function (type_code)
         {
             var example = app.data.cards.find({"type_code": type_code})[0];
             var label = $('<label class="btn btn-default btn-sm" data-code="'
@@ -151,9 +137,6 @@
         {
             // checked or unchecked ? checked by default
             var checked = true;
-            // if not yet available, uncheck set
-            if(record.available === "")
-                checked = false;
             // if user checked it previously, check set
             if(localStorage && localStorage.getItem('set_code_' + record.code) !== null)
                 checked = true;
@@ -176,13 +159,7 @@
      */
     ui.init_selectors = function init_selectors()
     {
-        $('[data-filter=side_code]').find('input[name=neutral]').prop("checked", true).parent().addClass('active');
         $('[data-filter=side_code]').find('input[name=' + app.deck.get_side_code() + ']').prop("checked", true).parent().addClass('active');
-        var minor_side_codes = app.deck.get_minor_side_codes();
-        for(var i = 0; i < minor_side_codes.length; i++) {
-            $('[data-filter=side_code]').find('input[name=' + minor_side_codes[i] + ']').prop("checked", true).parent().addClass('active');
-        }
-
         $('[data-filter=type_code]').find('input[name=character]').prop("checked", true).parent().addClass('active');
     };
 
@@ -695,7 +672,6 @@
      */
     ui.on_data_loaded = function on_data_loaded()
     {
-        ui.remove_melee_titles();
         ui.set_max_qty();
         app.draw_simulator && app.draw_simulator.on_data_loaded();
     };
