@@ -279,9 +279,8 @@
     {
         var row = $(this).closest('.card-container');
         var code = row.data('code');
-        var quantity = parseInt($(this).val(), 10);
-//	row[quantity ? "addClass" : "removeClass"]('in-deck');
-        ui.on_quantity_change(code, quantity);
+        var action = $(this).val();
+        ui.on_quantity_change(code, action);
     };
 
     /**
@@ -329,8 +328,15 @@
     /**
      * @memberOf ui
      */
-    ui.on_quantity_change = function on_quantity_change(card_code, quantity)
+    ui.on_quantity_change = function on_quantity_change(card_code, action)
     {
+        var quantity = deck.get_nb_cards(deck.get_cards(null, {code: card_code});
+        if (action == '+') {
+          quantity++;
+        }
+        if (quantity > 0 && action == '-') {
+          quantity--;
+        }
         var update_all = app.deck.set_card_copies(card_code, quantity);
         ui.refresh_deck();
 
@@ -380,7 +386,7 @@
         });
 
         $('#config-options').on('change', 'input', ui.on_config_change);
-        // $('#collection').on('change', 'input[type=radio]', ui.on_list_quantity_change);
+        $('#collection').on('click', 'input[type=button]', ui.on_list_quantity_change);
 
         // $('#cardModal').on('keypress', function (event)
         // {
@@ -432,12 +438,9 @@
             case 1:
                 DisplayColumnsTpl = _.template(
                         '<tr>'
-                        + '<td><div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="decrement">-</input><input type="button" name="qty-<%= card.code %>" value="increment">+</input></div></td>'
+                        + '<td><div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="-"/><input type="button" name="qty-<%= card.code %>" value="+"/></div></td>'
                         + '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.label %></a></td>'
-                        + '<td class="cost"><%= card.cost %><%= card.income %></td>'
-                        + '<td class="cost"><%= card.strength %><%= card.initiative %></td>'
                         + '<td class="type"><span class="icon-<%= card.type_code %>" title="<%= card.type_name %>"></span></td>'
-                        + '<td class="side"><span class="icon-<%= card.side_code %> fg-<%= card.side_code %>" title="<%= card.side_name %>"></span></td>'
                         + '</tr>'
                         );
                 break;
@@ -448,7 +451,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h4 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h4>'
-                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="decrement">-</input><input type="button" name="qty-<%= card.code %>" value="increment">+</input></div>'
+                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="-"/><input type="button" name="qty-<%= card.code %>" value="+"/></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'
@@ -461,7 +464,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h5 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h5>'
-                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="decrement">-</input><input type="button" name="qty-<%= card.code %>" value="increment">+</input></div>'
+                        + '<div class="btn-group" data-toggle="buttons"><input type="button" name="qty-<%= card.code %>" value="-"/><input type="button" name="qty-<%= card.code %>" value="+"/></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'
