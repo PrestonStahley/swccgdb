@@ -70,7 +70,6 @@ class BuilderController extends Controller
                 "%objective%" => $objective->getName()
             ));
             $set = $objective->getSet();
-            $tags[] = $this->get('objective_helper')->getMinorSideCode($objective);
         }
 
 
