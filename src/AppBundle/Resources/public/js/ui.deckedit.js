@@ -89,7 +89,7 @@
             var example = app.data.cards.find({"type_code": type_code})[0];
             var label = $('<label class="btn btn-default btn-sm" data-code="'
                     + type_code + '" title="' + example.type_name + '"><input type="checkbox" name="' + type_code
-                    + '"><span class="icon-' + type_code + '"></span></label>');
+                    + '"><span class="icon icon-' + type_code + '"></span></label>');
             label.tooltip({container: 'body'});
             $('[data-filter=type_code]').append(label);
         });
@@ -290,10 +290,10 @@
     ui.on_modal_quantity_change = function on_modal_quantity_change(event)
     {
         var modal = $('#cardModal');
-        var code = modal.data('code');
-        var quantity = parseInt($(this).val(), 10);
+        var card_code = modal.data('code');
+        var quantity = app.deck.get_nb_cards(app.deck.get_cards(null, {code: card_code}));
         modal.modal('hide');
-        ui.on_quantity_change(code, quantity);
+        ui.on_quantity_change(card_code, quantity);
 
         setTimeout(function ()
         {
@@ -393,7 +393,7 @@
         //     var num = parseInt(event.which, 10) - 48;
         //     $('#cardModal input[type=radio][value=' + num + ']').trigger('change');
         // });
-        // $('#cardModal').on('change', 'input[type=radio]', ui.on_modal_quantity_change);
+        $('#cardModal .modal-qty').on('click', 'button[type=button]', ui.on_modal_quantity_change);
 
         $('thead').on('click', 'a[data-sort]', ui.on_table_sort_click);
 

@@ -42,27 +42,27 @@
                 + '<div class="card-set">' + app.format.set(card) + '</div>'
                 );
 
-        var qtyelt = modal.find('.modal-qty');
-        if(qtyelt) {
-
-            var qty = '';
-            for(var i = 0; i <= card.maxqty; i++) {
-                qty += '<label class="btn btn-default"><input type="radio" name="qty" value="' + i + '">' + i + '</label>';
-            }
-            qtyelt.html(qty);
-
-            qtyelt.find('label').each(function (index, element)
-            {
-                if(index == card.indeck)
-                    $(element).addClass('active');
-                else
-                    $(element).removeClass('active');
-            });
-
-        } else {
-            if(qtyelt)
-                qtyelt.closest('.row').remove();
-        }
+        // var qtyelt = modal.find('.modal-qty');
+        // if(qtyelt) {
+        //
+        //     var qty = '';
+        //     for(var i = 0; i <= card.maxqty; i++) {
+        //         qty += '<label class="btn btn-default"><input type="radio" name="qty" value="' + i + '">' + i + '</label>';
+        //     }
+        //     qtyelt.html(qty);
+        //
+        //     qtyelt.find('label').each(function (index, element)
+        //     {
+        //         if(index == card.indeck)
+        //             $(element).addClass('active');
+        //         else
+        //             $(element).removeClass('active');
+        //     });
+        //
+        // } else {
+        //     if(qtyelt)
+        //         qtyelt.closest('.row').remove();
+        // }
     }
 
     $(function ()

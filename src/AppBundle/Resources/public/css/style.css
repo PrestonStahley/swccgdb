@@ -256,6 +256,10 @@ ol {
   vertical-align: middle;
 }
 
+.thumbnail-side img {
+  border-radius: 10px;
+}
+
 /********* LIST OF DECKS ************/
 
 .list-decks>tbody>tr>td {

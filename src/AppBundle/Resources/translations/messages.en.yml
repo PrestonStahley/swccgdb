@@ -57,10 +57,10 @@ decks:
     objective: Doesn't comply with the Objective conditions
   build:
     choose:
-      side: Choose your side
+      side: Choose a side
       objective: Choose an objective
       noobjective: No objective
-    start: Create the deck and start building
+    start: Create deck
     newname:
       noobjective: "New deck: %side%"
       objective: "New deck: %side%, %objective%"
