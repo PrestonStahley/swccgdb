@@ -72,6 +72,7 @@ decks:
       test: Test
       charts: Charts
       history: History
+    build:
       sets:
         label: Sets
         hint: Shift+Click to select only one option ; Alt+Shift+Click to select all other options
