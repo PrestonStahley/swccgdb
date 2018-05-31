@@ -112,6 +112,6 @@
 	background-position: 0 -352px;
 }
 
-.icon-location {
+.icon-location, .icon-character {
 	display: none;
 }

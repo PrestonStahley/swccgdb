@@ -25,7 +25,6 @@
             'show-unusable': false,
             'show-only-deck': false,
             'display-column': 1,
-            'core-set': 3,
             'buttons-behavior': 'cumulative'
         }, Config || {});
     };
@@ -61,30 +60,13 @@
     };
 
     /**
-     * sets the maxqty of each card
-     * @memberOf ui
-     */
-    ui.set_max_qty = function set_max_qty()
-    {
-        app.data.cards.find().forEach(function (record)
-        {
-            var max_qty = Math.min(3, record.deck_limit);
-            if(record.set_code === 'Core')
-                max_qty = Math.min(max_qty, record.quantity * Config['core-set']);
-            app.data.cards.updateById(record.code, {
-                maxqty: max_qty
-            });
-        });
-    };
-
-    /**
      * builds the type selector
      * @memberOf ui
      */
     ui.build_type_selector = function build_type_selector()
     {
         $('[data-filter=type_code]').empty();
-        ['location', 'character', 'device', 'weapon', 'starship', 'vehicle', 'effect', 'interrupt'].forEach(function (type_code)
+        ['location', 'character', 'starship', 'vehicle', 'device', 'weapon', 'effect', 'interrupt', 'admirals-order'].forEach(function (type_code)
         {
             var example = app.data.cards.find({"type_code": type_code})[0];
             var label = $('<label class="btn btn-default btn-sm" data-code="'
@@ -138,8 +120,7 @@
      */
     ui.init_selectors = function init_selectors()
     {
-        $('[data-filter=side_code]').find('input[name=' + app.deck.get_side_code() + ']').prop("checked", true).parent().addClass('active');
-        $('[data-filter=type_code]').find('input[name=character]').prop("checked", true).parent().addClass('active');
+        $('[data-filter=type_code]').find('input[name=location]').prop("checked", true).parent().addClass('active');
     };
 
     function uncheck_all_others()
@@ -240,10 +221,6 @@
         switch(name) {
             case 'buttons-behavior':
                 break;
-            case 'core-set':
-                ui.set_max_qty();
-                ui.reset_list();
-                break;
             case 'display-column':
                 ui.update_list_template();
                 ui.refresh_list();
@@ -291,9 +268,9 @@
     {
         var modal = $('#cardModal');
         var card_code = modal.data('code');
-        var quantity = app.deck.get_nb_cards(app.deck.get_cards(null, {code: card_code}));
+        var command = $(this).data('command');
         modal.modal('hide');
-        ui.on_quantity_change(card_code, quantity);
+        ui.on_quantity_change(card_code, command);
 
         setTimeout(function ()
         {
@@ -620,17 +597,6 @@
         $(elt).after('<span class="caret"></span>').closest('th').addClass(SortOrder > 0 ? '' : 'dropup');
     };
 
-    ui.init_filter_help = function init_filter_help()
-    {
-        $('#filter-text-button').popover({
-            container: 'body',
-            content: app.smart_filter.get_help(),
-            html: true,
-            placement: 'bottom',
-            title: 'Smart filter syntax'
-        });
-    };
-
     /**
      * called when the DOM is loaded
      * @memberOf ui
@@ -638,7 +604,6 @@
     ui.on_dom_loaded = function on_dom_loaded()
     {
         ui.init_config_buttons();
-        ui.init_filter_help();
         ui.update_sort_caret();
         ui.setup_event_handlers();
         app.textcomplete && app.textcomplete.setup('#description');
@@ -653,7 +618,6 @@
      */
     ui.on_data_loaded = function on_data_loaded()
     {
-        ui.set_max_qty();
         app.draw_simulator && app.draw_simulator.on_data_loaded();
     };
 
