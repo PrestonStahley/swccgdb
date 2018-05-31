@@ -7,13 +7,6 @@ class ExportableDeck
     public function getArrayExport($withUnsavedChanges = false)
     {
         $slots = $this->getSlots();
-        $agendas = $slots->getAgendas();
-        $agendas_code = [];
-        $agenda_urls = [];
-        foreach ($agendas as $agenda) {
-            $agendas_code[] = $agenda->getCard()->getCode();
-            $agendas_urls[] = $agenda->getCard()->getImageUrl();
-        }
         $array = [
             'id' => $this->getId(),
             'name' => $this->getName(),
@@ -24,8 +17,6 @@ class ExportableDeck
             'side_code' => $this->getSide()->getCode(),
             'side_name' => $this->getSide()->getName(),
             'slots' => $slots->getContent(),
-            'agendas' => $agendas_code,
-            'agendaurls' => $agenda_urls,
             'version' => $this->getVersion(),
         ];
 
@@ -38,7 +29,6 @@ class ExportableDeck
         return [
             'name' => $this->getName(),
             'version' => $this->getVersion(),
-            'agendas' => $slots->getAgendas(),
             'side' => $this->getSide(),
             'draw_deck_size' => $slots->getDrawDeck()->countCards(),
             'plot_deck_size' => $slots->getPlotDeck()->countCards(),

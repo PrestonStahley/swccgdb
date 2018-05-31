@@ -47,14 +47,11 @@ decks:
   description: Description
   defaultemptydesc: "*No description.*"
   problems:
-    too_many_plots: Contains too many Plots
-    too_few_plots: Contains too few Plots
-    too_many_different_plots: Contains more than one duplicated Plot
     too_many_objectives: Contains more than one Objective
     too_few_cards: Contains too few cards
-    too_many_copies: Contains too many copies of a card (by title)
-    invalid_cards: Contains forbidden cards (cards no permitted by Side or Objective)
-    objective: Doesn't comply with the Objective conditions
+    too_few_cards: Contains too many cards
+    invalid_cards: Contains cards from the wrong side of the force
+    mising_objective_cards: Missing cards required by Objective
   build:
     choose:
       side: Choose a side

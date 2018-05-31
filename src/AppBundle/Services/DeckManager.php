@@ -152,16 +152,6 @@ class DeckManager
         foreach ($changes as $change) {
             $this->doctrine->remove($change);
         }
-        // if all remaining cards are agendas, delete it
-        $nonAgendaCards = 0;
-        foreach ($deck->getSlots() as $slot) {
-            if ($slot->getCard()->getType()->getCode() !== 'agenda') {
-                $nonAgendaCards += $slot->getQuantity();
-            }
-        }
-        if ($nonAgendaCards === 0) {
-            $this->doctrine->remove($deck);
-        }
         $this->doctrine->flush();
     }
 

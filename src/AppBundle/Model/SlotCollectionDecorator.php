@@ -89,7 +89,19 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 
     public function getSlotsByType()
     {
-        $slotsByType = ['plot' => [], 'character' => [], 'location' => [], 'attachment' => [], 'event' => []];
+        $slotsByType = ['admirals-order' => [],
+                        'character' => [],
+                        'creature' => [],
+                        'device' => [],
+                        'effect' => [],
+                        'epic-event' => [],
+                        'jedi-test' => [],
+                        'location' => [],
+                        'objective' => [],
+                        'podracer' => [],
+                        'starship' => [],
+                        'vehicle' => [],
+                        'weapon' => []];
         foreach ($this->slots as $slot) {
             if (array_key_exists($slot->getCard()->getType()->getCode(), $slotsByType)) {
                 $slotsByType[$slot->getCard()->getType()->getCode()][] = $slot;
@@ -100,7 +112,19 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
 
     public function getCountByType()
     {
-        $countByType = ['character' => 0, 'location' => 0, 'attachment' => 0, 'event' => 0];
+      $countByType = ['admirals-order' => 0,
+                      'character' => 0,
+                      'creature' => 0,
+                      'device' => 0,
+                      'effect' => 0,
+                      'epic-event' => 0,
+                      'jedi-test' => 0,
+                      'location' => 0,
+                      'objective' => 0,
+                      'podracer' => 0,
+                      'starship' => 0,
+                      'vehicle' => 0,
+                      'weapon' => 0];
         foreach ($this->slots as $slot) {
             if (array_key_exists($slot->getCard()->getType()->getCode(), $countByType)) {
                 $countByType[$slot->getCard()->getType()->getCode()] += $slot->getQuantity();
@@ -109,45 +133,11 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
         return $countByType;
     }
 
-    public function getPlotDeck()
-    {
-        $plotDeck = [];
-        foreach ($this->slots as $slot) {
-            if ($slot->getCard()->getType()->getCode() === 'plot') {
-                $plotDeck[] = $slot;
-            }
-        }
-        return new SlotCollectionDecorator(new ArrayCollection($plotDeck));
-    }
-
-    public function getAgendas()
-    {
-        $agendas = [];
-        foreach ($this->slots as $slot) {
-            if ($slot->getCard()->getType()->getCode() === 'agenda') {
-                $agendas[] = $slot;
-            }
-        }
-        return new SlotCollectionDecorator(new ArrayCollection($agendas));
-    }
-
-    public function isAlliance()
-    {
-        foreach ($this->getAgendas() as $agenda) {
-            if ($agenda->getCard()->getCode() === '06018') {
-                return true;
-            }
-        }
-        return false;
-    }
-    
     public function getDrawDeck()
     {
         $drawDeck = [];
         foreach ($this->slots as $slot) {
-            if ($slot->getCard()->getType()->getCode() === 'character' || $slot->getCard()->getType()->getCode() === 'location' || $slot->getCard()->getType()->getCode() === 'attachment' || $slot->getCard()->getType()->getCode() === 'event') {
-                $drawDeck[] = $slot;
-            }
+          $drawDeck[] = $slot;
         }
         return new SlotCollectionDecorator(new ArrayCollection($drawDeck));
     }
@@ -168,17 +158,6 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
         $slots = [];
         foreach ($this->slots as $slot) {
             if ($slot->getCard()->getType()->getCode() === $type_code) {
-                $slots[] = $slot;
-            }
-        }
-        return new SlotCollectionDecorator(new ArrayCollection($slots));
-    }
-
-    public function filterByTrait($trait)
-    {
-        $slots = [];
-        foreach ($this->slots as $slot) {
-            if (preg_match("/$trait\\./", $slot->getCard()->getTraits())) {
                 $slots[] = $slot;
             }
         }

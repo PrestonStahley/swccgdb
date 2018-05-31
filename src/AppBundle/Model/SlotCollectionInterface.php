@@ -12,73 +12,49 @@ interface SlotCollectionInterface extends \Countable, \IteratorAggregate, \Array
      * @return integer
      */
     public function countCards();
-    
+
     /**
      * Get included sets
      * @return \AppBundle\Entity\Set[]
      */
     public function getIncludedSets();
-    
+
     /**
      * Get all slots sorted by type code (including plots)
      * @return array
      */
     public function getSlotsByType();
-    
+
     /**
      * Get all slot counts sorted by type code (excluding plots)
      * @return array
      */
     public function getCountByType();
-    
-    /**
-     * Get the plot deck
-     * @return \AppBundle\Model\SlotCollectionInterface
-     */
-    public function getPlotDeck();
-
-    /**
-     * Get all the agendas
-     * @return \AppBundle\Model\SlotCollectionInterface
-     */
-    public function getAgendas();
-    
-    /**
-     * Return true is agenda is Alliance (06018)
-     * @return boolean
-     */
-    public function isAlliance();
 
     /**
      * Get the draw deck
      * @return \AppBundle\Model\SlotCollectionInterface
      */
     public function getDrawDeck();
-    
+
     /**
      * Get the content as an array card_code => qty
      * @return array
      */
     public function getContent();
-    
+
     /**
      *
      * @param string $side_code
      * @return \AppBundle\Model\SlotCollectionDecorator
      */
     public function filterBySide($side_code);
-    
+
     /**
      *
      * @param string $type_code
      * @return \AppBundle\Model\SlotCollectionDecorator
      */
     public function filterByType($type_code);
-    
-    /**
-     *
-     * @param string $trait
-     * @return \AppBundle\Model\SlotCollectionDecorator
-     */
-    public function filterByTrait($trait);
+
 }

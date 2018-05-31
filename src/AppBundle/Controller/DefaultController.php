@@ -20,12 +20,12 @@ class DefaultController extends Controller
          */
         $decklist_manager = $this->get('decklist_manager');
         $decklist_manager->setLimit(1);
-        
+
         $typeNames = [];
         foreach ($this->getDoctrine()->getRepository('AppBundle:Type')->findAll() as $type) {
             $typeNames[$type->getCode()] = $type->getName();
         }
-        
+
         $decklists_by_side = [];
         $sides = $this->getDoctrine()->getRepository('AppBundle:Side')->findBy(['code' => 'ASC']);
 
@@ -39,7 +39,7 @@ class DefaultController extends Controller
         	 * @var $decklist Decklist
         	 */
             $decklist = $paginator->getIterator()->current();
-            
+
             if ($decklist) {
                 $array['decklist'] = $decklist;
 
@@ -52,14 +52,7 @@ class DefaultController extends Controller
                 $array['count_by_type'] = join(' &bull; ', $counts);
 
                 $sides = [ $side->getName() ];
-                foreach ($decklist->getSlots()->getAgendas() as $agenda) {
-                    $minor_side = $this->get('agenda_helper')->getMinorSide($agenda->getCard());
-                    if ($minor_side) {
-                        $sides[] = $minor_side->getName();
-                    } elseif ($agenda->getCard()->getCode() != '06018') { // prevent Alliance agenda to show up
-                        $sides[] = $agenda->getCard()->getName();
-                    }
-                }
+
                 $array['sides'] = join(' / ', $sides);
 
                 $decklists_by_side[] = $array;
@@ -68,7 +61,7 @@ class DefaultController extends Controller
 
         $game_name = $this->container->getParameter('game_name');
         $publisher_name = $this->container->getParameter('publisher_name');
-        
+
         return $this->render('AppBundle:Default:index.html.twig', [
             'pagetitle' =>  "$game_name Deckbuilder",
             'pagedescription' => "Build your deck for $game_name by $publisher_name. Browse the cards and the thousand of decklists submitted by the community. Publish your own decks and get feedback.",
