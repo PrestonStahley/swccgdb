@@ -36,11 +36,12 @@ class DeckValidationHelper
     public function findProblem(SlotCollectionProviderInterface $deck)
     {
         $expectedCardCount = 60;
+        $deckCardCount = $deck->getSlots()->getDrawDeck()->countCards();
 
-        if ($slots->getDrawDeck()->countCards() < $expectedCardCount) {
+        if ($deckCardCount < $expectedCardCount) {
             return 'too_few_cards';
         }
-        if ($slots->getDrawDeck()->countCards() > $expectedCardCount) {
+        if ($deckCardCount > $expectedCardCount) {
             return 'too_many_cards';
         }
         if (!empty($this->getInvalidCards($deck))) {
