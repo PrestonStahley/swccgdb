@@ -245,11 +245,7 @@
         deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/sides/' + deck.get_side_code() + '.png" class="img-responsive">'));
         deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + side_name + '</h4>'));
         //deck.update_layout_section(data, 'meta', $('<div>Sets: ' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '</div>'));
-        var sets = _.map(deck.get_included_sets(), function (set)
-        {
-            return set.name + (set.quantity > 1 ? ' (' + set.quantity + ')' : '');
-        }).join(', ');
-        deck.update_layout_section(data, 'meta', $('<div>decks.edit.meta.sets</div>'));
+        deck.update_layout_section(data, 'meta', $('<div><span title="' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '">' + deck.get_included_sets().length + ' sets required </span>' + '</div>'));
         if(problem) {
             deck.update_layout_section(data, 'meta', $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> ' + problem_labels[problem] + '</div>'));
         }
