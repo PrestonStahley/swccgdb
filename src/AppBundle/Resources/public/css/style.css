@@ -26,6 +26,7 @@ a.card-name:hover {
 }
 .card-text {
   margin-bottom: 15px;
+  min-height:100px;
 }
 .card-text.border-light {
   background-color: #f5f5f5;
@@ -40,6 +41,7 @@ a.card-name:hover {
 }
 .card-text.border-location-light {
   background-color: #f5f5f5;
+  color:#333;
   padding:10px 20px;
   border-radius: 5px;
 }
@@ -224,7 +226,7 @@ div.tags span.tag:not(:first-child)::before {
   background: linear-gradient(15deg, rgba(74,89,105,1) 0%, rgba(35,49,52,1) 50%);
 }
 
-.panel-default.border-dark .panel-body {
+.panel-default.border-light .panel-body {
   background-color: #fff;
 }
 
