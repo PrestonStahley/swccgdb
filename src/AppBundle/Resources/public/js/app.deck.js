@@ -28,7 +28,7 @@
      * Templates for the different deck layouts, see deck.get_layout_data
      */
     layouts[1] = _.template('<div class="deck-content"><%= meta %><%= plots %><%= characters %><%= attachments %><%= locations %><%= events %></div>');
-    layouts[2] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-5 col-print-6"><%= images %></div><div class="col-sm-7 col-print-6"><%= meta %></div></div><div class="row"><div class="col-sm-6 col-print-6"><%= locations %><%= characters %><%= starships %><%= creatures %></div><div class="col-sm-6 col-print-6"><%= weapons %><%= devices %><%= admirals-orders %><%= epic-events %><%= jedi-tests %><%= podracers %><%= effects %><%= interrupts %><%= defensive-shields %></div></div></div>');
+    layouts[2] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-5 col-print-6"><%= images %></div><div class="col-sm-7 col-print-6"><%= meta %></div></div><div class="row"><div class="col-sm-6 col-print-6"><%= locations %><%= characters %><%= starships %><%= creatures %></div><div class="col-sm-6 col-print-6"><%= weapons %><%= devices %><%= admiralsorders %><%= epicevents %><%= jeditests %><%= podracers %><%= effects %><%= interrupts %><%= defensiveshields %></div></div></div>');
     layouts[3] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-4"><%= meta %><%= plots %></div><div class="col-sm-4"><%= characters %></div><div class="col-sm-4"><%= attachments %><%= locations %><%= events %></div></div></div>');
 
     /**
@@ -271,11 +271,11 @@
         deck.update_layout_section(data, 'weapons', deck.get_layout_data_one_section('type_code', 'weapon', 'type_name'));
         deck.update_layout_section(data, 'effects', deck.get_layout_data_one_section('type_code', 'effect', 'type_name'));
         deck.update_layout_section(data, 'interrupts', deck.get_layout_data_one_section('type_code', 'interrupt', 'type_name'));
-        deck.update_layout_section(data, 'admirals-orders', deck.get_layout_data_one_section('type_code', 'admirals-order', 'type_name'));
-        deck.update_layout_section(data, 'epic-events', deck.get_layout_data_one_section('type_code', 'epic-event', 'type_name'));
-        deck.update_layout_section(data, 'jedi-tests', deck.get_layout_data_one_section('type_code', 'jedi-test', 'type_name'));
+        deck.update_layout_section(data, 'admiralsorders', deck.get_layout_data_one_section('type_code', 'admirals-order', 'type_name'));
+        deck.update_layout_section(data, 'epicevents', deck.get_layout_data_one_section('type_code', 'epic-event', 'type_name'));
+        deck.update_layout_section(data, 'jeditests', deck.get_layout_data_one_section('type_code', 'jedi-test', 'type_name'));
         deck.update_layout_section(data, 'podracers', deck.get_layout_data_one_section('type_code', 'podracer', 'type_name'));
-        deck.update_layout_section(data, 'defensive-shields', deck.get_layout_data_one_section('type_code', 'defensive-shield', 'type_name'));
+        deck.update_layout_section(data, 'defensiveshields', deck.get_layout_data_one_section('type_code', 'defensive-shield', 'type_name'));
         return data;
     };
 
