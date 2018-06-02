@@ -266,7 +266,6 @@
         deck.update_layout_section(data, 'starships', deck.get_layout_data_one_section('type_code', 'starship', 'type_name'));
         deck.update_layout_section(data, 'vehicles', deck.get_layout_data_one_section('type_code', 'vehicle', 'type_name'));
         deck.update_layout_section(data, 'creatures', deck.get_layout_data_one_section('type_code', 'creature', 'type_name'));
-        deck.update_layout_section(data, 'locations', deck.get_layout_data_one_section('type_code', 'location', 'type_name'));
         deck.update_layout_section(data, 'devices', deck.get_layout_data_one_section('type_code', 'device', 'type_name'));
         deck.update_layout_section(data, 'weapons', deck.get_layout_data_one_section('type_code', 'weapon', 'type_name'));
         deck.update_layout_section(data, 'effects', deck.get_layout_data_one_section('type_code', 'effect', 'type_name'));
