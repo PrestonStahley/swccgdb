@@ -311,7 +311,7 @@ ol {
   vertical-align: middle;
 }
 
-#collection-table tr.card-container > td:first {
+#collection-table tr.card-container > td.actions {
   width: 72px;
 }
 

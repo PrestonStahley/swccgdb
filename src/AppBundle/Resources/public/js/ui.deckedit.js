@@ -412,7 +412,7 @@
             case 1:
                 DisplayColumnsTpl = _.template(
                         '<tr>'
-                        + '<td><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-card-remove" data-command="-" title="Remove from deck"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm btn-card-add" data-command="+" title="Add to deck"><span class="fa fa-plus"></span></button></div></td>'
+                        + '<td class="actions"><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-card-remove" data-command="-" title="Remove from deck"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm btn-card-add" data-command="+" title="Add to deck"><span class="fa fa-plus"></span></button></div></td>'
                         + '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.label %></a></td>'
                         + '<td class="type"><%= card.type_name %></td>'
                         + '</tr>'
@@ -516,20 +516,9 @@
 
             row.data("code", card.code).addClass('card-container');
 
-            row.find('input[name="qty-' + card.code + '"]').each(
-                    function (i, element)
-                    {
-                        if($(element).val() === ''+card.indeck) {
-                            $(element).prop('checked', true).closest('label').addClass('active');
-                        } else {
-                            $(element).prop('checked', false).closest('label').removeClass('active');
-                        }
-                    }
-            );
-
-            // if(unusable) {
-            //     row.find('label').addClass("disabled").find('input[type=radio]').attr("disabled", true);
-            // }
+            if(card.indeck) {
+              row.data("code", card.code).addClass('indeck');
+            }
 
             if(Config['display-column'] > 1 && (counter % Config['display-column'] === 0)) {
                 container = $('<div class="row"></div>').appendTo($('#collection-grid'));
