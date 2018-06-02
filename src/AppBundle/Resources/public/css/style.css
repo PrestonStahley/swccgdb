@@ -142,6 +142,7 @@ td.type, td.side {
     margin-bottom: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
+    border-radius: 5px;
 }
 .container.main.white {
     background-color: #fff;
@@ -308,6 +309,18 @@ ol {
 
 #collection-table tr.card-container > td {
   vertical-align: middle;
+}
+
+#collection-table tr.card-container > td:first {
+  width: 72px;
+}
+
+#collection-table tr.card-container .btn-card-remove {
+  display: none;
+}
+
+#collection-table tr.card-container.indeck .btn-card-remove {
+  display: inline-block;
 }
 
 .thumbnail-side img {

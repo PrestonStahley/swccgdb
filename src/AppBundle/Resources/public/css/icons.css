@@ -28,7 +28,7 @@
 	background-position: 0 -16px;
 }
 
-.icon-jedi-master {
+.icon-jedi-master, .icon-location-light {
 	background-position: 0 -32px;
 }
 
@@ -40,7 +40,7 @@
 	background-position: 0 -64px;
 }
 
-.icon-dark-jedi-master, .icon-dark-jedi-master-imperial {
+.icon-dark-jedi-master, .icon-dark-jedi-master-imperial, .icon-location-dark {
 	background-position: 0 -80px;
 }
 
@@ -48,11 +48,11 @@
 	background-position: 0 -96px;
 }
 
-.icon-rebel, .icon-rebel-republic {
+.icon-rebel, .icon-rebel-republic, .icon-character-light {
 	background-position: 0 -112px;
 }
 
-.icon-imperial {
+.icon-imperial, .icon-character-dark {
 	background-position: 0 -128px;
 }
 

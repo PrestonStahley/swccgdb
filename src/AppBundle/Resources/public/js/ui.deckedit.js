@@ -69,9 +69,13 @@
         ['location', 'character', 'starship', 'vehicle', 'device', 'weapon', 'effect', 'interrupt', 'admirals-order'].forEach(function (type_code)
         {
             var example = app.data.cards.find({"type_code": type_code})[0];
+            var icon = 'icon-' + type_code;
+            if (type_code == 'location' || type_code == 'character') {
+              icon += '-'+side_code;
+            }
             var label = $('<label class="btn btn-default btn-sm" data-code="'
                     + type_code + '" title="' + example.type_name + '"><input type="checkbox" name="' + type_code
-                    + '"><span class="icon icon-' + type_code + '"></span></label>');
+                    + '"><span class="icon ' + icon + '"></span></label>');
             label.tooltip({container: 'body'});
             $('[data-filter=type_code]').append(label);
         });
@@ -269,7 +273,6 @@
         var modal = $('#cardModal');
         var card_code = modal.data('code');
         var command = $(this).data('command');
-        modal.modal('hide');
         ui.on_quantity_change(card_code, command);
 
         setTimeout(function ()
@@ -287,18 +290,12 @@
             if(!row)
                 return;
 
-            // rows[card_code] is the card row of our card
-            // for each "quantity switch" on that row
-            row.find('input[name="qty-' + card_code + '"]').each(function (i, element)
-            {
-                // if that switch is NOT the one with the new quantity, uncheck it
-                // else, check it
-                if($(element).val() !== ''+quantity) {
-                    $(element).prop('checked', false).closest('label').removeClass('active');
-                } else {
-                    $(element).prop('checked', true).closest('label').addClass('active');
-                }
-            });
+            if(quantity > 0) {
+              $(row).addClass('indeck');
+            } else {
+              $(row).removeClas('indeck');
+            }
+
         });
     };
 
@@ -415,7 +412,7 @@
             case 1:
                 DisplayColumnsTpl = _.template(
                         '<tr>'
-                        + '<td><div class="btn-group"><button type="button" class="btn btn-default btn-sm" data-command="-"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm" data-command="+"><span class="fa fa-plus"></span></button></div></td>'
+                        + '<td><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-card-remove" data-command="-" title="Remove from deck"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm btn-card-add" data-command="+" title="Add to deck"><span class="fa fa-plus"></span></button></div></td>'
                         + '<td><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.label %></a></td>'
                         + '<td class="type"><%= card.type_name %></td>'
                         + '</tr>'
@@ -428,7 +425,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h4 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h4>'
-                        + '<div class="btn-group"><button type="button" class="btn btn-default btn-sm" data-command="-"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm" data-command="+"><span class="fa fa-plus"></span></button></div>'
+                        + '<div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-card-remove" data-command="-" title="Remove from deck"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm btn-card-add" data-command="+" title="Add to deck"><span class="fa fa-plus"></span></button></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'
@@ -441,7 +438,7 @@
                         + '<div class="media-left"><img class="media-object" src="<%= card.image_url %>" alt="<%= card.name %>"></div>'
                         + '<div class="media-body">'
                         + '<h5 class="media-heading"><a class="card card-tip" data-code="<%= card.code %>" href="<%= url %>" data-target="#cardModal" data-remote="false" data-toggle="modal"><%= card.name %></a></h5>'
-                        + '<div class="btn-group"><button type="button" class="btn btn-default btn-sm" data-command="-"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm" data-command="+"><span class="fa fa-plus"></span></button></div>'
+                        + '<div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-card-remove" data-command="-" title="Remove from deck"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm btn-card-add" data-command="+" title="Add to deck"><span class="fa fa-plus"></span></button></div>'
                         + '</div>'
                         + '</div>'
                         + '</div>'

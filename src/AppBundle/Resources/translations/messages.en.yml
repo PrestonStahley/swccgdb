@@ -49,8 +49,8 @@ decks:
   problems:
     too_many_objectives: Contains more than one Objective
     too_few_cards: Contains too few cards
-    too_few_cards: Contains too many cards
-    invalid_cards: Contains cards from the wrong side of the force
+    too_many_cards: Contains too many cards
+    invalid_cards: Contains cards from the wrong side
     mising_objective_cards: Missing cards required by Objective
   build:
     choose:

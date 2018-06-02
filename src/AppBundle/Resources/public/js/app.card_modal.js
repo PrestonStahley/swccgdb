@@ -35,34 +35,11 @@
         modal.find('h3.modal-title').html(app.format.name(card));
         modal.find('.modal-image').html('<img class="img-responsive" src="' + card.image_url + '">');
         modal.find('.modal-info').html(
-                '<div class="card-side">' + app.format.side(card) + '</div>'
-                + '<div class="card-info">' + app.format.info(card) + '</div>'
+                '<div class="card-info"><p>' + app.format.info(card) + '</p></div>'
                 + '<div class="card-traits">' + app.format.traits(card) + '</div>'
                 + '<div class="card-text border-' + card.side_code + '">' + app.format.text(card) + '</div>'
-                + '<div class="card-set">' + app.format.set(card) + '</div>'
+                + '<div class="card-set"><p>' + app.format.set(card) + '</p></div>'
                 );
-
-        // var qtyelt = modal.find('.modal-qty');
-        // if(qtyelt) {
-        //
-        //     var qty = '';
-        //     for(var i = 0; i <= card.maxqty; i++) {
-        //         qty += '<label class="btn btn-default"><input type="radio" name="qty" value="' + i + '">' + i + '</label>';
-        //     }
-        //     qtyelt.html(qty);
-        //
-        //     qtyelt.find('label').each(function (index, element)
-        //     {
-        //         if(index == card.indeck)
-        //             $(element).addClass('active');
-        //         else
-        //             $(element).removeClass('active');
-        //     });
-        //
-        // } else {
-        //     if(qtyelt)
-        //         qtyelt.closest('.row').remove();
-        // }
     }
 
     $(function ()

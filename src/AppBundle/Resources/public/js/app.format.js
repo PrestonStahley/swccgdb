@@ -20,12 +20,6 @@
     format.side = function side(card)
     {
         var text = '<span class="fg-' + card.side_code + ' icon-' + card.side_code + '"></span> ' + card.side_name + '. ';
-        if(card.side_code != 'neutral') {
-            if(card.is_loyal)
-                text += 'card.info.loyal' + '. ';
-            else
-                text += 'card.info.nonloyal' + '. ';
-        }
         return text;
     }
 
