@@ -71,7 +71,7 @@
             var example = app.data.cards.find({"type_code": type_code})[0];
             var icon = 'icon-' + type_code;
             if (type_code == 'location' || type_code == 'character') {
-              icon += '-'+side_code;
+              icon += '-'+app.deck.get_side_code();
             }
             var label = $('<label class="btn btn-default btn-sm" data-code="'
                     + type_code + '" title="' + example.type_name + '"><input type="checkbox" name="' + type_code
