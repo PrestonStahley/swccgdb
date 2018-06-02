@@ -28,7 +28,7 @@
      * Templates for the different deck layouts, see deck.get_layout_data
      */
     layouts[1] = _.template('<div class="deck-content"><%= meta %><%= plots %><%= characters %><%= attachments %><%= locations %><%= events %></div>');
-    layouts[2] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-6 col-print-6"><%= meta %></div><div class="col-sm-6 col-print-6"><%= plots %></div></div><div class="row"><div class="col-sm-6 col-print-6"><%= characters %></div><div class="col-sm-6 col-print-6"><%= attachments %><%= locations %><%= events %></div></div></div>');
+    layouts[2] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-5 col-print-6"><%= images %></div><div class="col-sm-7 col-print-6"><%= meta %></div></div><div class="row"><div class="col-sm-6 col-print-6"><%= characters %></div><div class="col-sm-6 col-print-6"><%= attachments %><%= locations %><%= events %></div></div></div>');
     layouts[3] = _.template('<div class="deck-content"><div class="row"><div class="col-sm-4"><%= meta %><%= plots %></div><div class="col-sm-4"><%= characters %></div><div class="col-sm-4"><%= attachments %><%= locations %><%= events %></div></div></div>');
 
     /**
@@ -121,6 +121,15 @@
         return deck.get_cards(null, {
             type_code: 'objective'
         });
+    };
+
+    /**
+     * @memberOf deck
+     */
+    deck.get_objective = function get_objective()
+    {
+      var objectives = deck.get_objectives();
+      return objectives[0];
     };
 
     /**
@@ -242,10 +251,12 @@
 
         var problem = deck.get_problem();
 
-        deck.update_layout_section(data, 'images', $('<div style="margin-bottom:10px"><img src="/bundles/app/images/sides/' + deck.get_side_code() + '.png" class="img-responsive">'));
+        deck.update_layout_section(data, 'images', $('<img class="img-responsive" src="' + deck.get_objective().image_url + '">'));
+        var drawDeckSection = $('<div>Reserve deck: ' + deck.get_draw_deck_size() + '</div>');
+        drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
+        deck.update_layout_section(data, 'meta', drawDeckSection);
         deck.update_layout_section(data, 'meta', $('<h4 style="font-weight:bold">' + side_name + '</h4>'));
-        //deck.update_layout_section(data, 'meta', $('<div>Sets: ' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '</div>'));
-        deck.update_layout_section(data, 'meta', $('<div><span title="' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '">' + deck.get_included_sets().length + ' sets required </span>' + '</div>'));
+        deck.update_layout_section(data, 'meta', $('<div><span data-toggle="tooltip" data-placement="right" title="' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '">' + deck.get_included_sets().length + ' sets required </span>' + '</div>'));
         if(problem) {
             deck.update_layout_section(data, 'meta', $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> ' + problem_labels[problem] + '</div>'));
         }

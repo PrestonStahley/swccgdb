@@ -293,7 +293,7 @@
             if(quantity > 0) {
               $(row).addClass('indeck');
             } else {
-              $(row).removeClas('indeck');
+              $(row).removeClass('indeck');
             }
 
         });
