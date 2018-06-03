@@ -319,8 +319,16 @@ ol {
   display: none;
 }
 
+#collection-table tr.card-container .btn-card-add {
+  width:62px;
+}
+
 #collection-table tr.card-container.indeck .btn-card-remove {
   display: inline-block;
+}
+
+#collection-table tr.card-container.indeck .btn-card-add {
+  width:auto
 }
 
 .thumbnail-side img {
