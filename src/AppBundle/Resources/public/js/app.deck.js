@@ -51,7 +51,6 @@
         if(app.data.isLoaded) {
             deck.set_slots(data.slots);
         } else {
-            console.log("deck.set_slots put on hold until data.app");
             $(document).on('data.app', function ()
             {
                 deck.set_slots(data.slots);
@@ -221,14 +220,9 @@
      */
     deck.display = function display(container, options)
     {
-        console.log('deck.display...');
         options = _.extend({sort: 'type', cols: 2}, options);
-
         var layout_data = deck.get_layout_data(options);
-        console.log('build deck_content...');
         var deck_content = layouts[options.cols](layout_data);
-
-        console.log('append deck_content...');
         $(container)
                 .removeClass('deck-loading')
                 .empty();

@@ -9,7 +9,6 @@
 
     function display_card_on_element(card, element, event)
     {
-        console.log(card);
         var content;
         if(mode === 'text') {
             var horizontalClass = (card.subtype_code == 'site' || card.is_horizontal) ? 'card-thumbnail-horizontal' : '';
