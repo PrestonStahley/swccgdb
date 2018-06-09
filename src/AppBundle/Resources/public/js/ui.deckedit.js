@@ -66,7 +66,7 @@
     ui.build_type_selector = function build_type_selector()
     {
         $('[data-filter=type_code]').empty();
-        ['location', 'character', 'starship', 'vehicle', 'device', 'weapon', 'effect', 'interrupt', 'admirals-order'].forEach(function (type_code)
+        ['location', 'character', 'starship', 'vehicle', 'weapon', 'device', 'effect', 'interrupt', 'admirals-order'].forEach(function (type_code)
         {
             var example = app.data.cards.find({"type_code": type_code})[0];
             var icon = 'icon-' + type_code;

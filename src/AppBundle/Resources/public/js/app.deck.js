@@ -20,7 +20,7 @@
               objective: "Doesn't comply with the Objective conditions"
           	},
             header_tpl = _.template('<h5><span class="icon icon-<%= code %>"></span> <%= name %> (<%= quantity %>)</h5>'),
-            card_line_tpl = _.template('<span class="icon icon-<%= card.type_code %> fg-<%= card.side_code %>"></span> <a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.label %></a>'),
+            card_line_tpl = _.template('<a href="<%= card.url %>" class="card card-tip" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="<%= card.code %>"><%= card.label %></a>'),
             layouts = {},
             layout_data = {};
 
@@ -254,9 +254,9 @@
         deck.update_layout_section(data, 'images', $('<div class="deck-objective"><img class="img-responsive" src="' + deck.get_objective().image_url + '"/></div>'));
         var drawDeckSection = $('<div class="deck-reserve">Reserve deck: ' + deck.get_draw_deck_size() + '</div>');
         drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
+        deck.update_layout_section(data, 'meta', $('<div class="deck-side">' + side_name + ' side</div>'));
         deck.update_layout_section(data, 'meta', drawDeckSection);
         deck.update_layout_section(data, 'meta', $('<div class="deck-sets"><span data-toggle="tooltip" data-placement="right" title="' + _.map(deck.get_included_sets(), function (set) { return set.name+(set.quantity > 1 ? ' ('+set.quantity+')' : ''); }).join(', ') + '">' + deck.get_included_sets().length + ' sets required </span>' + '</div>'));
-        deck.update_layout_section(data, 'meta', $('<div class="deck-side">' + side_name + ' side</div>'));
         if(problem) {
             deck.update_layout_section(data, 'meta', $('<div class="text-danger small"><span class="fa fa-exclamation-triangle"></span> ' + problem_labels[problem] + '</div>'));
         }
@@ -265,14 +265,14 @@
         deck.update_layout_section(data, 'characters', deck.get_layout_data_one_section('type_code', 'character', 'type_name'));
         deck.update_layout_section(data, 'starships', deck.get_layout_data_one_section('type_code', 'starship', 'type_name'));
         deck.update_layout_section(data, 'vehicles', deck.get_layout_data_one_section('type_code', 'vehicle', 'type_name'));
-        deck.update_layout_section(data, 'creatures', deck.get_layout_data_one_section('type_code', 'creature', 'type_name'));
-        deck.update_layout_section(data, 'devices', deck.get_layout_data_one_section('type_code', 'device', 'type_name'));
         deck.update_layout_section(data, 'weapons', deck.get_layout_data_one_section('type_code', 'weapon', 'type_name'));
+        deck.update_layout_section(data, 'devices', deck.get_layout_data_one_section('type_code', 'device', 'type_name'));
         deck.update_layout_section(data, 'effects', deck.get_layout_data_one_section('type_code', 'effect', 'type_name'));
         deck.update_layout_section(data, 'interrupts', deck.get_layout_data_one_section('type_code', 'interrupt', 'type_name'));
         deck.update_layout_section(data, 'admiralsorders', deck.get_layout_data_one_section('type_code', 'admirals-order', 'type_name'));
         deck.update_layout_section(data, 'epicevents', deck.get_layout_data_one_section('type_code', 'epic-event', 'type_name'));
         deck.update_layout_section(data, 'jeditests', deck.get_layout_data_one_section('type_code', 'jedi-test', 'type_name'));
+        deck.update_layout_section(data, 'creatures', deck.get_layout_data_one_section('type_code', 'creature', 'type_name'));
         deck.update_layout_section(data, 'podracers', deck.get_layout_data_one_section('type_code', 'podracer', 'type_name'));
         deck.update_layout_section(data, 'defensiveshields', deck.get_layout_data_one_section('type_code', 'defensive-shield', 'type_name'));
         return data;
