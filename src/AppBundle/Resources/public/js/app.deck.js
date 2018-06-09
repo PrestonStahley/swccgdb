@@ -242,11 +242,20 @@
         var data = {
             images: '',
             meta: '',
-            plots: '',
-            characters: '',
-            attachments: '',
             locations: '',
-            events: ''
+            characters: '',
+            starships: '',
+            vehicles: '',
+            weapons: '',
+            devices: '',
+            effects: '',
+            interrupts: '',
+            admiralsorders: '',
+            epicevents: '',
+            jeditests: '',
+            creatures: '',
+            podracers: '',
+            defensiveshields: ''
         };
 
         var problem = deck.get_problem();
