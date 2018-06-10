@@ -17,7 +17,6 @@
 	<div class="row title bg-side bg-{{ decklist.side.code }}">
 		<div class="col-xs-12">
 			<h1 class="decklist-name text-center">
-				<span class="icon icon-{{ decklist.side.code }}"></span>
 				{{ decklist.name }}
 				<span class="dropdown">
 				  <button class="btn dropdown-toggle bg-{{ decklist.side.code }}" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="dropdownVersions">
@@ -60,8 +59,7 @@
 <div class="main white container">
 	<div class="row">
 		<div class="col-md-6">
-			<div id="deck-content" style="margin-bottom:10px"></div>
-			{% include 'AppBundle:Builder:deck-charts.html.twig' %}
+			<div id="deck-content" class="deck-{{ decklist.side.code }}"></div>
 			{% include 'AppBundle:Builder:draw-simulator.html.twig' %}
 			{% include 'AppBundle:Decklist:table-predecessor.html.twig' %}
 			{% include 'AppBundle:Decklist:table-successor.html.twig' %}
