@@ -1030,7 +1030,6 @@ class SocialController extends Controller
         $categories = [];
         $on = 0;
         $off = 0;
-        $categories[] = array("label" => $translator->trans("decklist.list.search.allowed.core"), "sets" => []);
         $list_cycles = $this->getDoctrine()->getRepository('AppBundle:Cycle')->findAll();
         foreach ($list_cycles as $cycle) {
             $size = count($cycle->getSets());
