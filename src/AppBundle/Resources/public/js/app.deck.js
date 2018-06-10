@@ -253,8 +253,11 @@
         };
 
         var problem = deck.get_problem();
+        var objective = deck.get_objective();
 
-        deck.update_layout_section(data, 'images', $('<div class="deck-objective"><img class="img-responsive" src="' + deck.get_objective().image_url + '"/></div>'));
+        if(objective) {
+          deck.update_layout_section(data, 'images', $('<div class="deck-objective"><img class="img-responsive" src="' + deck.get_objective().image_url + '"/></div>'));
+        }
         var drawDeckSection = $('<div class="deck-reserve">Reserve deck: ' + deck.get_draw_deck_size() + '</div>');
         drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
         deck.update_layout_section(data, 'meta', $('<div class="deck-side">' + side_name + ' side</div>'));
