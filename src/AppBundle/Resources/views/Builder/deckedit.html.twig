@@ -23,7 +23,7 @@
 <!-- Left-side Column -->
 <div class="col-md-6">
 
-<div id="deck" class="deck-loading">
+<div id="deck" class="deck-loading deck-{{ deck.side.code }}">
 	<i class="fa fa-{% if deck.side.code == 'light' %}rebel{% else %}empire{% endif %} fa-spin fa-5x"></i>
 </div>
 
