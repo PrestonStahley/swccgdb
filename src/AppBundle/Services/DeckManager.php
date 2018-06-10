@@ -39,12 +39,13 @@ class DeckManager
      * @param unknown $decklist_id
      * @param unknown $name
      * @param unknown $side
+     * @param unknown $objective
      * @param unknown $description
      * @param unknown $tags
      * @param unknown $content
      * @param unknown $source_deck
      */
-    public function save($user, $deck, $decklist_id, $name, $side, $description, $tags, $content, $source_deck)
+    public function save($user, $deck, $decklist_id, $name, $side, $objective, $description, $tags, $content, $source_deck)
     {
         $deck_content = [];
 
@@ -57,6 +58,9 @@ class DeckManager
 
         $deck->setName($name);
         $deck->setSide($side);
+        if($objective) {
+          $deck->setObjective($objective);
+        }
         $deck->setDescriptionMd($description);
         $deck->setUser($user);
         $deck->setMinorVersion($deck->getMinorVersion() + 1);

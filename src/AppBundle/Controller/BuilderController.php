@@ -150,7 +150,7 @@ class BuilderController extends Controller
             ]);
         }
 
-        $this->get('deck_manager')->save($this->getUser(), new Deck(), null, $name, $data['side'], $data['description'], null, $data['content'], null);
+        $this->get('deck_manager')->save($this->getUser(), new Deck(), null, $name, $data['side'], null, $data['description'], null, $data['content'], null);
 
         $this->getDoctrine()->getEntityManager()->flush();
 
@@ -289,6 +289,13 @@ class BuilderController extends Controller
             return new Response('Cannot import deck with unknown side ' . $side_code);
         }
 
+        // check for objective here
+    		$objective = false;
+    		$objective_code = filter_var($request->get('objective_code'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    		if ($objective_code && $card = $em->getRepository('AppBundle:Card')->findOneBy(["code" => $objective_code])){
+    			$objective = $card = $em->getRepository('AppBundle:Card')->findOneBy(["code" => $objective_code]);
+    		}
+
         $cancel_edits = (boolean) filter_var($request->get('cancel_edits'), FILTER_SANITIZE_NUMBER_INT);
         if ($cancel_edits) {
             if ($deck) {
@@ -312,7 +319,7 @@ class BuilderController extends Controller
         $description = trim($request->get('description'));
         $tags = filter_var($request->get('tags'), FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-        $this->get('deck_manager')->save($this->getUser(), $deck, $decklist_id, $name, $side, $description, $tags, $content, $source_deck ? $source_deck : null);
+        $this->get('deck_manager')->save($this->getUser(), $deck, $decklist_id, $name, $side, $objective, $description, $tags, $content, $source_deck ? $source_deck : null);
         $em->flush();
 
         return $this->redirect($this->generateUrl('decks_list'));
@@ -630,7 +637,7 @@ class BuilderController extends Controller
 
                 $deck = new Deck();
                 $em->persist($deck);
-                $this->get('deck_manager')->save($this->getUser(), $deck, null, $name, '', '', $parse['content']);
+                $this->get('deck_manager')->save($this->getUser(), $deck, null, $name, '', null, '', $parse['content']);
             }
         }
         $zip->close();
