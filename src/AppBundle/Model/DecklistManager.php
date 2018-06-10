@@ -195,17 +195,15 @@ class DecklistManager
                 foreach ($cards_code as $i => $card_code) {
                     /* @var $card \AppBundle\Entity\Card */
                     $card = $this->doctrine->getRepository('AppBundle:Card')->findOneBy(array('code' => $card_code));
-                    if ($card->getType()->getCode() == "objective"){
-          						$qb->innerJoin('d.objective', "s$i");
-          						$qb->andWhere("s$i.code = :card$i");
-          						$qb->setParameter("card$i", $card_code);
-          						$sets[] = $card->getSet()->getId();
-          					} else {
-          						$qb->innerJoin('d.slots', "s$i");
-          						$qb->andWhere("s$i.card = :card$i");
-          						$qb->setParameter("card$i", $card);
-          						$sets[] = $card->getSet()->getId();
-          					}
+                    if (!$card) {
+                        continue;
+                    }
+                    $qb->innerJoin('d.slots', "s$i");
+                    $qb->andWhere("s$i.card = :card$i");
+                    $qb->setParameter("card$i", $card);
+                    if (!empty($sets)) {
+                        $sets[] = $card->getSet()->getId();
+                    }
                 }
             }
             if (!empty($sets)) {
