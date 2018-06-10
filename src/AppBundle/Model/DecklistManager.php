@@ -65,8 +65,7 @@ class DecklistManager
         $qb->select('d');
         $qb->from('AppBundle:Decklist', 'd');
         if ($this->side) {
-            $qb->join('d.objective', 'o');
-            $qb->where('o.side = :side');
+            $qb->where('d.side = :side');
             $qb->setParameter('side', $this->side);
         }
         $qb->setFirstResult($this->start);
