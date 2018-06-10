@@ -84,6 +84,9 @@
             var card_element;
             if(card.image_url) {
                 card_element = $('<img src="' + card.image_url + '">');
+                if(card.is_horizontal) {
+                  card_element.addClass('horizontal');
+                }
             } else {
                 card_element = $('<div class="card-proxy"><div>' + card.label + '</div></div>');
             }
