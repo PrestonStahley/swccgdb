@@ -72,10 +72,8 @@
 	<tr data-id="{{ deck.id }}">
 		<td><input type="checkbox"></td>
 		<td class="decklist-side-image hidden-xs">
-			<!-- {{ deck }} -->
-			<!-- {{ deck.getObjective() }} -->
-			{% if deck.getObjective() is not null %}
-				<img src="{{ deck.getObjective().image_url }}">
+			{% if deck.objective is not null %}
+				<img src="{{ deck.objective.image_url }}">
 			{% else %}
 				<img src="/bundles/app/images/sides/{{ deck.side_code }}.png">
 			{% endif %}
