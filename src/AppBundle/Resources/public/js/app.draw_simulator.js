@@ -84,7 +84,7 @@
             var card_element;
             if(card.image_url) {
                 card_element = $('<img src="' + card.image_url + '">');
-                if(card.subtype_code = 'site' || card.is_horizontal) {
+                if(card.subtype_code == 'site' || card.is_horizontal) {
                   card_element.addClass('horizontal');
                 }
             } else {
