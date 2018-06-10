@@ -15,6 +15,12 @@ AppBundle\Entity\Deck:
             joinColumn:
                 name: side_id
                 referencedColumnName: id
+        objective:
+            targetEntity: Card
+            nullable: true
+            joinColumn:
+                name: objective_id
+                referencedColumnName: id
         lastSet:
             targetEntity: Set
             nullable: false
