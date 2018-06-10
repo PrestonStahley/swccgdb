@@ -65,6 +65,7 @@ class DecklistManager
         $qb->select('d');
         $qb->from('AppBundle:Decklist', 'd');
         if ($this->side) {
+            $qb->join('d.objective', 'o');
             $qb->where('d.side = :side');
             $qb->setParameter('side', $this->side);
         }
@@ -176,7 +177,8 @@ class DecklistManager
         $joinTables = [];
 
         if (!empty($side)) {
-            $qb->andWhere('d.side = :side');
+            $qb->join('d.objective', 'a')
+            $qb->where('a.side = :side');
             $qb->setParameter('side', $side);
         }
         if (!empty($author_name)) {
@@ -194,17 +196,17 @@ class DecklistManager
                 foreach ($cards_code as $i => $card_code) {
                     /* @var $card \AppBundle\Entity\Card */
                     $card = $this->doctrine->getRepository('AppBundle:Card')->findOneBy(array('code' => $card_code));
-                    if (!$card) {
-                        continue;
-                    }
-
-                    $qb->innerJoin('d.slots', "s$i");
-                    $qb->andWhere("s$i.card = :card$i");
-                    $qb->setParameter("card$i", $card);
-
-                    if (!empty($sets)) {
-                        $sets[] = $card->getSet()->getId();
-                    }
+                    if ($card->getType()->getCode() == "objective"){
+          						$qb->innerJoin('d.objective', "s$i");
+          						$qb->andWhere("s$i.code = :card$i");
+          						$qb->setParameter("card$i", $card_code);
+          						$sets[] = $card->getSet()->getId();
+          					} else {
+          						$qb->innerJoin('d.slots', "s$i");
+          						$qb->andWhere("s$i.card = :card$i");
+          						$qb->setParameter("card$i", $card);
+          						$sets[] = $card->getSet()->getId();
+          					}
                 }
             }
             if (!empty($sets)) {
