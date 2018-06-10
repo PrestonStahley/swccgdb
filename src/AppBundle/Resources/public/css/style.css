@@ -365,7 +365,7 @@ ol {
 /********* DRAW SIMULATOR ************/
 
 #table-draw-simulator-content img {width:98px;height:136px;float:left;margin:5px;box-shadow: black 0px 0px 5px;border-radius: 5px;}
-#table-draw-simulator-content img.horizontal {width:136px;height:98px;}
+#table-draw-simulator-content img.horizontal {width:136px;height:98px;margin-bottom: 43px;}
 #table-draw-simulator-content img.trashed {opacity: 0.25;box-shadow: none;}
 #table-draw-simulator-content img.trashed:hover {opacity: 0.75;}
 #table-draw-simulator-content div.card-proxy {background:#888;color:white;width:99px;height:138px;float:left;margin:5px;box-shadow: black 0px 0px 5px;border-radius: 5px;}
@@ -444,6 +444,10 @@ div.site-slogan {
 }
 
 /************ LIST OF DECKLISTS **************/
+
+.decklist-side-image {
+  width:63px;
+}
 
 .decklist-side-image img {
     height: 64px;

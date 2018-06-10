@@ -102,6 +102,11 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \JsonSerializa
     private $side;
 
     /**
+     * @var \AppBundle\Entity\Card
+     */
+    private $objective;
+
+    /**
      * @var \AppBundle\Entity\Set
      */
     private $lastSet;
@@ -576,6 +581,28 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \JsonSerializa
     public function getSide()
     {
         return $this->side;
+    }
+
+    /**
+     * Set objective
+     *
+     * @param \AppBundle\Entity\card $objective
+     *
+     * @return Decklist
+     */
+    public function setObjective(\AppBundle\Entity\card $objective = null)
+    {
+        $this->objective = $objective;
+        return $this;
+    }
+    /**
+     * Get objective
+     *
+     * @return \AppBundle\Entity\card
+     */
+    public function getObjective()
+    {
+        return $this->objective;
     }
 
     /**

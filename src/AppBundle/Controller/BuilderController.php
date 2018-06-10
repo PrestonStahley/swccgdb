@@ -88,6 +88,7 @@ class BuilderController extends Controller
             $slot->setQuantity(1);
             $slot->setDeck($deck);
             $deck->addSlot($slot);
+            $deck->setObjective($objective);
         }
 
         $em->persist($deck);

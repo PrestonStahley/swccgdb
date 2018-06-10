@@ -65,7 +65,11 @@ $(function () {
 
 <tr>
 <td class="decklist-side-image hidden-xs">
-	<img src="/bundles/app/images/sides/{{ decklist.side.code }}.png">
+	{% if decklist.getObjective() %}
+		<img src="{{ decklist.getObjective().image_url }}">
+	{% else %}
+		<img src="/bundles/app/images/sides/{{ decklist.side.code }}.png">
+	{% endif %}
 </td>
 <td>
     <article>
