@@ -176,8 +176,7 @@ class DecklistManager
         $joinTables = [];
 
         if (!empty($side)) {
-            $qb->join('d.objective', 'a')
-            $qb->where('a.side = :side');
+            $qb->andWhere('d.side = :side');
             $qb->setParameter('side', $side);
         }
         if (!empty($author_name)) {
