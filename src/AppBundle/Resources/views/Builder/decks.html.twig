@@ -71,11 +71,12 @@
 {% for deck in decks %}
 	<tr data-id="{{ deck.id }}">
 		<td><input type="checkbox"></td>
-		<td class="hidden-xs">
-			<img src="{{ asset('/bundles/app/images/sides/' ~ deck.side_code ~ '.png') }}">
-                        {% for image_url in deck.agendaurls %}
-                            <img src="{{ image_url }}">
-                        {% endfor %}
+		<td class="decklist-side-image hidden-xs">
+			{% if decklist.getObjective() %}
+				<img src="{{ decklist.getObjective().image_url }}">
+			{% else %}
+				<img src="/bundles/app/images/sides/{{ decklist.side.code }}.png">
+			{% endif %}
 		</td>
 		<td>
 			<a href="{{ path('deck_view',{deck_id:deck.id}) }}" class="deck-name">{{ deck.name }}</a> {{ deck.version }}
