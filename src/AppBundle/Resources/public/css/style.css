@@ -450,6 +450,10 @@ div.site-slogan {
 
 /************* DECKLIST *********************/
 
+.page-decklist .page-header {
+  margin-top: 0;
+}
+
 .row.title {
     padding-top:20px;
     padding-bottom:10px
