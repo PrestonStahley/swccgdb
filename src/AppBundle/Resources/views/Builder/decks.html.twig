@@ -72,10 +72,10 @@
 	<tr data-id="{{ deck.id }}">
 		<td><input type="checkbox"></td>
 		<td class="decklist-side-image hidden-xs">
-			{% if decklist.getObjective() %}
-				<img src="{{ decklist.getObjective().image_url }}">
+			{% if deck.getObjective() %}
+				<img src="{{ deck.getObjective().image_url }}">
 			{% else %}
-				<img src="/bundles/app/images/sides/{{ decklist.side.code }}.png">
+				<img src="/bundles/app/images/sides/{{ deck.side.code }}.png">
 			{% endif %}
 		</td>
 		<td>
