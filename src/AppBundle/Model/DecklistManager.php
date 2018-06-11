@@ -62,8 +62,9 @@ class DecklistManager
     private function getQueryBuilder()
     {
         $qb = $this->doctrine->createQueryBuilder();
-        $qb->select('d');
+        $qb->select('d', 'o');
         $qb->from('AppBundle:Decklist', 'd');
+        $qb->leftJoin('d.objective', 'o');
         if ($this->side) {
             $qb->where('d.side = :side');
             $qb->setParameter('side', $this->side);
