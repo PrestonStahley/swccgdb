@@ -73,7 +73,7 @@
 		<td><input type="checkbox"></td>
 		<td class="decklist-side-image hidden-xs">
 			{% if deck.objective is not null %}
-				<img src="{{ deck.objective.image_url }}">
+				<img src="{{ deck.objective.getImageUrl() }}">
 			{% else %}
 				<img src="/bundles/app/images/sides/{{ deck.side_code }}.png">
 			{% endif %}
