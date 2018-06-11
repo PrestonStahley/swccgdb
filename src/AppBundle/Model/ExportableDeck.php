@@ -16,6 +16,7 @@ class ExportableDeck
             'user_id' => $this->getUser()->getId(),
             'side_code' => $this->getSide()->getCode(),
             'side_name' => $this->getSide()->getName(),
+            'objective' => $this->getObjective(),
             'slots' => $slots->getContent(),
             'version' => $this->getVersion(),
         ];
