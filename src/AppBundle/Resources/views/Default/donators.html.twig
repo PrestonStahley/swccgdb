@@ -11,7 +11,7 @@
 {% for donator in donators %}
 <li>
     <a href="{{ path('user_profile_public', {user_id:donator.id,user_name:donator.username|e('url')}) }}" class="username {{ donator.side }}">{{ donator.username }}</a>
-    <span class="fa fa-gift donator" title="ThronesDB Gracious Donator"></span>
+    <span class="fa fa-gift donator" title="SW:CCG DB Supporter"></span>
 </li>
 {% endfor %}
 </ul>
