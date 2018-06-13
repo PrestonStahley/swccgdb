@@ -590,7 +590,7 @@ class Decklist extends \AppBundle\Model\ExportableDeck implements \JsonSerializa
      *
      * @return Decklist
      */
-    public function setObjective(\AppBundle\Entity\card $objective = null)
+    public function setObjective(\AppBundle\Entity\Card $objective = null)
     {
         $this->objective = $objective;
         return $this;
