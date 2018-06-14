@@ -64,12 +64,9 @@ $(function () {
 {% for decklist in decklists %}
 
 <tr>
-	<!--
-	{% dump decklist %}
-	-->
 <td class="decklist-side-image hidden-xs">
-	{% if decklist.getObjective() is not null %}
-		<img src="https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/{{ decklist.getObjective().getImageUrl() }}">
+	{% if decklist.getParent().getObjective() is not null %}
+		<img src="https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/{{ decklist.getParent().getObjective().getImageUrl() }}">
 	{% else %}
 		<img src="/bundles/app/images/sides/{{ decklist.side.code }}.png">
 	{% endif %}
