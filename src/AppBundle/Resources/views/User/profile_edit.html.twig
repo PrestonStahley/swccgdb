@@ -63,18 +63,6 @@
     <p class="help-block">If you check this box, the "View" page of your decks will be public instead of private. You can then send the link to your friends. If you uncheck the box, all your decks become private immediately.</p>
   </div>
 
-  <div class="form-group">
-    <label for="color">Select a side color for your username</label>
-    {% for side in sides %}
-    <div class="radio">
-      <label class="{{ side.code }}">
-        <input type="radio" name="user_side_code" id="optionsRadios1" value="{{ side.code }}" {% if user.color == side.code %}checked{% endif %}>
-          {{ side.name }}
-	  </label>
-	</div>
-	{% endfor %}
-  </div>
-
   <button type="submit" class="btn btn-primary">Save</button>
 </form>
 

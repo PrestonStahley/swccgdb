@@ -72,13 +72,11 @@ class UserController extends Controller
         }
 
         $resume = filter_var($request->get('resume'), FILTER_SANITIZE_STRING);
-        $side_code = filter_var($request->get('user_side_code'), FILTER_SANITIZE_STRING);
         $notifAuthor = $request->get('notif_author') ? true : false;
         $notifCommenter = $request->get('notif_commenter') ? true : false;
         $notifMention = $request->get('notif_mention') ? true : false;
         $shareDecks = $request->get('share_decks') ? true : false;
 
-        $user->setColor($side_code);
         $user->setResume($resume);
         $user->setIsNotifAuthor($notifAuthor);
         $user->setIsNotifCommenter($notifCommenter);
