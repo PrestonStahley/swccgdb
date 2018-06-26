@@ -8,6 +8,9 @@
      */
     card_modal.display_modal = function display_modal(event, element)
     {
+      console.log('display_modal');
+      console.log(event);
+      console.log(element);
         event.preventDefault();
         $(element).qtip('destroy', true);
         fill_modal($(element).data('code'));
@@ -24,9 +27,11 @@
 
     function fill_modal(code)
     {
+      console.log('fill_modal');
+      console.log(code);
         var card = app.data.cards.findById(code),
                 modal = $('#cardModal');
-
+      console.log(card);
         if(!card)
             return;
 
