@@ -197,10 +197,7 @@ div.tags span.tag:not(:first-child)::before {
 }
 
 .panel-default.border-dark, .panel-default.border-light {
-  border-color:#111;
-  border-width: 12px;
-  border-radius: 10px;
-  background-color: #111;
+  border:none;
   color:#111;
 }
 
@@ -209,7 +206,8 @@ div.tags span.tag:not(:first-child)::before {
 }
 
 .panel-default.border-dark > .panel-heading, .panel-default.border-light > .panel-heading {
-  border-width:4px;
+  padding:12px 15px;
+  border-width:1px 1px 4px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -217,27 +215,33 @@ div.tags span.tag:not(:first-child)::before {
 .panel-default.border-dark > .panel-heading {
   color:#fff;
   background-color: #29393d;
-  border-color: rgba(255,255,255,.05);
+  border-color: #29393d;
+  border-bottom-color: rgba(255,255,255,.05);
 }
 
 .panel-default.border-light > .panel-heading {
   color:#111;
   background-color: #d4d4da;
-  border-color:#ececef;
+  border-color:#d4d4da;
+  border-bottom-color: #ececef;
 }
 
 .panel-default.border-dark .panel-body, .panel-default.border-light .panel-body {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  border:1px solid transparent;
+  border-width:0 1px 1px;
 }
 
 .panel-default.border-dark .panel-body {
   background: rgb(74,89,105);
   background: linear-gradient(15deg, rgba(74,89,105,1) 0%, rgba(35,49,52,1) 50%);
+  border-color: #d4d4da;
 }
 
 .panel-default.border-light .panel-body {
   background-color: #f7f7f7;
+  border-color: #d4d4da;
 }
 
 .panel-heading .panel-subtitle {
