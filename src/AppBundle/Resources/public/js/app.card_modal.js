@@ -39,6 +39,17 @@
                 + '<div class="card-text border-' + card.side_code + '">' + app.format.text(card) + '</div>'
                 + '<div class="card-set"><p>' + app.format.set(card) + '</p></div>'
                 );
+
+        var qtyelt = modal.find('.modal-qty');
+        if(qtyelt) {
+
+            var qty = '<button type="button" class="btn btn-default btn-sm btn-card-remove" data-command="-" title="Remove from deck"><span class="fa fa-minus"></span></button><button type="button" class="btn btn-default btn-sm btn-card-add" data-command="+" title="Add to deck"><span class="fa fa-plus"></span></button>';
+            qtyelt.html(qty);
+
+        } else {
+            if(qtyelt)
+                qtyelt.closest('.row').remove();
+        }
     }
 
     $(function ()
