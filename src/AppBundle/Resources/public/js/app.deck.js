@@ -256,7 +256,7 @@
         var objective = deck.get_objective();
 
         if(objective) {
-          deck.update_layout_section(data, 'images', $('<div class="col-sm-5 col-print-6"><div class="deck-objective"><a href="' + objective.url + '" class="no-popup" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="' + objective.code + '"><img class="img-responsive" src="' + objective.image_url + '"/></a></div></div>'));
+          deck.update_layout_section(data, 'images', $('<div class="col-sm-5 col-print-6"><div class="deck-objective"><a href="' + objective.url + '" class="no-popup" data-toggle="modal" data-remote="false" data-target="#cardModal" data-code="' + objective.code + '"><img class="img-responsive" src="' + objective.image_url + '" data-code="' + objective.code + '"/></a></div></div>'));
         }
         var drawDeckSection = $('<div class="deck-reserve">Reserve deck: ' + deck.get_draw_deck_size() + '</div>');
         drawDeckSection.addClass(problem && problem.indexOf('cards') !== -1 ? 'text-danger' : '');
