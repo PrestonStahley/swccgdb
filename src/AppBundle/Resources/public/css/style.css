@@ -223,7 +223,8 @@ div.tags span.tag:not(:first-child)::before {
 .panel-default.border-light > .panel-heading {
   color:#111;
   background-color: #d4d4da;
-  border-color:#ececef;
+  border-color:#d4d4da;
+  border-bottom-color: #ececef;
 }
 
 .panel-default.border-dark .panel-body, .panel-default.border-light .panel-body {
