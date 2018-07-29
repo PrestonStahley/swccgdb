@@ -5,9 +5,26 @@
 {% block body %}
 <div class="main white container">
 
-<h1>{{ block('title') }}</h1>
+  <div class="page-content">
+    <h1>{{ block('title') }}</h1>
+    <p>This website is dedicated to providing a fast, powerful deck builder and search engine for the {{ game_name }} card game.</p>
 
-<p>This website is dedicated to providing a fast, powerful and exhaustive deck builder and search engine for {{ game_name }} cards, along with card descriptions and card images.</p>
+    <h3>Beta Status</h3>
+    <p>This site is under active development and may change as I continue to adapt functionality, fix bugs, and add new features. Please post bug reports and feature requests on <a href="https://github.com/PrestonStahley/swccgdb/issues">GitHub</a>.</p>
+
+    <h3>Credit</h3>
+    <ul>
+      <li>
+        <p>This site would not exist without the excellent open source deck builder framework created by <a href="https://github.com/Alsciende">Alsciende</a>.</p>
+      </li>
+      <li>
+        <p>Original card data provided by contributers to the <a href="https://www.starwarsccg.org/resources/software/">SW-IP database</a>.</p>
+      </li>
+      <li>
+        <p>Card images provided by the Scomp Link Access project maintained by the <a href="https://www.starwarsccg.org/">Star Wars CCG Player's Committee</a>.</p>
+      </li>
+    </ul>
+  </div>
 
 </div>
 {% endblock %}

@@ -142,7 +142,6 @@ td.type, td.side {
     margin-bottom: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
-    border-radius: 5px;
 }
 .container.main.white {
     background-color: #fff;
@@ -159,6 +158,7 @@ td.type, td.side {
 footer {
     padding-top: 20px;
     background-color: #fff;
+    font-weight:300;
 }
 .navbar-default {
     font-size: 16px;
@@ -253,6 +253,7 @@ div.tags span.tag:not(:first-child)::before {
 @media (min-width: 768px) {
   .container.main {
     margin-top: 20px;
+    border-radius: 5px;
   }
 }
 
@@ -442,10 +443,23 @@ h1.site-title {
     margin-top: 0;
 }
 div.site-slogan {
-    font-family: 'Anton', sans-serif;
     position:relative;
-    font-size:30px;
+    font-size:22px;
+    font-weight: normal;
     text-align:center;
+}
+
+/************** STANDALONE PAGE ***************/
+.page-content {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom:50px;
+}
+
+.page-content p {
+  font-size:16px;
+  font-weight: 300;
 }
 
 /************ LIST OF DECKLISTS **************/
