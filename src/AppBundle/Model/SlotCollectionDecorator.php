@@ -77,11 +77,6 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
                     'nb' => 0
                 ];
             }
-
-            $nbsets = ceil($slot->getQuantity() / $card->getQuantity());
-            if ($sets[$set->getPosition()]['nb'] < $nbsets) {
-                $sets[$set->getPosition()]['nb'] = $nbsets;
-            }
         }
         ksort($sets);
         return array_values($sets);
@@ -95,6 +90,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
                         'device' => [],
                         'effect' => [],
                         'epic-event' => [],
+                        'interrupt' => [],
                         'jedi-test' => [],
                         'location' => [],
                         'objective' => [],
@@ -118,6 +114,7 @@ class SlotCollectionDecorator implements \AppBundle\Model\SlotCollectionInterfac
                       'device' => 0,
                       'effect' => 0,
                       'epic-event' => 0,
+                      'interrupt' => 0,
                       'jedi-test' => 0,
                       'location' => 0,
                       'objective' => 0,

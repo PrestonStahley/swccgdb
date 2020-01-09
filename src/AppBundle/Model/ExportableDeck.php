@@ -32,7 +32,6 @@ class ExportableDeck
             'version' => $this->getVersion(),
             'side' => $this->getSide(),
             'draw_deck_size' => $slots->getDrawDeck()->countCards(),
-            'plot_deck_size' => $slots->getPlotDeck()->countCards(),
             'included_sets' => $slots->getIncludedSets(),
             'slots_by_type' => $slots->getSlotsByType()
         ];

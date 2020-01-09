@@ -1,10 +1,6 @@
 {{ deck.name }} {{ deck.version }}
 
 {{ deck.side.name }}
-{% for agenda in deck.agendas %}
-{{ agenda.card.name }}
-{% endfor %}
-
 
 {% set first_set = deck.included_sets|first %}
 {% set last_set = deck.included_sets|last %}
@@ -13,41 +9,136 @@ From {{ first_set.set.name }}{% if first_set.nb > 1 %} ({{ first_set.nb }}){% en
 {% else %}
 {{ first_set.set.name }}{% if first_set.nb > 1 %} ({{ first_set.nb }}){% endif %}
 {% endif %}
+{% if deck.objective is not null %}
 
-
-{% set plots = deck.slots_by_type.plot %}
-Plot{% if plots|length > 1 %}s{% endif %}
-
-{% for slot in plots %}
-{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
-{% endfor %}
-
-{% set characters = deck.slots_by_type.character %}
-Character{% if characters|length > 1 %}s{% endif %}
-
-{% for slot in characters %}
-{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
-{% endfor %}
+Objective
+{{ deck.objective.name }} ({{ deck.objective.set.name }})
+{% endif %}
 
 {% set locations = deck.slots_by_type.location %}
+{% if locations|length > 0 %}
+
 Location{% if locations|length > 1 %}s{% endif %}
 
 {% for slot in locations %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
 {% endfor %}
+{% endif %}
+{% set characters = deck.slots_by_type.character %}
+{% if characters|length > 0 %}
 
-{% set attachments = deck.slots_by_type.attachment %}
-Attachment{% if attachments|length > 1 %}s{% endif %}
+Character{% if characters|length > 1 %}s{% endif %}
 
-{% for slot in attachments %}
+{% for slot in characters %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
 {% endfor %}
+{% endif %}
+{% set starships = deck.slots_by_type.starship %}
+{% if starships|length > 0 %}
 
-{% set events = deck.slots_by_type.event %}
-Event{% if events|length > 1 %}s{% endif %}
+Starship{% if starships|length > 1 %}s{% endif %}
 
-{% for slot in events %}
+{% for slot in starships %}
 {{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
 {% endfor %}
+{% endif %}
+{% set vehicles = deck.slots_by_type.vehicle %}
+{% if vehicles|length > 0 %}
 
+Vehicle{% if vehicles|length > 1 %}s{% endif %}
+
+{% for slot in vehicles %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set weapons = deck.slots_by_type.weapon %}
+{% if weapons|length > 0 %}
+
+Weapon{% if weapons|length > 1 %}s{% endif %}
+
+{% for slot in weapons %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set devices = deck.slots_by_type.device %}
+{% if devices|length > 0 %}
+
+Device{% if devices|length > 1 %}s{% endif %}
+
+{% for slot in devices %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set effects = deck.slots_by_type.effect %}
+{% if effects|length > 0 %}
+
+Effect{% if effects|length > 1 %}s{% endif %}
+
+{% for slot in effects %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set interrupts = deck.slots_by_type.interrupt %}
+{% if interrupts|length > 0 %}
+
+Interrupt{% if interrupts|length > 1 %}s{% endif %}
+
+{% for slot in interrupts %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set admiralsorders = deck.slots_by_type.admiralsorder %}
+{% if admiralsorders|length > 0 %}
+
+Admiral's Order{% if admiralsorders|length > 1 %}s{% endif %}
+
+{% for slot in admiralsorders %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set epicevents = deck.slots_by_type.epicevent %}
+{% if epicevents|length > 0 %}
+
+Epic Event{% if epicevents|length > 1 %}s{% endif %}
+
+{% for slot in epicevents %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set jeditests = deck.slots_by_type.jeditest %}
+{% if jeditests|length > 0 %}
+
+Jedi Test{% if jeditests|length > 1 %}s{% endif %}
+
+{% for slot in jeditests %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set creatures = deck.slots_by_type.creature %}
+{% if creatures|length > 0 %}
+
+Creature{% if creatures|length > 1 %}s{% endif %}
+
+{% for slot in creatures %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set podracers = deck.slots_by_type.podracer %}
+{% if podracers|length > 0 %}
+
+Podracer{% if podracers|length > 1 %}s{% endif %}
+
+{% for slot in podracers %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
+{% set defensiveshields = deck.slots_by_type.defensiveshield %}
+{% if defensiveshields|length > 0 %}
+
+Defensive Shield{% if defensiveshields|length > 1 %}s{% endif %}
+
+{% for slot in defensiveshields %}
+{{ slot.quantity }}x {{ slot.card.name }} ({{ slot.card.set.name }})
+{% endfor %}
+{% endif %}
 {{ footer|default('') }}
