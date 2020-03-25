@@ -73,7 +73,7 @@
 		<td><input type="checkbox"></td>
 		<td class="decklist-side-image hidden-xs">
 			{% if deck.objective is not null %}
-				<img src="https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/{{ deck.objective.getImageUrl() }}">
+				<img src="{{ card_image_base_url }}{{ deck.objective.getImageUrl() }}">
 			{% else %}
 				<img src="/bundles/app/images/sides/{{ deck.side_code }}.png">
 			{% endif %}

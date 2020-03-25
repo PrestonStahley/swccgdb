@@ -50,6 +50,7 @@ twig:
         google_analytics_tracking_code: "%google_analytics_tracking_code%"
         google_adsense_client: "%google_adsense_client%"
         google_adsense_slot: "%google_adsense_slot%"
+        card_image_base_url: https://scomp.starwarsccg.org/cards/starwars/
     form_themes:
         - 'bootstrap_3_layout.html.twig'
 

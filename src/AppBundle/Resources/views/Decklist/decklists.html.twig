@@ -66,7 +66,7 @@ $(function () {
 <tr>
 <td class="decklist-side-image hidden-xs">
 	{% if decklist.getParent().getObjective() is not null %}
-		<img src="https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/{{ decklist.getParent().getObjective().getImageUrl() }}">
+		<img src="{{ card_image_base_url }}{{ decklist.getParent().getObjective().getImageUrl() }}">
 	{% else %}
 		<img src="/bundles/app/images/sides/{{ decklist.side.code }}.png">
 	{% endif %}

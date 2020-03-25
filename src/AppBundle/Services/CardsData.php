@@ -19,6 +19,8 @@ class CardsData
 {
     /** @var \Symfony\Component\Asset\Packages $packages */
     private $packages;
+    
+    private static $card_image_base_url = "https://scomp.starwarsccg.org/cards/starwars/";
 
     public function __construct(Registry $doctrine, RequestStack $request_stack, Router $router, \Symfony\Component\Asset\Packages $packages, TranslatorInterface $translator, $rootDir)
     {
@@ -472,10 +474,10 @@ class CardsData
         $cardinfo['url'] = $this->router->generate('cards_zoom', array('card_code' => $card->getCode()), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $cardinfo['label'] = $card->getName();
-        $cardinfo['image_url'] = 'https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/' . $cardinfo['image_url'];
+        $cardinfo['image_url'] = $card_image_base_url . $cardinfo['image_url'];
 
         if($cardinfo['image_url2']) {
-          $cardinfo['image_url2'] = 'https://www.starwarsccg.org/wp/wp-content/plugins/card-search/cards/starwars/' . $cardinfo['image_url2'];
+          $cardinfo['image_url2'] = $card_image_base_url . $cardinfo['image_url2'];
         }
 
         $cardinfo['icon'] = $card->getIcon();
